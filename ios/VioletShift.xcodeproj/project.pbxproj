@@ -10,21 +10,29 @@
 		0C80B921A6F3F58F76C31292 /* libPods-VioletShift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-VioletShift.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		7651A273518240C087B9058D /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = ED4C6550E7C449D9BB76FF95 /* SF-Pro-Text-Regular.otf */; };
+		7A06E70918B34556A1C9A474 /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 044A8FCF92FC4C59B81303A5 /* SF-Pro-Text-Bold.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8304B6B9D8094F3BAC75989F /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D92BC46DD0254A24B9761B46 /* SF-Pro-Text-Medium.otf */; };
+		97C45A0C226948ADA8BFF4B0 /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 247C24B260B142918E3A5598 /* SF-Pro-Text-Semibold.otf */; };
 		CC3C31EE8B6DA0B7806E4E77 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044A8FCF92FC4C59B81303A5 /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Bold.otf"; path = "../src/assets/fonts/SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* VioletShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VioletShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = VioletShift/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = VioletShift/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = VioletShift/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		247C24B260B142918E3A5598 /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Semibold.otf"; path = "../src/assets/fonts/SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-VioletShift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VioletShift.debug.xcconfig"; path = "Target Support Files/Pods-VioletShift/Pods-VioletShift.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-VioletShift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VioletShift.release.xcconfig"; path = "Target Support Files/Pods-VioletShift/Pods-VioletShift.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-VioletShift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VioletShift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = VioletShift/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VioletShift/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D92BC46DD0254A24B9761B46 /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Medium.otf"; path = "../src/assets/fonts/SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED4C6550E7C449D9BB76FF95 /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SF-Pro-Text-Regular.otf"; path = "../src/assets/fonts/SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +83,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9663A88F7C3A4865868F8BCD /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -87,6 +96,18 @@
 				13B07F961A680F5B00A75B9A /* VioletShift.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9663A88F7C3A4865868F8BCD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				044A8FCF92FC4C59B81303A5 /* SF-Pro-Text-Bold.otf */,
+				D92BC46DD0254A24B9761B46 /* SF-Pro-Text-Medium.otf */,
+				ED4C6550E7C449D9BB76FF95 /* SF-Pro-Text-Regular.otf */,
+				247C24B260B142918E3A5598 /* SF-Pro-Text-Semibold.otf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -161,6 +182,10 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				CC3C31EE8B6DA0B7806E4E77 /* PrivacyInfo.xcprivacy in Resources */,
+				7A06E70918B34556A1C9A474 /* SF-Pro-Text-Bold.otf in Resources */,
+				8304B6B9D8094F3BAC75989F /* SF-Pro-Text-Medium.otf in Resources */,
+				7651A273518240C087B9058D /* SF-Pro-Text-Regular.otf in Resources */,
+				97C45A0C226948ADA8BFF4B0 /* SF-Pro-Text-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
