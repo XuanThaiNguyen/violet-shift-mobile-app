@@ -12,6 +12,13 @@ const colors = {
   orange: '#FF981F',
   purple: '#9D28AC',
   red: '#F54336',
+
+  //theme
+  disabledButton: '#666',
+  primaryButton: '#4a90e2',
+  divider: '#ccc',
+  secondaryText: '#737373',
+  primaryText: '#212121',
 };
 
 export default colors;

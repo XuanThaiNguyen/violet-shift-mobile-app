@@ -6,7 +6,6 @@ import { useStyles } from './styles';
 
 const Home = () => {
   const styles = useStyles();
-
   return (
     <View style={styles.container}>
       <Header showReload title="SEP 2025" />

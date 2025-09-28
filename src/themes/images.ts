@@ -1,4 +1,8 @@
 const images = {
+  //images
+  logo: require('../assets/images/logo.jpg'),
+
+  //icons
   menu: require('../assets/icons/menu.png'),
   reload: require('../assets/icons/reload.png'),
   notification: require('../assets/icons/notification.png'),
