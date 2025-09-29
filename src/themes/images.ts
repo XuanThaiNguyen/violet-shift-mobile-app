@@ -8,6 +8,9 @@ const images = {
   notification: require('../assets/icons/notification.png'),
   info: require('../assets/icons/info.png'),
   home: require('../assets/icons/home.png'),
+  eyeShow: require('../assets/icons/eye-show.png'),
+  eyeHide: require('../assets/icons/eye-hide.png'),
+  logout: require('../assets/icons/logout.png'),
 };
 
 export default images;

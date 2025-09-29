@@ -12,4 +12,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   textColor?: string;
   preset?: ButtonPresetNames;
   buttonColor?: string;
+  throttleDelay?: number;
+  loading?: boolean;
+  loadingColor?: string;
 }

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   btnItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingLeft: SpacingDefault.smaller,
     borderRadius: 4,
     backgroundColor: 'transparent',

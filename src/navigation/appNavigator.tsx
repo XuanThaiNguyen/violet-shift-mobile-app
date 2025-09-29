@@ -1,3 +1,4 @@
+import { CenterModal } from '@components/centerModal';
 import { NavigationContainer } from '@react-navigation/native';
 import useAuthStore from '@zustand/authStore';
 import AuthStack from './authStack';
@@ -10,6 +11,7 @@ const AppNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       {currentUser ? <MainDrawer /> : <AuthStack />}
+      <CenterModal />
     </NavigationContainer>
   );
 };

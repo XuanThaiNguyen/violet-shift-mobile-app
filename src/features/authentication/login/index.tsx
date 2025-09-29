@@ -3,50 +3,82 @@ import { InsetSubstitute } from '@components/insetSubtitute/insetSubstitute';
 import { Spacer } from '@components/spacer';
 import TextField from '@components/textField';
 import { Typo } from '@components/typo/typo';
-import ApiKeys from '@navigation/api';
+import { User } from '@models/User';
+import { ApiStatus } from '@services/ApiStatus';
+import { authService } from '@services/auth';
+import { ApiResponse } from '@services/type';
+import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import images from '@themes/images';
 import { isEmpty } from '@utils/handleUtils';
-import http from '@utils/http';
+import { modalUtil } from '@utils/modalUtil';
 import useAuthStore from '@zustand/authStore';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import ForgetPassword from '../components/forgetPassword';
 import { useStyles } from './styles';
 
 const Login = () => {
   const styles = useStyles();
   const { setCurrentUser } = useAuthStore();
 
-  const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
-  });
-  // const [loginInfo, setLoginInfo] = useState({
-  //   email: 'jackiechan.shanefilan.1997@gmail.com',
-  //   password: 'Lamanh1998!',
-  // });
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('jackiechan.shanefilan.1997@gmail.com');
+  const [password, setPassword] = useState('Lamanh1998!');
+  const [isHidePassword, setIsHidePassword] = useState(true);
 
-  const onLogin = async () => {
-    console.log('123123123');
+  const onHandleHidePassword = () => {
+    setIsHidePassword(prev => !prev);
+  };
 
-    try {
-      const { data } = await http.post(ApiKeys.LOGIN, loginInfo);
-      console.log('data.data.user', data.data);
-
-      if (data.data.user) {
+  const { isPending, mutate } = useMutation({
+    mutationFn: authService.login,
+    onSuccess: (data: ApiResponse<User>) => {
+      if (data.status === ApiStatus.OK && data.data?.user) {
         setCurrentUser(data.data);
       }
-      // console.log('response', response);
-    } catch (error) {
-      console.log('error', error);
-    }
+    },
+    onError: (error: any) => {
+      console.error('Login failed:', error);
+    },
+  });
+
+  const onLogin = async () => {
+    const loginInfo = {
+      email,
+      password,
+    };
+
+    mutate(loginInfo);
   };
 
   const shouldBeDisabled = useMemo(
-    () => isEmpty(loginInfo.email) || isEmpty(loginInfo.password),
-    [loginInfo.email, loginInfo.password],
+    () => isEmpty(email) || isEmpty(password),
+    [email, password],
   );
+
+  const onForgetPassword = () => {
+    modalUtil.showModal({
+      children: <ForgetPassword />,
+    });
+  };
+
+  const _renderRightChildren = () => {
+    return (
+      <>
+        <Spacer width="smaller" />
+        <Button onPress={onHandleHidePassword}>
+          <FastImage
+            source={isHidePassword ? images.eyeShow : images.eyeHide}
+            style={styles.icon16}
+            tintColor={colors.secondaryText}
+          />
+        </Button>
+      </>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -59,26 +91,38 @@ const Login = () => {
           Log into Violet Shift
         </Typo>
         <Spacer height={40} />
-        <TextField title="Email" placeholder="Enter your email" value="" />
-        <Spacer height={16} />
         <TextField
-          title="Password"
-          placeholder="Enter your password"
-          value=""
+          title="Email"
+          placeholder="Enter your email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
         />
         <Spacer height={16} />
-        <Typo
-          variant="medium_14"
-          color={colors.primaryButton}
-          style={styles.txtForget}
-        >
-          Forgot your password?
-        </Typo>
+        <TextField
+          renderRightChildren={_renderRightChildren}
+          title="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={isHidePassword}
+        />
+        <Spacer height={16} />
+        <Button onPress={onForgetPassword}>
+          <Typo
+            variant="medium_14"
+            color={colors.primaryButton}
+            style={styles.txtForget}
+          >
+            Forgot your password?
+          </Typo>
+        </Button>
       </View>
       <Button
         text="Login"
         preset="primary"
         onPress={onLogin}
+        loading={isPending}
         disabled={shouldBeDisabled}
       />
       <Spacer height={16} />

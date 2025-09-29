@@ -32,4 +32,8 @@ export const useStyles = () =>
     txtForget: {
       alignSelf: 'flex-end',
     },
+    icon16: {
+      width: 16,
+      height: 16,
+    },
   });

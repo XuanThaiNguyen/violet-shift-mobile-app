@@ -11,17 +11,20 @@ const TextField = ({
   value,
   onBlur,
   onChangeText,
+  renderRightChildren,
   error,
   errorMessage,
   placeholder,
   editable,
   iconLeft,
+  iconRight,
   title,
   maxLength,
   multiline = false,
   inputStyle,
   keyboardType,
   blockInputStyle,
+  secureTextEntry,
 }: TextFieldProps) => {
   return (
     <View>
@@ -44,19 +47,20 @@ const TextField = ({
       >
         {!!iconLeft && (
           <>
-            <Spacer width="small" />
             <FastImage
               source={iconLeft}
               style={styles.icon}
               tintColor={colors.secondaryText}
             />
+            <Spacer width="smaller" />
           </>
         )}
-        <Spacer width="small" />
         <TextInput
           autoCorrect={false}
+          autoCapitalize="none"
           placeholder={placeholder}
           onBlur={onBlur}
+          secureTextEntry={secureTextEntry}
           multiline={multiline}
           onChangeText={onChangeText}
           value={value}
@@ -66,6 +70,20 @@ const TextField = ({
           placeholderTextColor={colors.secondaryText}
           style={[styles.input, inputStyle]}
         />
+        {!!iconRight ? (
+          <>
+            <Spacer width="smaller" />
+            <FastImage
+              source={iconRight}
+              style={styles.icon}
+              tintColor={colors.secondaryText}
+            />
+          </>
+        ) : renderRightChildren ? (
+          renderRightChildren()
+        ) : (
+          <></>
+        )}
       </View>
       {error ? (
         <View>
@@ -88,8 +106,8 @@ const styles = StyleSheet.create({
     color: colors.primaryText,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 16,
+    height: 16,
   },
   inputContainer: {
     borderWidth: 1,
@@ -98,6 +116,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     height: 44,
     fontSize: 14,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   errorInput: {
     borderColor: colors.red,
