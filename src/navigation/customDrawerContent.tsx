@@ -75,7 +75,7 @@ const CustomDrawerContent = (props: any) => {
           selectedRoute={selectedRoute}
         />
       </View>
-      <Button style={styles.btnLogout} onPress={onLogout}>
+      <Button style={styles.btnLogout} onPress={onLogout} disabled={isPending}>
         <Typo variant="regular_10" color={colors.secondaryText}>
           {isPending ? 'Logging out...' : 'Log out'}
         </Typo>

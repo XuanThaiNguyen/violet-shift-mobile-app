@@ -1,6 +1,10 @@
-import Screen from "./screen"
+import Screen from './screen';
 
 export type MainStackScreenProps = {
-    [Screen.Login]: undefined;
-    [Screen.Home]: undefined;
-}
+  [Screen.MainStack]: undefined;
+  [Screen.Login]: undefined;
+  [Screen.Home]: undefined;
+  [Screen.Notification]: undefined;
+  [Screen.About]: undefined;
+  [Screen.DetailShift]: undefined;
+};

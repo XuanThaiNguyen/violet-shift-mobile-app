@@ -57,7 +57,7 @@ const ForgetPassword = () => {
         preset="primary"
         onPress={onReset}
         loading={isPending}
-        disabled={isEmpty(email)}
+        disabled={isEmpty(email) || isPending}
       />
       <Spacer height={16} />
       <Button onPress={onCloseModal}>

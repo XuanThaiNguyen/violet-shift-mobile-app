@@ -19,6 +19,7 @@ const colors = {
   divider: '#ccc',
   secondaryText: '#737373',
   primaryText: '#212121',
+  background: '#f2f2f2',
 };
 
 export default colors;

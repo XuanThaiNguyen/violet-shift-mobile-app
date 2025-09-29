@@ -55,8 +55,8 @@ const Login = () => {
   };
 
   const shouldBeDisabled = useMemo(
-    () => isEmpty(email) || isEmpty(password),
-    [email, password],
+    () => isEmpty(email) || isEmpty(password) || isPending,
+    [email, password, isPending],
   );
 
   const onForgetPassword = () => {
@@ -125,7 +125,6 @@ const Login = () => {
         loading={isPending}
         disabled={shouldBeDisabled}
       />
-      <Spacer height={16} />
       <InsetSubstitute type="bottom" />
     </View>
   );

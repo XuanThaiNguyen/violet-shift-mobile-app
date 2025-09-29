@@ -26,7 +26,7 @@ export const Button = memo(
     loading,
     loadingColor = colors.white,
     hitSlop,
-    throttleDelay = 300,
+    throttleDelay = 500,
     ...rest
   }: ButtonProps) => {
     const [isPressed, setIsPressed] = useState<boolean>(false);
@@ -36,7 +36,7 @@ export const Button = memo(
         StyleSheet.flatten([
           preset && stylesView()?.[preset],
           buttonColor && { backgroundColor: buttonColor },
-          disabled && { backgroundColor: colors.disabledButton },
+          disabled && preset && { backgroundColor: colors.disabledButton },
           styleOverride as ViewStyle,
         ]),
       [preset, buttonColor, disabled, isPressed, styleOverride],

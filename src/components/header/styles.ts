@@ -6,6 +6,7 @@ export const useStyles = () =>
     container: {
       backgroundColor: '#122b38',
       paddingHorizontal: SpacingDefault.normal,
+      paddingTop: 8,
     },
     header: {
       flexDirection: 'row',
@@ -16,5 +17,14 @@ export const useStyles = () =>
     icon20: {
       width: 20,
       height: 20,
+    },
+    icon16: {
+      width: 16,
+      height: 16,
+    },
+    btnBack: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: SpacingDefault.smaller,
     },
   });

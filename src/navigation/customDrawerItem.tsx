@@ -36,7 +36,7 @@ const CustomDrawerItem = ({
       />
       <Spacer width={'medium'} />
       <Typo variant="regular_10" color={isFocused ? '#0a7cff' : '#6a6a6b'}>
-        {screen}
+        {screen === Screen.Home ? 'My Schedule' : screen}
       </Typo>
     </TouchableOpacity>
   );

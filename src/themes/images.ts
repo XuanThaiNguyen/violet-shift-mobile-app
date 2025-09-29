@@ -1,6 +1,6 @@
 const images = {
   //images
-  logo: require('../assets/images/logo.jpg'),
+  logo: require('../assets/images/logo.png'),
 
   //icons
   menu: require('../assets/icons/menu.png'),
@@ -11,6 +11,8 @@ const images = {
   eyeShow: require('../assets/icons/eye-show.png'),
   eyeHide: require('../assets/icons/eye-hide.png'),
   logout: require('../assets/icons/logout.png'),
+  squareTick: require('../assets/icons/square-tick.png'),
+  back: require('../assets/icons/back.png'),
 };
 
 export default images;
