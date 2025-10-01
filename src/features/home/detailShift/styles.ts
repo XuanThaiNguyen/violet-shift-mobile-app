@@ -1,3 +1,4 @@
+import { SpacingDefault } from '@components/spacing/spacing';
 import colors from '@themes/color';
 import { StyleSheet } from 'react-native';
 
@@ -26,5 +27,14 @@ export const useStyles = () =>
     icon16: {
       width: 16,
       height: 16,
+    },
+    viewClock: {
+      paddingVertical: 8,
+      borderTopWidth: 1,
+      borderColor: colors.divider,
+    },
+    btnClock: {
+      marginHorizontal: SpacingDefault.normal,
+      height: 36,
     },
   });

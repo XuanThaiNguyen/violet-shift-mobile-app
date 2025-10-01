@@ -61,6 +61,7 @@ const Login = () => {
 
   const onForgetPassword = () => {
     modalUtil.showModal({
+      mode: 'center',
       children: <ForgetPassword />,
     });
   };

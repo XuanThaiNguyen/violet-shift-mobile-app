@@ -1,4 +1,6 @@
 import About from '@features/about';
+import Availibility from '@features/availibility';
+import SetAvailibility from '@features/availibility/setAvailibility';
 import Home from '@features/home';
 import DetailShift from '@features/home/detailShift';
 import Notification from '@features/notification';
@@ -28,6 +30,8 @@ const MainStack = () => {
       <Stack.Screen name={Screen.Notification} component={Notification} />
       <Stack.Screen name={Screen.About} component={About} />
       <Stack.Screen name={Screen.DetailShift} component={DetailShift} />
+      <Stack.Screen name={Screen.Availibility} component={Availibility} />
+      <Stack.Screen name={Screen.SetAvailibility} component={SetAvailibility} />
     </Stack.Navigator>
   );
 };

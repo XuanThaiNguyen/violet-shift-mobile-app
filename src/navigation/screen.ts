@@ -15,6 +15,10 @@ enum Screen {
 
   //About
   About = 'About',
+
+  //Availibility
+  Availibility = 'Availibility',
+  SetAvailibility = 'SetAvailibility',
 }
 
 export default Screen;

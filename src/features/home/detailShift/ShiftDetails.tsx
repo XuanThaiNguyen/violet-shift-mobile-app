@@ -22,7 +22,13 @@ const ShiftDetails = () => {
             STAFF
           </Typo>
           <View style={styles.avatarInfo}>
-            <View style={styles.avatar} />
+            <View style={styles.avatar}>
+              <FastImage
+                source={images.avatar}
+                style={styles.icon32}
+                tintColor={colors.white}
+              />
+            </View>
             <Typo variant="regular_14" color={colors.primaryButton}>
               Shen Long
             </Typo>
@@ -33,9 +39,15 @@ const ShiftDetails = () => {
             CLIENT
           </Typo>
           <View style={styles.avatarInfo}>
-            <View style={styles.avatar} />
+            <View style={styles.avatar}>
+              <FastImage
+                source={images.avatar}
+                style={styles.icon32}
+                tintColor={colors.white}
+              />
+            </View>
             <Typo variant="regular_14" color={colors.primaryButton}>
-              Shen Long
+              Kuro
             </Typo>
           </View>
         </View>
@@ -46,7 +58,7 @@ const ShiftDetails = () => {
         <Spacer height={16} />
         <View style={styles.detailItem}>
           <View style={styles.detailItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage source={images.date} style={styles.icon16} />
             <Typo variant="regular_14">Date</Typo>
           </View>
           <View>
@@ -56,7 +68,7 @@ const ShiftDetails = () => {
         <Spacer height={16} />
         <View style={styles.detailItem}>
           <View style={styles.detailItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage source={images.time} style={styles.icon16} />
             <Typo variant="regular_14">Time</Typo>
           </View>
           <View>
@@ -66,7 +78,7 @@ const ShiftDetails = () => {
         <Spacer height={16} />
         <View style={styles.detailItem}>
           <View style={styles.detailItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage source={images.location} style={styles.icon16} />
             <Typo variant="regular_14">Location</Typo>
           </View>
           <View style={styles.block}>
@@ -78,7 +90,11 @@ const ShiftDetails = () => {
         <Spacer height={16} />
         <View style={styles.viewInstructions}>
           <View style={styles.instructTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage
+              source={images.danger}
+              style={styles.icon16}
+              tintColor={colors.red}
+            />
             <Typo variant="medium_14">Instructions</Typo>
           </View>
           <Typo variant="medium_14" color={colors.primaryButton}>
@@ -147,6 +163,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: colors.primaryButton,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   viewDetail: {
     paddingHorizontal: SpacingDefault.normal,
@@ -158,6 +176,10 @@ const styles = StyleSheet.create({
   icon16: {
     width: 16,
     height: 16,
+  },
+  icon32: {
+    width: 32,
+    height: 32,
   },
   detailItemTitle: {
     flexDirection: 'row',

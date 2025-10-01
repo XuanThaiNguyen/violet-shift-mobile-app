@@ -7,4 +7,6 @@ export type MainStackScreenProps = {
   [Screen.Notification]: undefined;
   [Screen.About]: undefined;
   [Screen.DetailShift]: undefined;
+  [Screen.Availibility]: undefined;
+  [Screen.SetAvailibility]: undefined;
 };

@@ -35,6 +35,10 @@ const presets = {
     fontFamily: FontDefault.Regular,
     fontSize: scaleFontSize(16),
   },
+  medium_16: {
+    fontFamily: FontDefault.Medium,
+    fontSize: scaleFontSize(16),
+  },
   semibold_16: {
     fontFamily: FontDefault.SemiBold,
     fontSize: scaleFontSize(16),

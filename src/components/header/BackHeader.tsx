@@ -28,7 +28,7 @@ const BackHeader = ({ title = '', renderRightHeader }: BackHeaderProps) => {
             style={styles.icon16}
             tintColor={colors.white}
           />
-          <Typo variant="semibold_12" color={colors.white}>
+          <Typo variant="semibold_14" color={colors.white}>
             {title}
           </Typo>
         </Button>

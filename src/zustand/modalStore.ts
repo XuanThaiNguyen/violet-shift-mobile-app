@@ -1,8 +1,10 @@
-import { ReactNode } from 'react';
 import { create } from 'zustand';
 
-type ModalOptions = {
-  children?: ReactNode;
+export type ModalMode = 'center' | 'bottom';
+
+export type ModalOptions = {
+  children?: React.ReactNode;
+  mode: ModalMode;
 };
 
 interface ModalState {

@@ -55,21 +55,8 @@ const DetailShift = () => {
 
       <View style={styles.footer}>
         {detailShifTab === DETAIL_SHIFT_TAB.DETAILS ? (
-          <View
-            style={{
-              paddingVertical: 8,
-              borderTopWidth: 1,
-              borderColor: colors.divider,
-            }}
-          >
-            <Button
-              preset="primary"
-              text="Clock in"
-              style={{
-                marginHorizontal: SpacingDefault.normal,
-                height: 36,
-              }}
-            />
+          <View style={styles.viewClock}>
+            <Button preset="primary" text="Clock in" style={styles.btnClock} />
           </View>
         ) : (
           <></>

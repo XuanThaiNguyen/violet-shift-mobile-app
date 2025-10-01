@@ -1,31 +1,28 @@
 import { SpacingDefault } from '@components/spacing/spacing';
-import colors from '@themes/color';
 import { StyleSheet } from 'react-native';
 
 export const useStyles = () =>
   StyleSheet.create({
-    container: {
-      backgroundColor: colors.primary,
-      paddingHorizontal: SpacingDefault.normal,
-      paddingTop: 8,
-    },
-    header: {
+    container: { flex: 1 },
+    wrapper: { paddingHorizontal: SpacingDefault.normal },
+    viewSet: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      marginBottom: 8,
     },
-    icon20: {
-      width: 20,
-      height: 20,
+    viewSelect: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: SpacingDefault.small,
     },
-    icon16: {
-      width: 16,
-      height: 16,
-    },
-    btnBack: {
+    btnRadio: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: SpacingDefault.smaller,
+    },
+    viewToggleDay: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
   });
