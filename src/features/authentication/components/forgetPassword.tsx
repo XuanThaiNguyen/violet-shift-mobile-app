@@ -8,8 +8,8 @@ import { ApiResponse } from '@services/type';
 import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import { devLog } from '@utils/handleLog';
-import { isEmpty } from '@utils/handleUtils';
 import { modalUtil } from '@utils/modalUtil';
+import isEmpty from 'lodash.isempty';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 

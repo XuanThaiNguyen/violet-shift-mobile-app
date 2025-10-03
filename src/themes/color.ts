@@ -25,6 +25,7 @@ const colors = {
   divider2: '#a5a5a5',
   disabledToggle: '#777',
   backdrop: 'rgba(0,0,0,0.6)',
+  disabledBox: '#e8e8e8',
 };
 
 export default colors;

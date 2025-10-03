@@ -20,6 +20,8 @@ const images = {
   date: require('../assets/icons/date.png'),
   time: require('../assets/icons/time.png'),
   add: require('../assets/icons/add.png'),
+  close: require('../assets/icons/close.png'),
+  check: require('../assets/icons/check.png'),
 };
 
 export default images;

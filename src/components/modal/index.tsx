@@ -77,6 +77,7 @@ const useStyles = (insets: Insets) =>
       borderRadius: 12,
     },
     bottomContainer: {
+      borderRadius: 0,
       width: SpacingDefault.width,
       marginBottom: insets.bottom ? -insets.bottom : 0,
       paddingBottom: insets.bottom ? insets.bottom + 16 : 16,

@@ -10,7 +10,6 @@ import { ApiResponse } from '@services/type';
 import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import images from '@themes/images';
-import { isEmpty } from '@utils/handleUtils';
 import { modalUtil } from '@utils/modalUtil';
 import useAuthStore from '@zustand/authStore';
 import React, { useMemo, useState } from 'react';
@@ -18,6 +17,7 @@ import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ForgetPassword from '../components/forgetPassword';
 import { useStyles } from './styles';
+import isEmpty from 'lodash.isempty';
 
 const Login = () => {
   const styles = useStyles();
