@@ -6,18 +6,12 @@ export const login = async (loginInfo: { email: string; password: string }) => {
   return response.data;
 };
 
-export const logout = async () => {
-  const response = await http.post(ApiKeys.LOGOUT);
-  return response.data;
-};
-
-export const resetPassword = async (email: string) => {
-  const response = await http.post(ApiKeys.RESET_PASSWORD, { email });
+export const forgotPassword = async (email: string) => {
+  const response = await http.post(ApiKeys.FORGOT_PASSWORD, { email });
   return response.data;
 };
 
 export const authService = {
   login,
-  logout,
-  resetPassword,
+  forgotPassword,
 };

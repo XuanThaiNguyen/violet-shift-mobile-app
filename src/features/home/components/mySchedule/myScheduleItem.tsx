@@ -2,6 +2,8 @@ import { Button } from '@components/button';
 import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
+import { getShiftTypeLabel } from '@features/home/utils';
+import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 import { navigationRef } from '@navigation/navigationUtil';
 import Screen from '@navigation/screen';
 import colors from '@themes/color';
@@ -10,44 +12,80 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface MyScheduleItemProps {
-  item: any;
-  showDate: boolean;
+  item: WeekDataSchedule;
+  dateLabel: string;
+  dayLabel: string;
 }
 
-const MyScheduleItem = ({ item, showDate }: MyScheduleItemProps) => {
-  const onDetailShift = () => {
-    navigationRef.current?.navigate(Screen.DetailShift);
+const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
+  const onDetailShift = (shiftId: string) => () => {
+    navigationRef.current?.navigate(Screen.DetailShift, {
+      shiftId,
+    });
   };
+
+  const renderShifts = (shift: IStaffSchedule, index: number) => {
+    return (
+      <Button
+        onPress={onDetailShift(shift.shift._id)}
+        key={shift._id}
+        style={[
+          styles.shift,
+          index === item.shifts.length - 1 && styles.lastShift,
+        ]}
+      >
+        <View style={styles.time}>
+          <Typo variant="semibold_10">
+            {dayjs(shift.timeFrom).format('h:mm A')} -{' '}
+            {dayjs(shift.timeTo).format('h:mm A')}
+          </Typo>
+          <Typo variant="regular_10">
+            {getShiftTypeLabel(shift.shift?.shiftType)}
+          </Typo>
+        </View>
+        <Spacer height={20} />
+        <Typo variant="medium_14">
+          Client:{' '}
+          <Typo variant="regular_14">
+            {!!shift.clientNames?.[0] ? shift.clientNames[0] : ''}
+          </Typo>
+        </Typo>
+        <Spacer height={16} />
+        <Typo variant="medium_14">
+          Address: <Typo variant="regular_14">{shift.shift.address || ''}</Typo>
+        </Typo>
+        <Spacer height={24} />
+        <Typo variant="regular_14" style={styles.status} color={colors.green}>
+          {'Booked'}
+        </Typo>
+      </Button>
+    );
+  };
+
+  const renderEmpty = () => (
+    <View style={styles.empty}>
+      <Typo variant="medium_10" color={colors.secondaryText}>
+        No Shifts
+      </Typo>
+    </View>
+  );
 
   return (
     <View style={styles.container}>
-      <View style={styles.leftView}>
-        <Typo
-          center
-          variant="medium_16"
-          color={showDate ? colors.black : colors.transparent}
-        >
-          {dayjs(item.date).format(`D\nddd`)}
+      <View style={styles.leftPart}>
+        <Typo center variant="medium_16" color={colors.black}>
+          {dateLabel}
+        </Typo>
+        <Typo center variant="medium_16" color={colors.black}>
+          {dayLabel}
         </Typo>
       </View>
-      <Button onPress={onDetailShift} style={styles.rightView}>
-        <View style={styles.time}>
-          <Typo variant="semibold_10">{item.time}</Typo>
-          <Typo variant="regular_10">{item.type}</Typo>
-        </View>
-        <Spacer height={20} />
-        <Typo variant="regular_14">{item.user.name}</Typo>
-        <Spacer height={16} />
-        <Typo variant="regular_14">{item.address}</Typo>
-        <Spacer height={24} />
-        <Typo
-          variant="regular_14"
-          style={styles.textStatus}
-          color={colors.green}
-        >
-          {item.status}
-        </Typo>
-      </Button>
+
+      <View style={styles.rightPart}>
+        {item?.shifts?.length > 0
+          ? item.shifts.map(renderShifts)
+          : renderEmpty()}
+      </View>
     </View>
   );
 };
@@ -56,31 +94,41 @@ export default MyScheduleItem;
 
 const styles = StyleSheet.create({
   container: {
+    marginBottom: 12,
     flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-between',
-    marginBottom: 20,
   },
-  leftView: {
-    paddingHorizontal: SpacingDefault.large,
-    marginTop: 28,
+  leftPart: {
+    width: SpacingDefault.width * 0.15,
+    alignItems: 'center',
   },
-  rightView: {
-    backgroundColor: colors.white,
-    alignSelf: 'flex-end',
+  rightPart: {
     flex: 1,
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: colors.divider,
     marginRight: SpacingDefault.normal,
+  },
+  empty: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 16,
+    alignItems: 'center',
+  },
+  shift: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  lastShift: {
+    marginBottom: 0,
   },
   time: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  textStatus: {
+  status: {
     textAlign: 'right',
   },
 });

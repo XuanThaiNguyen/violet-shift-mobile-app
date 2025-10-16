@@ -1,4 +1,5 @@
 import { Modal } from '@components/modal';
+import { SnackBar } from '@components/snackBar';
 import { NavigationContainer } from '@react-navigation/native';
 import useAuthStore from '@zustand/authStore';
 import AuthStack from './authStack';
@@ -10,8 +11,9 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      {currentUser ? <MainDrawer /> : <AuthStack />}
       <Modal />
+      <SnackBar />
+      {currentUser ? <MainDrawer /> : <AuthStack />}
     </NavigationContainer>
   );
 };

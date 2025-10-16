@@ -2,13 +2,42 @@ import { Divider } from '@components/divider';
 import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
+import { MainStackScreenProps } from '@navigation/mainStackScreenProps';
+import Screen from '@navigation/screen';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import colors from '@themes/color';
 import images from '@themes/images';
+import useAuthStore from '@zustand/authStore';
+import dayjs from 'dayjs';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {
+  useGetClientSchedulesOfDetailShift,
+  useGetDetailShift,
+} from '../hooks';
 
 const ShiftDetails = () => {
+  const route = useRoute<RouteProp<MainStackScreenProps, Screen.DetailShift>>();
+  const shiftId = route.params.shiftId || '';
+
+  const { currentUser } = useAuthStore();
+
+  const { data: dataDetailShift } = useGetDetailShift({ shiftId });
+  const { data: dataClientSchedules } = useGetClientSchedulesOfDetailShift({
+    shiftId,
+  });
+
+  console.log('dataClientSchedules', dataClientSchedules);
+
+  const _shiftDate = `${dayjs(dataDetailShift?.data?.timeFrom).format(
+    'dddd',
+  )}\n${dayjs(dataDetailShift?.data?.timeFrom).format('MMM Do YYYY')}`;
+
+  const _shiftRangeTime = `${dayjs(dataDetailShift?.data?.timeFrom).format(
+    'h:mm A',
+  )} - ${dayjs(dataDetailShift?.data?.timeTo).format('h:mm A')}`;
+
   return (
     <View>
       <View style={styles.viewMap}>
@@ -30,7 +59,7 @@ const ShiftDetails = () => {
               />
             </View>
             <Typo variant="regular_14" color={colors.primaryButton}>
-              Shen Long
+              {currentUser?.user?.preferredName || ''}
             </Typo>
           </View>
         </View>
@@ -47,7 +76,7 @@ const ShiftDetails = () => {
               />
             </View>
             <Typo variant="regular_14" color={colors.primaryButton}>
-              Kuro
+              {dataClientSchedules?.data?.[0]?.client?.preferredName}
             </Typo>
           </View>
         </View>
@@ -62,7 +91,7 @@ const ShiftDetails = () => {
             <Typo variant="regular_14">Date</Typo>
           </View>
           <View>
-            <Typo variant="regular_14">{`Sunday\nSept 14th 2025`}</Typo>
+            <Typo variant="regular_14">{_shiftDate}</Typo>
           </View>
         </View>
         <Spacer height={16} />
@@ -72,7 +101,7 @@ const ShiftDetails = () => {
             <Typo variant="regular_14">Time</Typo>
           </View>
           <View>
-            <Typo variant="regular_14">6:00 AM - 2:00 PM</Typo>
+            <Typo variant="regular_14">{_shiftRangeTime}</Typo>
           </View>
         </View>
         <Spacer height={16} />
@@ -83,7 +112,7 @@ const ShiftDetails = () => {
           </View>
           <View style={styles.block}>
             <Typo variant="regular_14">
-              512 Harris Street, Ultimo, NSW 2007, Australia
+              {dataDetailShift?.data?.address || 'Address'}
             </Typo>
           </View>
         </View>

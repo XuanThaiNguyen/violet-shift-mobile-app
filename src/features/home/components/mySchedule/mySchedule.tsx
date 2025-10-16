@@ -2,97 +2,51 @@ import { Button } from '@components/button';
 import CalendarListCustom from '@components/calendar/CalendarListCustom';
 import ExpendableCalendarCustom from '@components/calendar/ExpendableCalendarCustom';
 import DrawerHeader from '@components/header/DrawerHeader';
+import { Spacer } from '@components/spacer';
+import { useGetMyShiftSchedules } from '@features/home/hooks';
 import colors from '@themes/color';
 import images from '@themes/images';
+import { getRangeByViewMode } from '@utils/handleDateTime';
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import MyScheduleItem from './myScheduleItem';
+import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 
 const HEADER_EXPANDABLE_CALENDAR_HEIGHT = 110;
 
-const MOCK_ITEMS = {
-  '2025-09-14': [
-    {
-      id: '1',
-      name: 'Shift 6:00 AM - 2:00 PM',
-      time: '6:00 AM - 2:00 PM',
-      type: 'Personal Care',
-      user: {
-        name: 'Nguyen 1',
-      },
-      address: '512 Te Hanh, Hai Chau, DN',
-      status: 'Booked',
-    },
-    {
-      id: '2',
-      name: 'Shift 6:00 AM - 2:00 PM',
-      time: '6:00 AM - 2:00 PM',
-      type: 'Personal Care',
-      user: {
-        name: 'Nguyen 2',
-      },
-      address: '512 Te Hanh, Hai Chau, DN',
-      status: 'Booked',
-    },
-    {
-      id: '3',
-      name: 'Shift 6:00 AM - 2:00 PM',
-      time: '6:00 AM - 2:00 PM',
-      type: 'Personal Care',
-      user: {
-        name: 'Nguyen',
-      },
-      address: '512 Te Hanh, Hai Chau, DN',
-      status: 'Booked',
-    },
-  ],
-  '2025-09-15': [
-    {
-      id: '4',
-      name: 'Shift 6:00 AM - 2:00 PM',
-      time: '6:00 AM - 2:00 PM',
-      type: 'Personal Care',
-      user: {
-        name: 'Nguyen 3',
-      },
-      address: '512 Te Hanh, Hai Chau, DN',
-      status: 'Booked',
-    },
-    {
-      id: '5',
-      name: 'Shift 6:00 AM - 2:00 PM',
-      time: '6:00 AM - 2:00 PM',
-      type: 'Personal Care',
-      user: {
-        name: 'Nguyen 4',
-      },
-      address: '512 Te Hanh, Hai Chau, DN',
-      status: 'Booked',
-    },
-  ],
-  '2025-09-16': [],
-};
-
 const MySchedule = () => {
-  let lastDate = '';
-
-  const today = new Date().toISOString().split('T')[0]; // "2025-09-29"
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); //Default: Today (format: 2025-09-29)
 
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const flatData = Object.entries(MOCK_ITEMS).flatMap(([date, items]) =>
-    items.map(item => ({ ...item, date })),
-  );
+  const { fromUnix, toUnix } = getRangeByViewMode(date);
 
-  const _renderItem = ({ item }: { item: any }) => {
-    const showDate = item.date !== lastDate;
-    lastDate = item.date;
+  const { data: myShiftSchedules } = useGetMyShiftSchedules({
+    from: fromUnix,
+    to: toUnix,
+  });
 
-    return <MyScheduleItem item={item} showDate={showDate} />;
-  };
+  const weekData = useMemo(() => {
+    const start = dayjs(date).startOf('week'); // Sunday
+    const result: WeekDataSchedule[] = [];
+
+    for (let i = 0; i < 7; i++) {
+      const current = start.add(i, 'day');
+      const shiftsForDay = myShiftSchedules?.data?.filter(
+        (shift: IStaffSchedule) => dayjs(shift.timeFrom).isSame(current, 'day'),
+      );
+
+      result.push({
+        id: current.format('YYYY-MM-DD'),
+        date: current,
+        shifts: shiftsForDay || [],
+      });
+    }
+
+    return result;
+  }, [myShiftSchedules?.data, date]);
 
   const onReload = () => {
     //
@@ -107,6 +61,15 @@ const MySchedule = () => {
           tintColor={colors.white}
         />
       </Button>
+    );
+  };
+
+  const renderItem = ({ item }: { item: WeekDataSchedule }) => {
+    const dayLabel = item.date.format('dd');
+    const dateLabel = item.date.format('D');
+
+    return (
+      <MyScheduleItem item={item} dateLabel={dateLabel} dayLabel={dayLabel} />
     );
   };
 
@@ -132,10 +95,12 @@ const MySchedule = () => {
         ) : (
           <></>
         )}
+        <Spacer height={8} />
         <FlatList
-          data={flatData}
+          data={weekData}
+          renderItem={renderItem}
           keyExtractor={item => item.id}
-          renderItem={_renderItem}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.flatlistContainer}
         />
       </View>
@@ -151,6 +116,7 @@ const styles = StyleSheet.create({
   },
   flatlistContainer: {
     marginTop: HEADER_EXPANDABLE_CALENDAR_HEIGHT,
+    paddingBottom: 16,
   },
   icon20: {
     width: 20,

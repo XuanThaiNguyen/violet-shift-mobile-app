@@ -1,13 +1,14 @@
 import { Button } from '@components/button';
+import { showSnack } from '@components/snackBar';
 import { Spacer } from '@components/spacer';
 import TextField from '@components/textField';
 import { Typo } from '@components/typo/typo';
 import { ApiStatus } from '@services/ApiStatus';
 import { authService } from '@services/auth';
-import { ApiResponse } from '@services/type';
+import { getErrorMessage } from '@services/errorHandler';
+import { QueryObjectResponse } from '@services/type';
 import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
-import { devLog } from '@utils/handleLog';
 import { modalUtil } from '@utils/modalUtil';
 import isEmpty from 'lodash.isempty';
 import React, { useState } from 'react';
@@ -15,24 +16,37 @@ import { View } from 'react-native';
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const onCloseModal = () => {
     modalUtil.hideModal();
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: authService.resetPassword,
-    onSuccess: (data: ApiResponse) => {
+    mutationFn: authService.forgotPassword,
+    onSuccess: (data: QueryObjectResponse) => {
       if (data.status === ApiStatus.OK) {
-        devLog.log('reset password success');
+        modalUtil.hideModal();
+        showSnack({
+          msg: 'An email is sent to your email address, please check!',
+          position: 'top',
+          type: 'success',
+          iconColor: colors.green,
+        });
       }
     },
-    onError: (error: any) => {
-      devLog.log('reset password failed:', error);
+    onError: error => {
+      const msg = getErrorMessage(error);
+      setErrorMsg(msg);
     },
   });
 
-  const onReset = () => mutate(email);
+  const onReset = () => {
+    if (!isEmpty(errorMsg)) {
+      setErrorMsg('');
+    }
+    mutate(email);
+  };
 
   return (
     <View>
@@ -50,6 +64,8 @@ const ForgetPassword = () => {
         placeholder="Enter your email"
         value={email}
         onChangeText={setEmail}
+        error={!isEmpty(errorMsg)}
+        errorMessage={errorMsg}
       />
       <Spacer height={20} />
       <Button

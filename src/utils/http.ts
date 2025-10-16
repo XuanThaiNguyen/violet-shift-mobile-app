@@ -3,7 +3,7 @@ import axios from 'axios';
 import qs from 'query-string';
 import Config from 'react-native-config';
 
-axios.defaults.baseURL = Config.API_BASE_URL;
+axios.defaults.baseURL = `${Config.API_BASE_URL}/api/v1`;
 
 axios.interceptors.request.use(
   async config => {
@@ -16,47 +16,19 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response: any) => {
-    // if (
-    //   response?.data?.status === ApiStatus.UNAUTHORIZED &&
-    //   !isEmpty(store.getState().user.user)
-    // ) {
-    //   return alertBottomModal({
-    //     title: 'Unauthorized',
-    //     message: 'Please login again',
-    //     dismissable: false,
-    //     showCloseIcon: false,
-    //     status: 'error',
-    //     buttons: [
-    //       {
-    //         text: 'Login Again',
-    //         preset: 'primary',
-    //         onPress: () => {
-    //           doLogout(Screen.Login);
-    //         },
-    //       },
-    //       {
-    //         text: 'Back to Home',
-    //         preset: 'secondary',
-    //         onPress: () => {
-    //           doLogout(Screen.MainTab);
-    //         },
-    //       },
-    //     ],
-    //   });
-    // }
     return response;
   },
   error => handleError(error),
 );
 
 const handleError = async (error: any) => {
-  if (error.response) {
-    const { message } = error?.response?.data?.error;
-    if (message.includes('The credentials provided are incorrect')) {
-      // refresh Token here;
-    }
-  }
-  return Promise.reject(error.response || error.request || error.message);
+  // if (error.response) {
+  // const { message } = error?.response?.data?.error;
+  // if (message.includes('The credentials provided are incorrect')) {
+  //   // refresh Token here;
+  // }
+  // }
+  return Promise.reject(error);
 };
 
 const http = {

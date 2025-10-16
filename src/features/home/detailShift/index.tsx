@@ -50,7 +50,7 @@ const DetailShift = () => {
 
   return (
     <View style={styles.container}>
-      <BackHeader title="Sample - Personal Care" />
+      <BackHeader title="Shift Detail" />
       <ScrollView showsVerticalScrollIndicator={false}>{content}</ScrollView>
 
       <View style={styles.footer}>

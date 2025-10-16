@@ -22,6 +22,7 @@ const images = {
   add: require('../assets/icons/add.png'),
   close: require('../assets/icons/close.png'),
   check: require('../assets/icons/check.png'),
+  circleCheck: require('../assets/icons/circle-check.png'),
 };
 
 export default images;

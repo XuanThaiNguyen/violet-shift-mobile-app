@@ -2395,13 +2395,13 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-axios@^1.12.2:
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.12.2.tgz#6c307390136cf7a2278d09cec63b136dfc6e6da7"
-  integrity sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==
+axios@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.10.0.tgz#af320aee8632eaf2a400b6a1979fa75856f38d54"
+  integrity sha512-/1xYAC4MP/HEG+3duIhFr4ZQXR4sQXOIe+o6sdqzeykGLx6Upp/1p8MHqhINOvGeP7xyNHe7tsiJByc4SSVUxw==
   dependencies:
     follow-redirects "^1.15.6"
-    form-data "^4.0.4"
+    form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
 babel-jest@^29.7.0:
@@ -3685,7 +3685,7 @@ for-each@^0.3.3, for-each@^0.3.5:
   dependencies:
     is-callable "^1.2.7"
 
-form-data@^4.0.4:
+form-data@^4.0.0:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.4.tgz#784cdcce0669a9d68e94d11ac4eea98088edd2c4"
   integrity sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==
@@ -5887,6 +5887,11 @@ react-native-date-picker@5.0.12:
   version "5.0.12"
   resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-5.0.12.tgz#12540b6a58500811ee7e4fc0244e3accc7cca9c1"
   integrity sha512-R/mUnCKhcuxbhKPFwYdBQCxQt9HHLqpM4ruRUqlcBjiUZ3N2wdnwOMyc888Ps8qp8e7v29PrDHtUlG8LPuFn9w==
+
+react-native-device-info@^14.1.1:
+  version "14.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-14.1.1.tgz#f50c03902f87e4a99b1c51ed85163b795f02b3ea"
+  integrity sha512-lXFpe6DJmzbQXNLWxlMHP2xuTU5gwrKAvI8dCAZuERhW9eOXSubOQIesk9lIBnsi9pI19GMrcpJEvs4ARPRYmw==
 
 react-native-drawer-layout@^4.1.13:
   version "4.1.13"

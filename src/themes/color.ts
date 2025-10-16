@@ -26,6 +26,7 @@ const colors = {
   disabledToggle: '#777',
   backdrop: 'rgba(0,0,0,0.6)',
   disabledBox: '#e8e8e8',
+  background2: '#F6F7F9',
 };
 
 export default colors;

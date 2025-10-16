@@ -1,8 +1,15 @@
 import { ApiStatus } from './ApiStatus';
 
-export interface ApiResponse<T = undefined> {
-  status: ApiStatus;
-  message?: string;
+export interface QueryObjectResponse<T = undefined> {
   data?: T;
-  metadata?: any;
+  code: number;
+  message?: string;
+  status: ApiStatus;
 }
+
+export type QueryArrayResponse<T> = {
+  data: T[];
+  code: number;
+  message?: string;
+  status: ApiStatus;
+};
