@@ -8,7 +8,8 @@ enum Screen {
 
   //My schedule
   Home = 'Home',
-  DetailShift = 'DetailShift',
+  ShiftManager = 'ShiftManager',
+  AllShiftClients = 'AllShiftClients',
 
   //Notification
   Notification = 'Notification',
@@ -19,6 +20,9 @@ enum Screen {
   //Availibility
   Availibility = 'Availibility',
   SetAvailibility = 'SetAvailibility',
+
+  //Profile
+  Profile = 'Profile',
 }
 
 export default Screen;

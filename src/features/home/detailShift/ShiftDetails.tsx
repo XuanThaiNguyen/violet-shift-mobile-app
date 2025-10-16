@@ -1,10 +1,11 @@
+import { Button } from '@components/button';
 import { Divider } from '@components/divider';
 import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
 import { MainStackScreenProps } from '@navigation/mainStackScreenProps';
 import Screen from '@navigation/screen';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import colors from '@themes/color';
 import images from '@themes/images';
 import useAuthStore from '@zustand/authStore';
@@ -12,23 +13,27 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import ClientsInfo from '../components/clientsInfo';
 import {
   useGetClientSchedulesOfDetailShift,
   useGetDetailShift,
 } from '../hooks';
 
-const ShiftDetails = () => {
-  const route = useRoute<RouteProp<MainStackScreenProps, Screen.DetailShift>>();
-  const shiftId = route.params.shiftId || '';
+interface ShiftDetailsProps {
+  shiftId: string;
+}
+
+const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
+  const { navigate } =
+    useNavigation<NavigationProp<MainStackScreenProps, Screen.ShiftManager>>();
 
   const { currentUser } = useAuthStore();
 
   const { data: dataDetailShift } = useGetDetailShift({ shiftId });
-  const { data: dataClientSchedules } = useGetClientSchedulesOfDetailShift({
-    shiftId,
-  });
-
-  console.log('dataClientSchedules', dataClientSchedules);
+  const { data: dataClientSchedules, isLoading: isLoadingClientSchedules } =
+    useGetClientSchedulesOfDetailShift({
+      shiftId,
+    });
 
   const _shiftDate = `${dayjs(dataDetailShift?.data?.timeFrom).format(
     'dddd',
@@ -38,6 +43,10 @@ const ShiftDetails = () => {
     'h:mm A',
   )} - ${dayjs(dataDetailShift?.data?.timeTo).format('h:mm A')}`;
 
+  const onViewMyself = () => {
+    navigate(Screen.Profile, { mode: 'mine' });
+  };
+
   return (
     <View>
       <View style={styles.viewMap}>
@@ -45,46 +54,39 @@ const ShiftDetails = () => {
           This is map
         </Typo>
       </View>
-      <View style={styles.viewUser}>
-        <View style={styles.viewBoxUser}>
-          <Typo center variant="medium_14">
-            STAFF
-          </Typo>
-          <View style={styles.avatarInfo}>
-            <View style={styles.avatar}>
-              <FastImage
-                source={images.avatar}
-                style={styles.icon32}
-                tintColor={colors.white}
-              />
-            </View>
-            <Typo variant="regular_14" color={colors.primaryButton}>
-              {currentUser?.user?.preferredName || ''}
+      {!isLoadingClientSchedules ? (
+        <View style={styles.viewUser}>
+          <View style={styles.viewBoxUser}>
+            <Typo center variant="medium_14">
+              STAFF
             </Typo>
+            <Button onPress={onViewMyself} style={styles.avatarInfo}>
+              <View style={styles.avatar}>
+                <FastImage
+                  source={images.avatar}
+                  style={styles.icon32}
+                  tintColor={colors.white}
+                />
+              </View>
+              <Typo variant="regular_14" color={colors.primaryButton}>
+                {currentUser?.user?.preferredName || ''}
+              </Typo>
+            </Button>
+          </View>
+          <View style={styles.viewBoxUser}>
+            <Typo center variant="medium_14">
+              CLIENT
+            </Typo>
+            <ClientsInfo clients={dataClientSchedules?.data || []} />
           </View>
         </View>
-        <View style={styles.viewBoxUser}>
-          <Typo center variant="medium_14">
-            CLIENT
-          </Typo>
-          <View style={styles.avatarInfo}>
-            <View style={styles.avatar}>
-              <FastImage
-                source={images.avatar}
-                style={styles.icon32}
-                tintColor={colors.white}
-              />
-            </View>
-            <Typo variant="regular_14" color={colors.primaryButton}>
-              {dataClientSchedules?.data?.[0]?.client?.preferredName}
-            </Typo>
-          </View>
-        </View>
-      </View>
-      <Spacer height={8} />
+      ) : (
+        <></>
+      )}
       <View style={styles.viewDetail}>
-        <Typo variant="semibold_14">Details</Typo>
         <Spacer height={16} />
+        <Typo variant="semibold_14">Details</Typo>
+        <Spacer height={20} />
         <View style={styles.detailItem}>
           <View style={styles.detailItemTitle}>
             <FastImage source={images.date} style={styles.icon16} />
@@ -150,6 +152,7 @@ const ShiftDetails = () => {
           </View>
           <FastImage source={images.back} style={styles.iconBack} />
         </View>
+        <Spacer height={16} />
       </View>
     </View>
   );
@@ -197,6 +200,7 @@ const styles = StyleSheet.create({
   },
   viewDetail: {
     paddingHorizontal: SpacingDefault.normal,
+    backgroundColor: colors.white,
   },
   detailItem: {
     flexDirection: 'row',

@@ -49,9 +49,39 @@ export const getClientSchedulesOfDetailShift = async ({
   return response.data;
 };
 
+export const getTasksByShiftId = async ({ shiftId }: { shiftId: string }) => {
+  const response = await http.get(
+    ApiKeys.GET_TASKS_BY_SHIFT_ID.replace(':shiftId', shiftId),
+  );
+  return response.data;
+};
+
+export const updateTaskByShiftId = async ({
+  shiftId,
+  isCompleted,
+  taskId,
+}: {
+  shiftId: string;
+  isCompleted: boolean;
+  taskId: string;
+}) => {
+  const response = await http.put(
+    ApiKeys.UPDATE_TASK_BY_SHIFT_ID.replace(':shiftId', shiftId).replace(
+      ':taskId',
+      taskId,
+    ),
+    {
+      isCompleted,
+    },
+  );
+  return response.data;
+};
+
 export const shiftService = {
   getMyShiftSchedules,
   getDetailShift,
   getStaffSchedulesOfDetailShift,
   getClientSchedulesOfDetailShift,
+  getTasksByShiftId,
+  updateTaskByShiftId,
 };

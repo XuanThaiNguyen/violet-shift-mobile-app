@@ -5,12 +5,11 @@ import { StyleSheet } from 'react-native';
 export const useStyles = () =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.white,
+      backgroundColor: colors.background,
       flex: 1,
     },
     footer: {
       backgroundColor: colors.white,
-      paddingVertical: 8,
     },
     btnTab: {
       gap: 8,

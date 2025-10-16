@@ -19,7 +19,7 @@ interface MyScheduleItemProps {
 
 const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
   const onDetailShift = (shiftId: string) => () => {
-    navigationRef.current?.navigate(Screen.DetailShift, {
+    navigationRef.current?.navigate(Screen.ShiftManager, {
       shiftId,
     });
   };
@@ -56,7 +56,7 @@ const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
         </Typo>
         <Spacer height={24} />
         <Typo variant="regular_14" style={styles.status} color={colors.green}>
-          {'Booked'}
+          {shift.status || 'Booked'}
         </Typo>
       </Button>
     );

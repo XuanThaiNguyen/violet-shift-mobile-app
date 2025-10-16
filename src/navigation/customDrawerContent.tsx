@@ -24,12 +24,24 @@ const CustomDrawerContent = (props: any) => {
     navigate(screen);
   };
 
+  const onProfile = () => {
+    navigate(Screen.Profile);
+  };
+
   const { mutate: logout, isPending } = useLogout();
 
   return (
     <DrawerContentScrollView contentContainerStyle={styles.block} {...props}>
       <View style={styles.block}>
-        <View style={styles.userInfo}>
+        <Button onPress={onProfile} style={styles.userInfo}>
+          <View style={styles.avatar}>
+            <FastImage
+              source={images.avatar}
+              style={styles.icon32}
+              tintColor={colors.white}
+            />
+          </View>
+          <Spacer height={12} />
           <Typo center variant="semibold_10">
             {currentUser?.user?.preferredName || ''}
           </Typo>
@@ -37,7 +49,7 @@ const CustomDrawerContent = (props: any) => {
           <Typo center variant="regular_10">
             {currentUser?.user?.email || ''}
           </Typo>
-        </View>
+        </Button>
         <Spacer height={36} />
         <CustomDrawerItem
           icon={images.notification}
@@ -95,6 +107,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: SpacingDefault.smaller,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.primaryButton,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  icon32: {
+    width: 32,
+    height: 32,
   },
 });
 

@@ -1,8 +1,10 @@
 import { Button } from '@components/button';
 import BackHeader from '@components/header/BackHeader';
 import { InsetSubstitute } from '@components/insetSubtitute/insetSubstitute';
-import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
+import { MainStackScreenProps } from '@navigation/mainStackScreenProps';
+import Screen from '@navigation/screen';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import colors from '@themes/color';
 import images from '@themes/images';
 import React, { useState } from 'react';
@@ -21,8 +23,13 @@ enum DETAIL_SHIFT_TAB {
   EVENTS = 'EVENTS',
 }
 
-const DetailShift = () => {
+const ShiftManager = () => {
   const styles = useStyles();
+
+  const route =
+    useRoute<RouteProp<MainStackScreenProps, Screen.ShiftManager>>();
+
+  const shiftId = route.params.shiftId || '';
 
   const [detailShifTab, setDetailShiftTab] = useState(DETAIL_SHIFT_TAB.DETAILS);
 
@@ -30,13 +37,16 @@ const DetailShift = () => {
     setDetailShiftTab(tab);
   };
 
-  let content = <ShiftDetails />;
+  let content = <ShiftDetails shiftId={shiftId} />;
+  let backTitle = 'Shift Detail';
   switch (detailShifTab) {
     case DETAIL_SHIFT_TAB.DETAILS:
-      content = <ShiftDetails />;
+      content = <ShiftDetails shiftId={shiftId} />;
+      backTitle = 'Shift Detail';
       break;
     case DETAIL_SHIFT_TAB.TASKS:
-      content = <ShiftTasks />;
+      content = <ShiftTasks shiftId={shiftId} />;
+      backTitle = 'Shift Tasks';
       break;
     case DETAIL_SHIFT_TAB.PROGRESS:
       content = <ShiftProgress />;
@@ -50,7 +60,7 @@ const DetailShift = () => {
 
   return (
     <View style={styles.container}>
-      <BackHeader title="Shift Detail" />
+      <BackHeader title={backTitle} />
       <ScrollView showsVerticalScrollIndicator={false}>{content}</ScrollView>
 
       <View style={styles.footer}>
@@ -118,7 +128,7 @@ const DetailShift = () => {
               {DETAIL_SHIFT_TAB.TASKS}
             </Typo>
           </Button>
-          <Button
+          {/* <Button
             style={styles.btnTab}
             onPress={onChangeTab(DETAIL_SHIFT_TAB.PROGRESS)}
           >
@@ -173,7 +183,7 @@ const DetailShift = () => {
             >
               {DETAIL_SHIFT_TAB.EVENTS}
             </Typo>
-          </Button>
+          </Button> */}
         </View>
         <InsetSubstitute type="bottom" />
       </View>
@@ -181,4 +191,4 @@ const DetailShift = () => {
   );
 };
 
-export default DetailShift;
+export default ShiftManager;

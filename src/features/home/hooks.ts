@@ -1,12 +1,16 @@
+import { showSnack } from '@components/snackBar';
 import {
   IClientScheduleOfDetailShift,
   IDetailShift,
+  IShiftTask,
   IStaffSchedule,
   IStaffScheduleOfDetailShift,
 } from '@models/Shift';
+import { ApiStatus } from '@services/ApiStatus';
 import { shiftService } from '@services/shift';
 import { QueryArrayResponse, QueryObjectResponse } from '@services/type';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import colors from '@themes/color';
 import useAuthStore from '@zustand/authStore';
 
 export const useGetMyShiftSchedules = ({
@@ -94,6 +98,44 @@ export const useGetClientSchedulesOfDetailShift = ({
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     retry: false,
+  });
+
+  return myDetailShift;
+};
+
+export const useGetTasksByShiftId = ({ shiftId }: { shiftId: string }) => {
+  const myDetailShift = useQuery<QueryArrayResponse<IShiftTask>>({
+    queryKey: ['myTasksByShiftId', shiftId],
+    queryFn: () =>
+      shiftService.getTasksByShiftId({
+        shiftId,
+      }),
+    enabled: !!shiftId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return myDetailShift;
+};
+
+export const useUpdateTaskByShiftId = () => {
+  const myDetailShift = useMutation({
+    mutationFn: shiftService.updateTaskByShiftId,
+    onSuccess: (data: QueryArrayResponse<IShiftTask>) => {
+      if (data.status === ApiStatus.OK) {
+        showSnack({
+          msg: 'Task updated successfully',
+          position: 'top',
+          type: 'success',
+          iconColor: colors.green,
+        });
+      }
+    },
+    onError: (error: any) => {
+      console.error('Update task failed:', error);
+    },
   });
 
   return myDetailShift;

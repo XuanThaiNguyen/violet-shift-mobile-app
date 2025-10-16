@@ -2,8 +2,10 @@ import { Button } from '@components/button';
 import CalendarListCustom from '@components/calendar/CalendarListCustom';
 import ExpendableCalendarCustom from '@components/calendar/ExpendableCalendarCustom';
 import DrawerHeader from '@components/header/DrawerHeader';
+import Loading from '@components/loading';
 import { Spacer } from '@components/spacer';
 import { useGetMyShiftSchedules } from '@features/home/hooks';
+import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 import colors from '@themes/color';
 import images from '@themes/images';
 import { getRangeByViewMode } from '@utils/handleDateTime';
@@ -12,7 +14,6 @@ import React, { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import MyScheduleItem from './myScheduleItem';
-import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 
 const HEADER_EXPANDABLE_CALENDAR_HEIGHT = 110;
 
@@ -23,7 +24,11 @@ const MySchedule = () => {
 
   const { fromUnix, toUnix } = getRangeByViewMode(date);
 
-  const { data: myShiftSchedules } = useGetMyShiftSchedules({
+  const {
+    data: myShiftSchedules,
+    refetch,
+    isFetching,
+  } = useGetMyShiftSchedules({
     from: fromUnix,
     to: toUnix,
   });
@@ -48,8 +53,8 @@ const MySchedule = () => {
     return result;
   }, [myShiftSchedules?.data, date]);
 
-  const onReload = () => {
-    //
+  const onReload = async () => {
+    await refetch();
   };
 
   const _renderRightHeader = () => {
@@ -104,6 +109,8 @@ const MySchedule = () => {
           contentContainerStyle={styles.flatlistContainer}
         />
       </View>
+
+      <Loading isLoading={isFetching} />
     </>
   );
 };

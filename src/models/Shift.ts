@@ -23,9 +23,11 @@ export const ShiftTypes = [
   '24_hour_care',
 ] as const;
 export const Allowances = ['expense', 'mileage', 'sleepover'] as const;
+export const ShiftStatus = ['booked', 'started', 'completed'] as const;
 
 export type AllowancesEnum = (typeof Allowances)[number];
 export type ShiftTypesEnum = (typeof ShiftTypes)[number];
+export type ShiftStatusEnum = (typeof ShiftStatus)[number];
 
 export interface IStaffSchedule {
   _id: string;
@@ -39,6 +41,7 @@ export interface IStaffSchedule {
   timeTo: number;
   clientNames: string[];
   paymentMethod: 'default' | 'cash';
+  status: ShiftStatusEnum;
 }
 
 export interface WeekDataSchedule {
@@ -54,6 +57,7 @@ export interface IShiftTask {
   isMandatory: boolean;
   isCompleted: boolean;
   completedAt: Date;
+  _id: string;
 }
 
 export interface IDetailShift {
@@ -98,6 +102,7 @@ export interface IDetailShift {
 }
 
 export interface IClientScheduleOfDetailShift {
+  _id: string;
   shift: IDetailShift | string;
   client: IClient;
   timeFrom: number; // unix timestamp

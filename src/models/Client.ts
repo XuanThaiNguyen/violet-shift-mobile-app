@@ -1,6 +1,7 @@
 export type ClientStatus = 'active' | 'inactive' | 'prospect';
 
 export interface IClient {
+  _id: string;
   salutation: string;
   firstName: string;
   lastName: string;

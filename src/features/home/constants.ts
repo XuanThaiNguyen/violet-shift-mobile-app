@@ -1,3 +1,5 @@
+import { EmploymentTypeEnum } from '@models/User';
+
 enum ShiftTypeKey {
   PERSONAL_CARE = 'personal_care',
   BOARD_N_LODGING = 'board_n_lodging',
@@ -63,3 +65,11 @@ export const ShiftTypeOptions = [
     key: ShiftTypeKey.FULL_HOUR_CARE,
   },
 ];
+
+export const EmploymentTypeOptions = {
+  [EmploymentTypeEnum.FULL_TIME]: 'Full Time',
+  [EmploymentTypeEnum.PART_TIME]: 'Part Time',
+  [EmploymentTypeEnum.CONTRACT]: 'Contract',
+  [EmploymentTypeEnum.CASUAL]: 'Casual',
+  [EmploymentTypeEnum.OTHER]: 'Other',
+};
