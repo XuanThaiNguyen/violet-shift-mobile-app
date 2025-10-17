@@ -44,6 +44,9 @@ export const Button = memo(
 
     let content = useMemo(() => {
       let _typoColor = textColor || colors.white;
+      if (preset === 'secondary') {
+        _typoColor = colors.primaryButton;
+      }
 
       return (
         children || (

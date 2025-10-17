@@ -1,3 +1,4 @@
+import { IconTypes } from '@themes/images';
 import {
   KeyboardTypeOptions,
   StyleProp,
@@ -8,7 +9,7 @@ import {
 
 export interface TextFieldProps extends TextInputProps {
   value: string;
-  error?: any;
+  error?: boolean;
   errorMessage?: string;
   placeholder?: string;
   renderRightChildren?: () => React.ReactNode;

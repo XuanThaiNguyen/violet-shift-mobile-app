@@ -41,8 +41,8 @@ const SnackBarComponent = forwardRef((props: SnackBarProps, ref) => {
         position: PositionMessage;
         isIncludedBottomHeight: boolean;
         icon?: React.ReactElement;
-        rightChild?: any;
-        showRightChild?: any;
+        rightChild?: React.ReactNode;
+        showRightChild?: boolean;
         disableHeight?: boolean;
         pVer?: number;
         iconColor?: string | undefined;
@@ -113,8 +113,8 @@ type SnackBar = {
     position?: PositionMessage;
     isIncludedBottomHeight?: boolean;
     icon?: React.ReactElement;
-    rightChild?: any;
-    showRightChild?: any;
+    rightChild?: React.ReactNode;
+    showRightChild?: boolean;
     disableHeight?: boolean;
     pVer?: number;
     iconColor?: string | undefined;
@@ -151,10 +151,10 @@ export const showSnack = ({
   position?: PositionMessage;
   isIncludedBottomHeight?: boolean;
   icon?: React.ReactElement;
-  rightChild?: any;
+  rightChild?: React.ReactNode;
   disableHeight?: boolean;
   pVer?: number;
-  showRightChild?: any;
+  showRightChild?: boolean;
   iconColor?: string | undefined;
   bgTooltip?: string;
 }) => {

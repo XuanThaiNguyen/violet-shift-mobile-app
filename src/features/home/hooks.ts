@@ -12,6 +12,7 @@ import { QueryArrayResponse, QueryObjectResponse } from '@services/type';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import colors from '@themes/color';
 import useAuthStore from '@zustand/authStore';
+import { AxiosError } from 'axios';
 
 export const useGetMyShiftSchedules = ({
   from,
@@ -133,7 +134,7 @@ export const useUpdateTaskByShiftId = () => {
         });
       }
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError) => {
       console.error('Update task failed:', error);
     },
   });

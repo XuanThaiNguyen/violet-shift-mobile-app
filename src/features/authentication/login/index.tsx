@@ -18,6 +18,7 @@ import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ForgetPassword from '../components/forgetPassword';
 import { useStyles } from './styles';
+import { AxiosError } from 'axios';
 
 const Login = () => {
   const styles = useStyles();
@@ -38,7 +39,7 @@ const Login = () => {
         setCurrentUser(data.data);
       }
     },
-    onError: (error: any) => {
+    onError: (error: AxiosError) => {
       console.error('Login failed:', error);
     },
   });

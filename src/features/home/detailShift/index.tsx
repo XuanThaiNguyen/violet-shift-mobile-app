@@ -15,6 +15,9 @@ import ShiftEvents from './ShiftEvents';
 import ShiftProgress from './ShiftProgress';
 import ShiftTasks from './ShiftTasks';
 import { useStyles } from './styles';
+import { modalUtil } from '@utils/modalUtil';
+import ClockInOutContent from '../components/clockInOutContent';
+import ForgetPassword from '@features/authentication/components/forgetPassword';
 
 enum DETAIL_SHIFT_TAB {
   DETAILS = 'DETAILS',
@@ -58,6 +61,24 @@ const ShiftManager = () => {
       break;
   }
 
+  const onConfirmClockIn = () => {
+    // Handle function here
+    modalUtil.hideModal();
+  };
+
+  const onClockIn = () => {
+    modalUtil.showModal({
+      mode: 'bottom',
+      children: (
+        <ClockInOutContent
+          buttonTitle="Clock In"
+          mode="in"
+          onConfirm={onConfirmClockIn}
+        />
+      ),
+    });
+  };
+
   return (
     <View style={styles.container}>
       <BackHeader title={backTitle} />
@@ -66,7 +87,12 @@ const ShiftManager = () => {
       <View style={styles.footer}>
         {detailShifTab === DETAIL_SHIFT_TAB.DETAILS ? (
           <View style={styles.viewClock}>
-            <Button preset="primary" text="Clock in" style={styles.btnClock} />
+            <Button
+              onPress={onClockIn}
+              preset="primary"
+              text="Clock in"
+              style={styles.btnClock}
+            />
           </View>
         ) : (
           <></>

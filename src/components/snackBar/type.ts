@@ -24,8 +24,8 @@ export type Item = {
   position?: PositionMessage;
   isIncludedBottomHeight?: boolean;
   icon?: React.ReactElement;
-  rightChild?: any;
-  showRightChild?: any;
+  rightChild?: React.ReactNode;
+  showRightChild?: boolean;
   disableHeight?: boolean;
   pVer?: number;
   iconColor?: string | undefined;

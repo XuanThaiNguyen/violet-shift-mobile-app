@@ -23,6 +23,8 @@ const images = {
   close: require('../assets/icons/close.png'),
   check: require('../assets/icons/check.png'),
   circleCheck: require('../assets/icons/circle-check.png'),
+  warningAlert: require('../assets/icons/ic_warning_alert.png'),
+  warningCircle: require('../assets/icons/ic_warning_circle.png'),
 };
 
 export default images;

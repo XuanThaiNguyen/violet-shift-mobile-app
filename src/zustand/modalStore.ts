@@ -21,7 +21,6 @@ export const useModalStore = create<ModalState>((set, get) => ({
   hideTimer: null,
 
   showModal: options => {
-    // clear any existing hide timer before showing again
     const { hideTimer } = get();
     if (hideTimer) clearTimeout(hideTimer);
 
@@ -29,7 +28,6 @@ export const useModalStore = create<ModalState>((set, get) => ({
   },
 
   hideModal: (delay = 300) => {
-    // clear any existing hide timer
     const { hideTimer } = get();
     if (hideTimer) clearTimeout(hideTimer);
 
