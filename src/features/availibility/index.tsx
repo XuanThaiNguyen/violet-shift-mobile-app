@@ -27,7 +27,7 @@ const Availibility = () => {
       <Button onPress={onSetAvailibility} style={styles.btnOnSet}>
         <FastImage
           source={images.add}
-          style={styles.icon16}
+          style={styles.icon32}
           tintColor={colors.white}
         />
       </Button>

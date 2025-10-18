@@ -1,4 +1,3 @@
-import { showSnack } from '@components/snackBar';
 import {
   IClientScheduleOfDetailShift,
   IDetailShift,
@@ -6,13 +5,10 @@ import {
   IStaffSchedule,
   IStaffScheduleOfDetailShift,
 } from '@models/Shift';
-import { ApiStatus } from '@services/ApiStatus';
 import { shiftService } from '@services/shift';
 import { QueryArrayResponse, QueryObjectResponse } from '@services/type';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import colors from '@themes/color';
+import { useQuery } from '@tanstack/react-query';
 import useAuthStore from '@zustand/authStore';
-import { AxiosError } from 'axios';
 
 export const useGetMyShiftSchedules = ({
   from,
@@ -116,27 +112,6 @@ export const useGetTasksByShiftId = ({ shiftId }: { shiftId: string }) => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     retry: false,
-  });
-
-  return myDetailShift;
-};
-
-export const useUpdateTaskByShiftId = () => {
-  const myDetailShift = useMutation({
-    mutationFn: shiftService.updateTaskByShiftId,
-    onSuccess: (data: QueryArrayResponse<IShiftTask>) => {
-      if (data.status === ApiStatus.OK) {
-        showSnack({
-          msg: 'Task updated successfully',
-          position: 'top',
-          type: 'success',
-          iconColor: colors.green,
-        });
-      }
-    },
-    onError: (error: AxiosError) => {
-      console.error('Update task failed:', error);
-    },
   });
 
   return myDetailShift;

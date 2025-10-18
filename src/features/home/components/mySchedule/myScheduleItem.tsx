@@ -3,10 +3,15 @@ import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
 import { getShiftTypeLabel } from '@features/home/utils';
-import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
+import {
+  IStaffSchedule,
+  ShiftStatusEnum,
+  WeekDataSchedule,
+} from '@models/Shift';
 import { navigationRef } from '@navigation/navigationUtil';
 import Screen from '@navigation/screen';
 import colors from '@themes/color';
+import { capitalizeFirst } from '@utils/handleStrings';
 import dayjs from 'dayjs';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -18,16 +23,26 @@ interface MyScheduleItemProps {
 }
 
 const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
-  const onDetailShift = (shiftId: string) => () => {
+  const onDetailShift = (shift: IStaffSchedule) => () => {
     navigationRef.current?.navigate(Screen.ShiftManager, {
-      shiftId,
+      shiftId: shift.shift._id,
+      scheduleId: shift._id,
+      isClocksInAt: shift?.clocksInAt ? shift.clocksInAt : 0,
+      isClocksOutAt: shift?.clocksOutAt ? shift.clocksOutAt : 0,
     });
   };
 
   const renderShifts = (shift: IStaffSchedule, index: number) => {
+    let _defaultShiftStatus: ShiftStatusEnum = 'booked';
+    if (shift.clocksOutAt) {
+      _defaultShiftStatus = 'completed';
+    } else if (shift.clocksInAt && !shift.clocksOutAt) {
+      _defaultShiftStatus = 'started';
+    }
+
     return (
       <Button
-        onPress={onDetailShift(shift.shift._id)}
+        onPress={onDetailShift(shift)}
         key={shift._id}
         style={[
           styles.shift,
@@ -56,7 +71,7 @@ const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
         </Typo>
         <Spacer height={24} />
         <Typo variant="regular_14" style={styles.status} color={colors.green}>
-          {shift.status || 'Booked'}
+          {capitalizeFirst(_defaultShiftStatus)}
         </Typo>
       </Button>
     );

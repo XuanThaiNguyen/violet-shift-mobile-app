@@ -1,15 +1,21 @@
 import { Button } from '@components/button';
 import CheckBox from '@components/checkbox';
 import { Divider } from '@components/divider';
+import { showSnack } from '@components/snackBar';
 import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
 import { IShiftTask } from '@models/Shift';
+import { ApiStatus } from '@services/ApiStatus';
+import { shiftService } from '@services/shift';
+import { QueryArrayResponse } from '@services/type';
+import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import { EMPTY_ARRAY } from '@themes/constant';
-import React, { useEffect } from 'react';
+import { AxiosError } from 'axios';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useGetTasksByShiftId, useUpdateTaskByShiftId } from '../hooks';
+import { useGetTasksByShiftId } from '../hooks';
 
 interface ShiftTasksProps {
   shiftId: string;
@@ -20,11 +26,23 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
 
   const _tasks = dataShiftTasks?.data || EMPTY_ARRAY;
 
-  const {
-    mutate: updateTaskByShiftId,
-    isSuccess,
-    isPending,
-  } = useUpdateTaskByShiftId();
+  const { mutate: updateTaskByShiftId } = useMutation({
+    mutationFn: shiftService.updateTaskByShiftId,
+    onSuccess: (data: QueryArrayResponse<IShiftTask>) => {
+      if (data.status === ApiStatus.OK) {
+        showSnack({
+          msg: 'Task updated successfully',
+          position: 'top',
+          type: 'success',
+          iconColor: colors.green,
+        });
+        refetch();
+      }
+    },
+    onError: (error: AxiosError) => {
+      console.log('Update task failed:', error);
+    },
+  });
 
   const onCheck = (task: IShiftTask) => () => {
     updateTaskByShiftId({
@@ -33,12 +51,6 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
       shiftId,
     });
   };
-
-  useEffect(() => {
-    if (isSuccess && !isPending) {
-      refetch();
-    }
-  }, [isSuccess, isPending]);
 
   const _renderItem = (task: IShiftTask, index: number) => {
     return (
@@ -62,6 +74,15 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
       </View>
     );
   };
+
+  if (_tasks.length === 0)
+    return (
+      <View style={styles.container}>
+        <Typo center variant="regular_14">
+          No tasks!
+        </Typo>
+      </View>
+    );
 
   return <View style={styles.container}>{_tasks.map(_renderItem)}</View>;
 };

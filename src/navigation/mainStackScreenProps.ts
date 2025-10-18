@@ -9,6 +9,9 @@ export type MainStackScreenProps = {
   [Screen.About]: undefined;
   [Screen.ShiftManager]: {
     shiftId: string;
+    scheduleId: string;
+    isClocksInAt: number;
+    isClocksOutAt: number;
   };
   [Screen.Availibility]: undefined;
   [Screen.SetAvailibility]: undefined;

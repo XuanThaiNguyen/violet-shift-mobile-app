@@ -11,6 +11,8 @@ enum ApiKeys {
   GET_CLIENT_SCHEDULES_BY_DETAIL_SHIFT = 'shifts/:shiftId/client-schedules',
   GET_TASKS_BY_SHIFT_ID = 'shifts/:shiftId/tasks',
   UPDATE_TASK_BY_SHIFT_ID = 'shifts/:shiftId/tasks/:taskId',
+  POST_CLOCK_IN_SHIFT = 'shifts/:shiftId/staff-schedules/:scheduleId/clock-in',
+  POST_CLOCK_OUT_SHIFT = 'shifts/:shiftId/staff-schedules/:scheduleId/clock-out',
 }
 
 export default ApiKeys;

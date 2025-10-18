@@ -77,6 +77,38 @@ export const updateTaskByShiftId = async ({
   return response.data;
 };
 
+export const postClockInShiftByShiftId = async ({
+  shiftId,
+  scheduleId,
+}: {
+  shiftId: string;
+  scheduleId: string;
+}) => {
+  const response = await http.post(
+    ApiKeys.POST_CLOCK_IN_SHIFT.replace(':shiftId', shiftId).replace(
+      ':scheduleId',
+      scheduleId,
+    ),
+  );
+  return response.data;
+};
+
+export const postClockOutShiftByShiftId = async ({
+  shiftId,
+  scheduleId,
+}: {
+  shiftId: string;
+  scheduleId: string;
+}) => {
+  const response = await http.post(
+    ApiKeys.POST_CLOCK_OUT_SHIFT.replace(':shiftId', shiftId).replace(
+      ':scheduleId',
+      scheduleId,
+    ),
+  );
+  return response.data;
+};
+
 export const shiftService = {
   getMyShiftSchedules,
   getDetailShift,
@@ -84,4 +116,6 @@ export const shiftService = {
   getClientSchedulesOfDetailShift,
   getTasksByShiftId,
   updateTaskByShiftId,
+  postClockInShiftByShiftId,
+  postClockOutShiftByShiftId,
 };

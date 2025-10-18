@@ -30,6 +30,7 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
   const { currentUser } = useAuthStore();
 
   const { data: dataDetailShift } = useGetDetailShift({ shiftId });
+
   const { data: dataClientSchedules, isLoading: isLoadingClientSchedules } =
     useGetClientSchedulesOfDetailShift({
       shiftId,

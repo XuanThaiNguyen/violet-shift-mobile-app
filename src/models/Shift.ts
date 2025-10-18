@@ -42,6 +42,8 @@ export interface IStaffSchedule {
   clientNames: string[];
   paymentMethod: 'default' | 'cash';
   status: ShiftStatusEnum;
+  clocksInAt: number; // unix timestamp
+  clocksOutAt: number; // unix timestamp
 }
 
 export interface WeekDataSchedule {

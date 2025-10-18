@@ -7,7 +7,7 @@ export const useStyles = (insets: Insets) =>
     container: {
       flex: 1,
     },
-    icon16: {
+    icon32: {
       width: 32,
       height: 32,
     },
