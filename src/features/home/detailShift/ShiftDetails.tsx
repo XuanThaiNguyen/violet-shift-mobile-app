@@ -8,6 +8,7 @@ import Screen from '@navigation/screen';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import colors from '@themes/color';
 import images from '@themes/images';
+import { getFullName } from '@utils/handleStrings';
 import useAuthStore from '@zustand/authStore';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -50,11 +51,11 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
 
   return (
     <View>
-      <View style={styles.viewMap}>
+      {/* <View style={styles.viewMap}>
         <Typo variant="bold_20" color={colors.white}>
           This is map
         </Typo>
-      </View>
+      </View> */}
       {!isLoadingClientSchedules ? (
         <View style={styles.viewUser}>
           <View style={styles.viewBoxUser}>
@@ -70,7 +71,7 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
                 />
               </View>
               <Typo variant="regular_14" color={colors.primaryButton}>
-                {currentUser?.user?.preferredName || ''}
+                {currentUser ? getFullName(currentUser) : ''}
               </Typo>
             </Button>
           </View>

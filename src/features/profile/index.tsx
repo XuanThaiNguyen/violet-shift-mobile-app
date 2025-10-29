@@ -20,8 +20,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-type ProfileProps = IUser | IClient;
-
 const Profile = () => {
   const route = useRoute<RouteProp<MainStackScreenProps, Screen.Profile>>();
   const mode = route.params?.mode || 'mine';
@@ -29,14 +27,8 @@ const Profile = () => {
 
   const { currentUser } = useAuthStore();
 
-  const dataProfile: ProfileProps | undefined =
-    mode === 'client' ? clientInfo : currentUser?.user;
-
-  const _fullName = getFullName({
-    firstName: dataProfile?.firstName || '',
-    lastName: dataProfile?.lastName || '',
-    middleName: dataProfile?.middleName || '',
-  });
+  const dataProfile: IUser | IClient | undefined =
+    mode === 'client' ? clientInfo : currentUser ? currentUser : undefined;
 
   if (isEmpty(dataProfile)) return <></>;
 
@@ -53,7 +45,7 @@ const Profile = () => {
         </View>
         <Spacer width={'large'} />
         <Typo variant="semibold_16" color={colors.primaryButton}>
-          {dataProfile.preferredName}
+          {dataProfile ? getFullName(dataProfile) : ''}
         </Typo>
       </View>
       <Spacer height={8} />
@@ -66,14 +58,20 @@ const Profile = () => {
           <View style={styles.width}>
             <Typo variant="regular_14">Name:</Typo>
           </View>
-          <Typo variant="regular_14">{_fullName}</Typo>
+          <Typo variant="regular_14">
+            {currentUser ? getFullName(currentUser) : EMPTY_STRING}
+          </Typo>
         </View>
         <Spacer height={12} />
         <View style={styles.row}>
           <View style={styles.width}>
             <Typo variant="regular_14">Preferred Name:</Typo>
           </View>
-          <Typo variant="regular_14">{dataProfile.preferredName}</Typo>
+          <Typo variant="regular_14">
+            {!!dataProfile?.preferredName
+              ? dataProfile.preferredName
+              : EMPTY_STRING}
+          </Typo>
         </View>
         <Spacer height={12} />
         <View style={styles.row}>
@@ -98,7 +96,9 @@ const Profile = () => {
           <View style={styles.width}>
             <Typo variant="regular_14">Gender:</Typo>
           </View>
-          <Typo variant="regular_14">{dataProfile.gender}</Typo>
+          <Typo variant="regular_14">
+            {!!dataProfile?.gender ? dataProfile.gender : EMPTY_STRING}
+          </Typo>
         </View>
         {'employmentType' in dataProfile && mode === 'mine' ? (
           <>

@@ -6,26 +6,27 @@ import { Typo } from '@components/typo/typo';
 import { IAuth } from '@models/User';
 import { ApiStatus } from '@services/ApiStatus';
 import { authService } from '@services/auth';
+import { showErrorMessage } from '@services/errorHandler';
 import { QueryObjectResponse } from '@services/type';
 import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import images from '@themes/images';
 import { modalUtil } from '@utils/modalUtil';
 import useAuthStore from '@zustand/authStore';
+import { AxiosError } from 'axios';
 import isEmpty from 'lodash.isempty';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ForgetPassword from '../components/forgetPassword';
 import { useStyles } from './styles';
-import { AxiosError } from 'axios';
 
 const Login = () => {
   const styles = useStyles();
-  const { setCurrentUser } = useAuthStore();
+  const { setCurrentUser, setToken } = useAuthStore();
 
-  const [email, setEmail] = useState('nguyenxuanthai7@gmail.com');
-  const [password, setPassword] = useState('Lamanh1998!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isHidePassword, setIsHidePassword] = useState(true);
 
   const onHandleHidePassword = () => {
@@ -36,11 +37,12 @@ const Login = () => {
     mutationFn: authService.login,
     onSuccess: (data: QueryObjectResponse<IAuth>) => {
       if (data.status === ApiStatus.OK && data.data?.user) {
-        setCurrentUser(data.data);
+        setCurrentUser(data.data.user);
+        setToken(data.data.token);
       }
     },
     onError: (error: AxiosError) => {
-      console.error('Login failed:', error);
+      showErrorMessage(error);
     },
   });
 
@@ -49,7 +51,6 @@ const Login = () => {
       email,
       password,
     };
-
     mutate(loginInfo);
   };
 

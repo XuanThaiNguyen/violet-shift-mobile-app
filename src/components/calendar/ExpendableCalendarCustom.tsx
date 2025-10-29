@@ -34,6 +34,7 @@ const ExpendableCalendarCustom = ({
             onDayPress={date => setDate?.(date.dateString)}
             initialPosition={Positions.CLOSED}
             firstDay={0}
+            style={styles.calendar}
           />
           <Button onPress={onExpand} style={styles.btnExpand}>
             <FastImage
@@ -68,5 +69,11 @@ const styles = StyleSheet.create({
   },
   expandableCalendar: {
     backgroundColor: colors.white,
+    paddingBottom: 4,
+  },
+  calendar: {
+    borderBottomWidth: 0,
+    elevation: 0,
+    shadowOpacity: 0,
   },
 });

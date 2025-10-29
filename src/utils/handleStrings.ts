@@ -1,13 +1,11 @@
-export const getFullName = ({
-  firstName = '',
-  middleName = '',
-  lastName = '',
-}: {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-}) => {
-  return [firstName, middleName, lastName].filter(Boolean).join(' ');
+import { IClient } from '@models/Client';
+import { IUser } from '@models/User';
+
+export const getFullName = (user: IUser | IClient) => {
+  if (!!user?.preferredName) return user.preferredName;
+  return [user?.firstName, user?.middleName, user?.lastName]
+    .filter(Boolean)
+    .join(' ');
 };
 
 export const capitalizeFirst = (str: string) => {

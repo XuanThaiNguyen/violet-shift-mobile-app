@@ -54,7 +54,7 @@ const Notification = () => {
         renderRightHeader={_renderRightHeader}
       />
       <View style={styles.notiContent}>
-        <Typo variant="semibold_12">Notification</Typo>
+        <Typo variant="semibold_12">No notifications</Typo>
       </View>
       <View style={styles.footer}>
         <View style={styles.notiTab}>

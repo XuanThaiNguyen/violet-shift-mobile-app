@@ -14,11 +14,22 @@ const KNOB_SIZE = 24;
 const PADDING = 3;
 
 interface ToggleProps {
-  isOn: boolean;
-  onPress: () => void;
+  isOn?: boolean;
+  onPress?: () => void;
+  width?: number;
+  height?: number;
+  knobSize?: number;
+  padding?: number;
 }
 
-const Toggle: React.FC<ToggleProps> = ({ isOn, onPress }) => {
+const Toggle: React.FC<ToggleProps> = ({
+  isOn = false,
+  onPress,
+  width = SWITCH_WIDTH,
+  height = SWITCH_HEIGHT,
+  knobSize = KNOB_SIZE,
+  padding = PADDING,
+}) => {
   const progress = useSharedValue(isOn ? 1 : 0);
 
   useEffect(() => {
@@ -37,8 +48,7 @@ const Toggle: React.FC<ToggleProps> = ({ isOn, onPress }) => {
   });
 
   const knobStyle = useAnimatedStyle(() => {
-    const translateX =
-      progress.value * (SWITCH_WIDTH - KNOB_SIZE - PADDING * 2);
+    const translateX = progress.value * (width - knobSize - padding * 2);
     const backgroundColor = interpolateColor(
       progress.value,
       [0, 1],
@@ -52,8 +62,19 @@ const Toggle: React.FC<ToggleProps> = ({ isOn, onPress }) => {
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-      <Animated.View style={[styles.container, containerStyle]}>
-        <Animated.View style={[styles.knob, knobStyle]} />
+      <Animated.View
+        style={[
+          styles.container,
+          { height, width, borderRadius: height / 2, padding },
+          containerStyle,
+        ]}
+      >
+        <Animated.View
+          style={[
+            { width: knobSize, height: knobSize, borderRadius: knobSize / 2 },
+            knobStyle,
+          ]}
+        />
       </Animated.View>
     </TouchableOpacity>
   );
@@ -61,16 +82,7 @@ const Toggle: React.FC<ToggleProps> = ({ isOn, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: SWITCH_WIDTH,
-    height: SWITCH_HEIGHT,
-    borderRadius: SWITCH_HEIGHT / 2,
-    padding: PADDING,
     justifyContent: 'center',
-  },
-  knob: {
-    width: KNOB_SIZE,
-    height: KNOB_SIZE,
-    borderRadius: KNOB_SIZE / 2,
   },
 });
 

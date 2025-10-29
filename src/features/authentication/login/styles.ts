@@ -1,4 +1,5 @@
 import { SpacingDefault } from '@components/spacing/spacing';
+import colors from '@themes/color';
 import { StyleSheet } from 'react-native';
 
 export const useStyles = () =>
@@ -14,14 +15,14 @@ export const useStyles = () =>
     },
     input: {
       borderWidth: 1,
-      borderColor: '#ccc',
+      borderColor: colors.divider,
       borderRadius: 6,
       paddingHorizontal: 12,
       height: 44,
       fontSize: 14,
     },
     btnLogin: {
-      backgroundColor: '#4a90e2',
+      backgroundColor: colors.primaryButton,
       paddingVertical: 14,
       borderRadius: 6,
       alignItems: 'center',

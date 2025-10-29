@@ -1,5 +1,9 @@
-import useAuthStore from '@zustand/authStore';
-import axios from 'axios';
+import { showSnack } from '@components/snackBar';
+import { INITIAL_SNACKBAR } from '@components/snackBar/constant';
+import { AUTH_ERROR_CODE } from '@services/ApiStatus';
+import { ErrorMessages } from '@services/errorMessages';
+import useAuthStore, { resetAuthStore } from '@zustand/authStore';
+import axios, { AxiosError } from 'axios';
 import qs from 'query-string';
 import Config from 'react-native-config';
 
@@ -7,7 +11,7 @@ axios.defaults.baseURL = `${Config.API_BASE_URL}/api/v1`;
 
 axios.interceptors.request.use(
   async config => {
-    const token = useAuthStore.getState().currentUser?.token;
+    const token = useAuthStore.getState()?.token;
     config.headers.authorization = token ? `Bearer ${token}` : '';
     return config;
   },
@@ -21,13 +25,18 @@ axios.interceptors.response.use(
   error => handleError(error),
 );
 
-const handleError = async (error: any) => {
-  // if (error.response) {
-  // const { message } = error?.response?.data?.error;
-  // if (message.includes('The credentials provided are incorrect')) {
-  //   // refresh Token here;
-  // }
-  // }
+const handleError = async (error: AxiosError<{ code: number }>) => {
+  if (error.response) {
+    const unauthenticated =
+      error?.response?.data?.code === AUTH_ERROR_CODE.UNAUTHENTICATED;
+    if (unauthenticated) {
+      showSnack({
+        msg: ErrorMessages[error?.response?.data?.code],
+        interval: INITIAL_SNACKBAR.DURATION_MEDIUM,
+      });
+      resetAuthStore();
+    }
+  }
   return Promise.reject(error);
 };
 

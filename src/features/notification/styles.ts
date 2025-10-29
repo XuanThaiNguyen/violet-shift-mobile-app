@@ -21,6 +21,8 @@ export const useStyles = () =>
     },
     notiContent: {
       flex: 1,
+      alignItems: 'center',
+      marginTop: 20,
     },
     footer: {
       backgroundColor: colors.white,

@@ -1,3 +1,6 @@
+import { showSnack } from '@components/snackBar';
+import { INITIAL_SNACKBAR } from '@components/snackBar/constant';
+import colors from '@themes/color';
 import { AxiosError } from 'axios';
 import { ErrorMessages } from './errorMessages';
 
@@ -14,4 +17,15 @@ export const getErrorMessage = (error: unknown): string => {
     return ErrorMessages[code];
   }
   return axiosError?.response?.data?.message || 'Unexpected error occurred.';
+};
+
+export const showErrorMessage = (error: AxiosError) => {
+  const msg = getErrorMessage(error);
+  showSnack({
+    msg,
+    position: 'top',
+    type: 'error',
+    iconColor: colors.red,
+    interval: INITIAL_SNACKBAR.DURATION_MEDIUM,
+  });
 };

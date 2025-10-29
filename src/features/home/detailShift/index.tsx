@@ -8,6 +8,7 @@ import { MainStackScreenProps } from '@navigation/mainStackScreenProps';
 import Screen from '@navigation/screen';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { ApiStatus } from '@services/ApiStatus';
+import { showErrorMessage } from '@services/errorHandler';
 import { shiftService } from '@services/shift';
 import { QueryObjectResponse } from '@services/type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -75,7 +76,7 @@ const ShiftManager = () => {
       }
     },
     onError: (error: AxiosError) => {
-      console.log('Clock In failed:', error);
+      showErrorMessage(error);
     },
   });
 
@@ -94,7 +95,7 @@ const ShiftManager = () => {
       }
     },
     onError: (error: AxiosError) => {
-      console.log('Clock Out failed:', error);
+      showErrorMessage(error);
     },
   });
 
@@ -156,7 +157,9 @@ const ShiftManager = () => {
   return (
     <View style={styles.container}>
       <BackHeader title={backTitle} />
-      <ScrollView showsVerticalScrollIndicator={false}>{content}</ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+        {content}
+      </ScrollView>
 
       <View style={styles.footer}>
         {clockState !== ClockState.OUT &&

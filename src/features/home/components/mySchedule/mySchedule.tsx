@@ -8,14 +8,15 @@ import { useGetMyShiftSchedules } from '@features/home/hooks';
 import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 import colors from '@themes/color';
 import images from '@themes/images';
-import { getRangeByViewMode } from '@utils/handleDateTime';
+import { DATE_FORMAT, getRangeByViewMode } from '@utils/handleDateTime';
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import MyScheduleItem from './myScheduleItem';
 
-const HEADER_EXPANDABLE_CALENDAR_HEIGHT = 110;
+const HEADER_EXPANDABLE_CALENDAR_HEIGHT = 102;
+const SPACING_HEADER = 24;
 
 const MySchedule = () => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]); //Default: Today (format: 2025-09-29)
@@ -44,7 +45,7 @@ const MySchedule = () => {
       );
 
       result.push({
-        id: current.format('YYYY-MM-DD'),
+        id: current.format(DATE_FORMAT.THIRD),
         date: current,
         shifts: shiftsForDay || [],
       });
@@ -55,6 +56,14 @@ const MySchedule = () => {
 
   const onReload = async () => {
     await refetch();
+  };
+
+  const onCloseCalendar = () => {
+    setIsExpanded(false);
+  };
+
+  const onOpenCalendar = () => {
+    setIsExpanded(true);
   };
 
   const _renderRightHeader = () => {
@@ -82,18 +91,18 @@ const MySchedule = () => {
     <>
       <DrawerHeader
         renderRightHeader={_renderRightHeader}
-        title={dayjs(date).format('MMM YYYY')}
+        title={dayjs(date).format(DATE_FORMAT.FOUR)}
       />
       <View style={styles.container}>
         <ExpendableCalendarCustom
           date={date}
-          onExpand={() => setIsExpanded(true)}
+          onExpand={onOpenCalendar}
           isExpanded={isExpanded}
           setDate={setDate}
         />
         {isExpanded ? (
           <CalendarListCustom
-            onExpand={() => setIsExpanded(false)}
+            onExpand={onCloseCalendar}
             date={date}
             setDate={setDate}
           />
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   flatlistContainer: {
-    marginTop: HEADER_EXPANDABLE_CALENDAR_HEIGHT,
+    marginTop: HEADER_EXPANDABLE_CALENDAR_HEIGHT + SPACING_HEADER,
     paddingBottom: 16,
   },
   icon20: {

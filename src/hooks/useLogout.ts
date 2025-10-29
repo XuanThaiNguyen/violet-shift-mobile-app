@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import useAuthStore from '@zustand/authStore';
-import { AxiosError } from 'axios';
 
 const fakeLogout = async () => {
   return new Promise((resolve: any) => setTimeout(resolve, 1500)); // simulate API delay
@@ -14,8 +13,6 @@ export const useLogout = () => {
     onSuccess: () => {
       resetAuthStore();
     },
-    onError: (error: AxiosError) => {
-      console.error('Logout failed:', error);
-    },
+    onError: () => {},
   });
 };

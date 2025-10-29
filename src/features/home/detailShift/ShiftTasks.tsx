@@ -7,6 +7,7 @@ import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
 import { IShiftTask } from '@models/Shift';
 import { ApiStatus } from '@services/ApiStatus';
+import { showErrorMessage } from '@services/errorHandler';
 import { shiftService } from '@services/shift';
 import { QueryArrayResponse } from '@services/type';
 import { useMutation } from '@tanstack/react-query';
@@ -40,7 +41,7 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
       }
     },
     onError: (error: AxiosError) => {
-      console.log('Update task failed:', error);
+      showErrorMessage(error);
     },
   });
 
@@ -89,7 +90,6 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
     flex: 1,
     backgroundColor: colors.background,
   },
@@ -104,10 +104,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SpacingDefault.normal,
   },
   checkedText: {
-    textDecorationLine: 'none',
+    textDecorationLine: 'line-through',
   },
   uncheckedText: {
-    textDecorationLine: 'line-through',
+    textDecorationLine: 'none',
   },
 });
 

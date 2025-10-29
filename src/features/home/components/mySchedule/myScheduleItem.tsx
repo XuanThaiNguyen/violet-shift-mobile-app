@@ -122,18 +122,18 @@ const styles = StyleSheet.create({
   },
   empty: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.divider,
     borderRadius: 8,
     padding: 16,
     alignItems: 'center',
   },
   shift: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.divider,
   },
   lastShift: {
     marginBottom: 0,

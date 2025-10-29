@@ -20,14 +20,14 @@ export const useGetMyShiftSchedules = ({
   const { currentUser } = useAuthStore();
 
   const myShiftSchedules = useQuery<QueryArrayResponse<IStaffSchedule>>({
-    queryKey: ['myShiftSchedules', currentUser?.user?._id, from, to],
+    queryKey: ['myShiftSchedules', currentUser?._id, from, to],
     queryFn: () =>
       shiftService.getMyShiftSchedules({
-        userId: currentUser?.user?._id || '',
+        userId: currentUser?._id || '',
         from,
         to,
       }),
-    enabled: !!currentUser?.user?._id,
+    enabled: !!currentUser?._id,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
