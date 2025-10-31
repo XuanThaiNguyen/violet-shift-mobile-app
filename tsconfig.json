@@ -6,16 +6,17 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
-      "@features/*": ["./src/features/*"],
-      "@navigation/*": ["./src/navigation/*"],
-      "@themes/*": ["./src/themes/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@zustand/*": ["./src/zustand/*"],
-      "@models/*": ["./src/models/*"],
-      "@services/*": ["./src/services/*"],
-      "@providers/*": ["./src/providers/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@features/*": ["src/features/*"],
+      "@navigation/*": ["src/navigation/*"],
+      "@themes/*": ["src/themes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@zustand/*": ["src/zustand/*"],
+      "@models/*": ["src/models/*"],
+      "@services/*": ["src/services/*"],
+      "@providers/*": ["src/providers/*"],
+      "@hooks/*": ["src/hooks/*"]
     }
   }
 }

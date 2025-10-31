@@ -4,6 +4,7 @@ import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import Toggle from '@components/toggle';
 import { Typo } from '@components/typo/typo';
+import { useLogout } from '@hooks/useLogout';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import colors from '@themes/color';
@@ -13,7 +14,6 @@ import useAuthStore from '@zustand/authStore';
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import { useLogout } from 'src/hooks/useLogout';
 import CustomDrawerItem from './customDrawerItem';
 import Screen from './screen';
 
