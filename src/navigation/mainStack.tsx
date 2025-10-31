@@ -8,6 +8,7 @@ import Notification from '@features/notification';
 import Profile from '@features/profile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import colors from '@themes/color';
+import { StyleSheet } from 'react-native';
 import { MainStackScreenProps } from './mainStackScreenProps';
 import Screen from './screen';
 
@@ -23,8 +24,9 @@ const MainStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        gestureEnabled: false,
         headerShown: false,
-        contentStyle: { backgroundColor: colors.background },
+        contentStyle: styles.stackNavigator,
       }}
       initialRouteName={initialRouteName}
     >
@@ -39,5 +41,11 @@ const MainStack = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  stackNavigator: {
+    backgroundColor: colors.background,
+  },
+});
 
 export default MainStack;

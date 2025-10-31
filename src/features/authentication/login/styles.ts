@@ -22,10 +22,7 @@ export const useStyles = () =>
       fontSize: 14,
     },
     btnLogin: {
-      backgroundColor: colors.primaryButton,
-      paddingVertical: 14,
-      borderRadius: 6,
-      alignItems: 'center',
+      marginHorizontal: SpacingDefault.normal,
     },
     upper: {
       flex: 1,

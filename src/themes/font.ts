@@ -13,3 +13,10 @@ export const FontDefault: FontDefault = {
 };
 
 export type FontFamily = keyof typeof FontDefault;
+
+export const FontWeight: Record<string, '400' | '500' | '600' | '700'> = {
+  Regular: '400',
+  Medium: '500',
+  SemiBold: '600',
+  Bold: '700',
+};

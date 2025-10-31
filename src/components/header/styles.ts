@@ -7,7 +7,7 @@ export const useStyles = () =>
     container: {
       backgroundColor: colors.primary,
       paddingHorizontal: SpacingDefault.normal,
-      paddingTop: 8,
+      paddingVertical: 8,
     },
     header: {
       flexDirection: 'row',

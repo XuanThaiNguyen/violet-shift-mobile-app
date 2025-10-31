@@ -114,6 +114,7 @@ const CustomDrawerContent = (props: any) => {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    marginTop: 16,
   },
   userInfo: {
     justifyContent: 'center',

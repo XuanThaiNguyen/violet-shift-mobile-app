@@ -94,9 +94,7 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
             <FastImage source={images.date} style={styles.icon16} />
             <Typo variant="regular_14">Date</Typo>
           </View>
-          <View>
-            <Typo variant="regular_14">{_shiftDate}</Typo>
-          </View>
+          <Typo variant="regular_14">{_shiftDate}</Typo>
         </View>
         <Spacer height={16} />
         <View style={styles.detailItem}>
@@ -206,11 +204,12 @@ const styles = StyleSheet.create({
   },
   detailItem: {
     flexDirection: 'row',
-    height: 36,
+    height: 40,
   },
   icon16: {
     width: 16,
     height: 16,
+    marginTop: 4,
   },
   icon32: {
     width: 32,

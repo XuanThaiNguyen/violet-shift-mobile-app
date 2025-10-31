@@ -25,7 +25,7 @@ export const Button = memo(
     buttonColor,
     loading,
     loadingColor = colors.white,
-    hitSlop,
+    hitSlop = 5,
     throttleDelay = 500,
     ...rest
   }: ButtonProps) => {

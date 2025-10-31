@@ -1,6 +1,7 @@
 import Login from '@features/authentication/login';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import colors from '@themes/color';
+import { StyleSheet } from 'react-native';
 import { MainStackScreenProps } from './mainStackScreenProps';
 import Screen from './screen';
 
@@ -11,7 +12,7 @@ const AuthStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: colors.background },
+        contentStyle: styles.stackNavigator,
       }}
       initialRouteName={Screen.Login}
     >
@@ -19,5 +20,11 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  stackNavigator: {
+    backgroundColor: colors.background,
+  },
+});
 
 export default AuthStack;

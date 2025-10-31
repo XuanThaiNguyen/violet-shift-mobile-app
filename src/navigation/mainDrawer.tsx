@@ -1,5 +1,5 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Dimensions } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import CustomDrawerContent from './customDrawerContent';
 import MainStack from './mainStack';
 import Screen from './screen';
@@ -12,9 +12,7 @@ const MainDrawer = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        drawerStyle: {
-          width: SCREEN_WIDTH / 1.5,
-        },
+        drawerStyle: styles.drawerStyle,
         headerShown: false,
       }}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -24,5 +22,11 @@ const MainDrawer = () => {
     </Drawer.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  drawerStyle: {
+    width: SCREEN_WIDTH / 1.5,
+  },
+});
 
 export default MainDrawer;

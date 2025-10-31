@@ -79,6 +79,7 @@ const ShiftTasks = ({ shiftId }: ShiftTasksProps) => {
   if (_tasks.length === 0)
     return (
       <View style={styles.container}>
+        <Spacer height={16} />
         <Typo center variant="regular_14">
           No tasks!
         </Typo>

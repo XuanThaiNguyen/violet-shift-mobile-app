@@ -20,24 +20,13 @@ import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ClockInOutContent from '../components/clockInOutContent';
+import { SHIFT_TABS } from '../constants';
+import { ClockState, DETAIL_SHIFT_TAB } from '../types';
 import ShiftDetails from './ShiftDetails';
 import ShiftEvents from './ShiftEvents';
 import ShiftProgress from './ShiftProgress';
 import ShiftTasks from './ShiftTasks';
 import { useStyles } from './styles';
-
-enum DETAIL_SHIFT_TAB {
-  DETAILS = 'DETAILS',
-  TASKS = 'TASKS',
-  PROGRESS = 'PROGRESS',
-  EVENTS = 'EVENTS',
-}
-
-export enum ClockState {
-  IN = 'IN',
-  OUT = 'OUT',
-  NONE = 'NONE',
-}
 
 const ShiftManager = () => {
   const styles = useStyles();
@@ -154,6 +143,38 @@ const ShiftManager = () => {
     });
   };
 
+  const renderTab = (tab: DETAIL_SHIFT_TAB) => {
+    let icon = images.menu;
+    switch (tab) {
+      case DETAIL_SHIFT_TAB.DETAILS:
+        icon = images.menu;
+        break;
+      case DETAIL_SHIFT_TAB.TASKS:
+        icon = images.squareTick;
+        break;
+      default:
+        break;
+    }
+
+    const isSelectedTab = detailShifTab === tab;
+
+    return (
+      <Button key={tab} style={styles.btnTab} onPress={onChangeTab(tab)}>
+        <FastImage
+          source={icon}
+          style={styles.icon16}
+          tintColor={isSelectedTab ? colors.primaryText : colors.secondaryText}
+        />
+        <Typo
+          variant={isSelectedTab ? 'bold_10' : 'regular_10'}
+          color={isSelectedTab ? colors.primaryText : colors.secondaryText}
+        >
+          {tab}
+        </Typo>
+      </Button>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <BackHeader title={backTitle} />
@@ -175,120 +196,7 @@ const ShiftManager = () => {
         ) : (
           <></>
         )}
-        <View style={styles.shiftTab}>
-          <Button
-            style={styles.btnTab}
-            onPress={onChangeTab(DETAIL_SHIFT_TAB.DETAILS)}
-          >
-            <FastImage
-              source={images.menu}
-              style={styles.icon16}
-              tintColor={
-                detailShifTab === DETAIL_SHIFT_TAB.DETAILS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            />
-            <Typo
-              variant={
-                detailShifTab === DETAIL_SHIFT_TAB.DETAILS
-                  ? 'medium_10'
-                  : 'regular_10'
-              }
-              color={
-                detailShifTab === DETAIL_SHIFT_TAB.DETAILS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            >
-              {DETAIL_SHIFT_TAB.DETAILS}
-            </Typo>
-          </Button>
-          <Button
-            style={styles.btnTab}
-            onPress={onChangeTab(DETAIL_SHIFT_TAB.TASKS)}
-          >
-            <FastImage
-              source={images.squareTick}
-              style={styles.icon16}
-              tintColor={
-                detailShifTab === DETAIL_SHIFT_TAB.TASKS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            />
-            <Typo
-              variant={
-                detailShifTab === DETAIL_SHIFT_TAB.TASKS
-                  ? 'medium_10'
-                  : 'regular_10'
-              }
-              color={
-                detailShifTab === DETAIL_SHIFT_TAB.TASKS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            >
-              {DETAIL_SHIFT_TAB.TASKS}
-            </Typo>
-          </Button>
-          {/* <Button
-            style={styles.btnTab}
-            onPress={onChangeTab(DETAIL_SHIFT_TAB.PROGRESS)}
-          >
-            <FastImage
-              source={images.squareTick}
-              style={styles.icon16}
-              tintColor={
-                detailShifTab === DETAIL_SHIFT_TAB.PROGRESS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            />
-            <Typo
-              variant={
-                detailShifTab === DETAIL_SHIFT_TAB.PROGRESS
-                  ? 'medium_10'
-                  : 'regular_10'
-              }
-              color={
-                detailShifTab === DETAIL_SHIFT_TAB.PROGRESS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            >
-              {DETAIL_SHIFT_TAB.PROGRESS}
-            </Typo>
-          </Button>
-          <Button
-            style={styles.btnTab}
-            onPress={onChangeTab(DETAIL_SHIFT_TAB.EVENTS)}
-          >
-            <FastImage
-              source={images.squareTick}
-              style={styles.icon16}
-              tintColor={
-                detailShifTab === DETAIL_SHIFT_TAB.EVENTS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            />
-            <Typo
-              variant={
-                detailShifTab === DETAIL_SHIFT_TAB.EVENTS
-                  ? 'medium_10'
-                  : 'regular_10'
-              }
-              color={
-                detailShifTab === DETAIL_SHIFT_TAB.EVENTS
-                  ? colors.primaryText
-                  : colors.secondaryText
-              }
-            >
-              {DETAIL_SHIFT_TAB.EVENTS}
-            </Typo>
-          </Button> */}
-        </View>
+        <View style={styles.shiftTab}>{SHIFT_TABS.map(renderTab)}</View>
         <InsetSubstitute type="bottom" />
       </View>
     </View>

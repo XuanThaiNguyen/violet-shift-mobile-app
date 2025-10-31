@@ -1,4 +1,5 @@
 import { EmploymentTypeEnum } from '@models/User';
+import { DETAIL_SHIFT_TAB } from './types';
 
 enum ShiftTypeKey {
   PERSONAL_CARE = 'personal_care',
@@ -73,3 +74,5 @@ export const EmploymentTypeOptions = {
   [EmploymentTypeEnum.CASUAL]: 'Casual',
   [EmploymentTypeEnum.OTHER]: 'Other',
 };
+
+export const SHIFT_TABS = [DETAIL_SHIFT_TAB.DETAILS, DETAIL_SHIFT_TAB.TASKS];

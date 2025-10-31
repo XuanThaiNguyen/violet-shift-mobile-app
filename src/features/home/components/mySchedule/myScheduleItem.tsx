@@ -50,23 +50,23 @@ const MyScheduleItem = ({ item, dateLabel, dayLabel }: MyScheduleItemProps) => {
         ]}
       >
         <View style={styles.time}>
-          <Typo variant="semibold_10">
+          <Typo variant="semibold_10" color={colors.primaryText}>
             {dayjs(shift.timeFrom).format('h:mm A')} -{' '}
             {dayjs(shift.timeTo).format('h:mm A')}
           </Typo>
-          <Typo variant="regular_10">
+          <Typo variant="regular_10" color={colors.primaryText}>
             {getShiftTypeLabel(shift.shift?.shiftType)}
           </Typo>
         </View>
         <Spacer height={20} />
-        <Typo variant="medium_14">
+        <Typo variant="medium_14" color={colors.primaryText}>
           Client:{' '}
-          <Typo variant="regular_14">
+          <Typo variant="regular_14" color={colors.primaryText}>
             {!!shift.clientNames?.[0] ? shift.clientNames[0] : ''}
           </Typo>
         </Typo>
         <Spacer height={16} />
-        <Typo variant="medium_14">
+        <Typo variant="medium_14" color={colors.primaryText}>
           Address: <Typo variant="regular_14">{shift.shift.address || ''}</Typo>
         </Typo>
         <Spacer height={24} />
