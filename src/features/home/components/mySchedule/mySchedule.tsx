@@ -7,6 +7,7 @@ import { Spacer } from '@components/spacer';
 import { useGetMyShiftSchedules } from '@features/home/hooks';
 import { IStaffSchedule, WeekDataSchedule } from '@models/Shift';
 import colors from '@themes/color';
+import { isIos } from '@themes/constant';
 import images from '@themes/images';
 import { DATE_FORMAT, getRangeByViewMode } from '@utils/handleDateTime';
 import dayjs from 'dayjs';
@@ -88,7 +89,7 @@ const MySchedule = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <DrawerHeader
         renderRightHeader={_renderRightHeader}
         title={dayjs(date).format(DATE_FORMAT.FOUR)}
@@ -120,7 +121,7 @@ const MySchedule = () => {
       </View>
 
       <Loading isLoading={isFetching} />
-    </>
+    </View>
   );
 };
 
@@ -132,7 +133,9 @@ const styles = StyleSheet.create({
   },
   flatlistContainer: {
     marginTop: HEADER_EXPANDABLE_CALENDAR_HEIGHT + SPACING_HEADER,
-    paddingBottom: 16,
+    paddingBottom: isIos
+      ? 16
+      : HEADER_EXPANDABLE_CALENDAR_HEIGHT + SPACING_HEADER,
   },
   icon20: {
     width: 20,

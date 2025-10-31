@@ -10,6 +10,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import { CalendarTheme } from './theme';
 
 interface CalendarListCustomProps {
   onExpand?: () => void;
@@ -50,6 +51,7 @@ const CalendarListCustom = ({
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
       <CalendarList
+        theme={CalendarTheme}
         pastScrollRange={12}
         futureScrollRange={12}
         scrollEnabled

@@ -2,10 +2,11 @@ import { Button } from '@components/button';
 import colors from '@themes/color';
 import images from '@themes/images';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
 import FastImage from 'react-native-fast-image';
+import { CalendarTheme } from './theme';
 
 interface ExpendableCalendarCustomProps {
   date: string; //2025-09-29
@@ -15,37 +16,38 @@ interface ExpendableCalendarCustomProps {
 }
 
 const ExpendableCalendarCustom = ({
-  date = new Date().toDateString(),
+  date,
   onExpand,
   isExpanded,
   setDate,
 }: ExpendableCalendarCustomProps) => {
   return (
-    <View style={[styles.container, isExpanded && styles.expanded]}>
-      <CalendarProvider date={date}>
-        <View style={styles.expandableCalendar}>
-          <ExpandableCalendar
-            disableWeekScroll
-            disablePan
-            hideKnob
-            date={date}
-            customHeaderTitle={<></>}
-            hideArrows
-            onDayPress={date => setDate?.(date.dateString)}
-            initialPosition={Positions.CLOSED}
-            firstDay={0}
-            style={styles.calendar}
-          />
-          <Button onPress={onExpand} style={styles.btnExpand}>
-            <FastImage
-              source={images.doubleArrowDown}
-              style={styles.icon20}
-              tintColor={colors.primaryButton}
-            />
-          </Button>
-        </View>
-      </CalendarProvider>
-    </View>
+    <CalendarProvider
+      style={[styles.container, isExpanded && styles.expanded]}
+      date={date}
+      theme={CalendarTheme}
+    >
+      <ExpandableCalendar
+        disableWeekScroll
+        disablePan
+        hideKnob
+        date={date}
+        customHeaderTitle={<></>}
+        hideArrows
+        onDayPress={date => setDate?.(date.dateString)}
+        initialPosition={Positions.CLOSED}
+        firstDay={0}
+        theme={CalendarTheme}
+        style={styles.calendar}
+      />
+      <Button onPress={onExpand} style={styles.btnExpand}>
+        <FastImage
+          source={images.doubleArrowDown}
+          style={styles.icon20}
+          tintColor={colors.primaryButton}
+        />
+      </Button>
+    </CalendarProvider>
   );
 };
 
@@ -56,6 +58,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
     flex: 1,
+    backgroundColor: colors.white,
+    paddingBottom: 4,
   },
   expanded: {
     zIndex: -1,
@@ -66,10 +70,6 @@ const styles = StyleSheet.create({
   icon20: {
     width: 20,
     height: 20,
-  },
-  expandableCalendar: {
-    backgroundColor: colors.white,
-    paddingBottom: 4,
   },
   calendar: {
     borderBottomWidth: 0,
