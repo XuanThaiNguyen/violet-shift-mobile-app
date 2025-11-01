@@ -1,7 +1,9 @@
 import { Button } from '@components/button';
 import colors from '@themes/color';
+import { isAndroid } from '@themes/constant';
 import images from '@themes/images';
-import React from 'react';
+import useAppStore, { CalendarKeyEnum } from '@zustand/appStore';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { CalendarProvider, ExpandableCalendar } from 'react-native-calendars';
 import { Positions } from 'react-native-calendars/src/expandableCalendar';
@@ -21,6 +23,18 @@ const ExpendableCalendarCustom = ({
   isExpanded,
   setDate,
 }: ExpendableCalendarCustomProps) => {
+  const { calendarKey, setCalendarKey } = useAppStore();
+
+  useEffect(() => {
+    if (calendarKey === CalendarKeyEnum.INITIAL && isAndroid) {
+      const timeoutId = setTimeout(() => {
+        setCalendarKey(CalendarKeyEnum.READY);
+      }, 300);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [calendarKey, isAndroid]);
+
   return (
     <CalendarProvider
       style={[styles.container, isExpanded && styles.expanded]}
@@ -28,8 +42,11 @@ const ExpendableCalendarCustom = ({
       theme={CalendarTheme}
     >
       <ExpandableCalendar
+        key={calendarKey}
         disableWeekScroll
         disablePan
+        futureScrollRange={1}
+        pastScrollRange={1}
         hideKnob
         date={date}
         customHeaderTitle={<></>}
