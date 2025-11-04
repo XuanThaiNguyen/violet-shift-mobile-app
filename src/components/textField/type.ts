@@ -1,4 +1,3 @@
-import { IconTypes } from '@themes/images';
 import {
   KeyboardTypeOptions,
   StyleProp,

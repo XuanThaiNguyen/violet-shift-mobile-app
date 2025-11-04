@@ -28,10 +28,22 @@ const presets = {
     fontWeight: FontWeight.Bold,
     color: colors.primaryText,
   },
+  regular_12: {
+    fontFamily: FontDefault.Regular,
+    fontSize: scaleFontSize(12),
+    fontWeight: FontWeight.Regular,
+    color: colors.primaryText,
+  },
   semibold_12: {
     fontFamily: FontDefault.SemiBold,
     fontSize: scaleFontSize(12),
     fontWeight: FontWeight.SemiBold,
+    color: colors.primaryText,
+  },
+  bold_14: {
+    fontFamily: FontDefault.Bold,
+    fontSize: scaleFontSize(14),
+    fontWeight: FontWeight.Bold,
     color: colors.primaryText,
   },
   semibold_14: {

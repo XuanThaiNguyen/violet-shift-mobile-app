@@ -1,20 +1,11 @@
 import { EmploymentTypeEnum } from '@models/User';
-import { DETAIL_SHIFT_TAB } from './types';
-
-enum ShiftTypeKey {
-  PERSONAL_CARE = 'personal_care',
-  BOARD_N_LODGING = 'board_n_lodging',
-  DOMESTIC_ASSISTANCE = 'domestic_assistance',
-  NIGHT_SHIFT = 'night_shift',
-  ON_CALL = 'on_call',
-  RECALL_TO_WORK = 'recall_to_work',
-  REMOTE_WORK = 'remote_work',
-  RESPITE_CARE = 'respite_care',
-  SLEEPOVER = 'sleepover',
-  SUPPORT_COORDINATION = 'support_coordination',
-  TRANSPORT = 'transport',
-  FULL_HOUR_CARE = '24_hour_care',
-}
+import {
+  DETAIL_SHIFT_TAB,
+  ProgressOptionKeyEnum,
+  ProgressOptionProps,
+  ShiftTypeKey,
+} from './types';
+import images from '@themes/images';
 
 export const ShiftTypeOptions = [
   {
@@ -75,4 +66,41 @@ export const EmploymentTypeOptions = {
   [EmploymentTypeEnum.OTHER]: 'Other',
 };
 
-export const SHIFT_TABS = [DETAIL_SHIFT_TAB.DETAILS, DETAIL_SHIFT_TAB.TASKS];
+export const SHIFT_TABS = [
+  DETAIL_SHIFT_TAB.DETAILS,
+  DETAIL_SHIFT_TAB.TASKS,
+  DETAIL_SHIFT_TAB.PROGRESS,
+];
+
+export const PROGRESS_OPTIONS: ProgressOptionProps[] = [
+  {
+    key: ProgressOptionKeyEnum.NOTE,
+    label: 'Note',
+    icon: images.note,
+  },
+  {
+    key: ProgressOptionKeyEnum.FEEDBACK,
+    label: 'Feedback',
+    icon: images.feedback,
+  },
+  {
+    key: ProgressOptionKeyEnum.INCIDENT,
+    label: 'Incident',
+    icon: images.avatar,
+  },
+  {
+    key: ProgressOptionKeyEnum.ENQUIRY,
+    label: 'Enquiry',
+    icon: images.avatar,
+  },
+  {
+    key: ProgressOptionKeyEnum.MILEAGE,
+    label: 'Mileage',
+    icon: images.avatar,
+  },
+  {
+    key: ProgressOptionKeyEnum.EXPENSE,
+    label: 'Expense',
+    icon: images.avatar,
+  },
+];

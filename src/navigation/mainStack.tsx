@@ -2,8 +2,11 @@ import About from '@features/about';
 import Availibility from '@features/availibility';
 import SetAvailibility from '@features/availibility/setAvailibility';
 import Home from '@features/home';
+import AddProgress from '@features/home/addProgress';
 import AllShiftClients from '@features/home/allShiftClients';
 import ShiftManager from '@features/home/detailShift';
+import ProgressDetail from '@features/home/progressDetail';
+import UpdateProgress from '@features/home/updateProgress';
 import Notification from '@features/notification';
 import Profile from '@features/profile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -38,6 +41,9 @@ const MainStack = () => {
       <Stack.Screen name={Screen.SetAvailibility} component={SetAvailibility} />
       <Stack.Screen name={Screen.Profile} component={Profile} />
       <Stack.Screen name={Screen.AllShiftClients} component={AllShiftClients} />
+      <Stack.Screen name={Screen.AddProgress} component={AddProgress} />
+      <Stack.Screen name={Screen.UpdateProgress} component={UpdateProgress} />
+      <Stack.Screen name={Screen.ProgressDetail} component={ProgressDetail} />
     </Stack.Navigator>
   );
 };

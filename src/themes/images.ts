@@ -25,6 +25,10 @@ const images = {
   circleCheck: require('../assets/icons/circle-check.png'),
   warningAlert: require('../assets/icons/ic_warning_alert.png'),
   warningCircle: require('../assets/icons/ic_warning_circle.png'),
+  progress: require('../assets/icons/progress.png'),
+  note: require('../assets/icons/note.png'),
+  feedback: require('../assets/icons/feedback.png'),
+  edit: require('../assets/icons/edit.png'),
 };
 
 export default images;

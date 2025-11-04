@@ -1,6 +1,22 @@
+import { ProgressOptionKeyEnum } from '@features/home/types';
 import dayjs from 'dayjs';
 import { IClient } from './Client';
 import { IUser } from './User';
+
+export interface IShiftProgress {
+  _id: string;
+  shiftProgressType: ProgressOptionKeyEnum;
+  shift: string;
+  client: IClient;
+  description: string;
+  url: string[];
+}
+
+export interface ISubmitShiftProgress {
+  description: string;
+  client: string;
+  shiftProgressType: ProgressOptionKeyEnum;
+}
 
 export interface IShiftRepeat {
   pattern: string; // cron pattern [second] [minute] [hour] [day of month] [month] [day of week]

@@ -13,6 +13,10 @@ enum ApiKeys {
   UPDATE_TASK_BY_SHIFT_ID = 'shifts/:shiftId/tasks/:taskId/complete',
   POST_CLOCK_IN_SHIFT = 'shifts/:shiftId/staff-schedules/:scheduleId/clock-in',
   POST_CLOCK_OUT_SHIFT = 'shifts/:shiftId/staff-schedules/:scheduleId/clock-out',
+  GET_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses',
+  GET_SHIFT_PROGRESS_BY_ID = 'shifts/:shiftId/progresses/:shiftProgressId',
+  POST_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses',
+  UPDATE_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses/:shiftProgressId',
 }
 
 export default ApiKeys;

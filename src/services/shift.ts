@@ -1,3 +1,4 @@
+import { ISubmitShiftProgress } from '@models/Shift';
 import http from '@utils/http';
 import ApiKeys from './api';
 
@@ -109,6 +110,62 @@ export const postClockOutShiftByShiftId = async ({
   return response.data;
 };
 
+export const getShiftProgresses = async ({ shiftId }: { shiftId: string }) => {
+  const response = await http.get(
+    ApiKeys.GET_SHIFT_PROGRESSES.replace(':shiftId', shiftId),
+  );
+  return response.data;
+};
+
+export const getShiftProgressById = async ({
+  shiftId,
+  shiftProgressId,
+}: {
+  shiftId: string;
+  shiftProgressId: string;
+}) => {
+  const response = await http.get(
+    ApiKeys.GET_SHIFT_PROGRESS_BY_ID.replace(':shiftId', shiftId).replace(
+      ':shiftProgressId',
+      shiftProgressId,
+    ),
+  );
+  return response.data;
+};
+
+export const postProgress = async ({
+  shiftId,
+  values,
+}: {
+  shiftId: string;
+  values: ISubmitShiftProgress;
+}) => {
+  const response = await http.post(
+    ApiKeys.POST_SHIFT_PROGRESSES.replace(':shiftId', shiftId),
+    values,
+  );
+  return response.data;
+};
+
+export const updateProgress = async ({
+  shiftId,
+  values,
+  shiftProgressId,
+}: {
+  shiftId: string;
+  shiftProgressId: string;
+  values: ISubmitShiftProgress;
+}) => {
+  const response = await http.put(
+    ApiKeys.UPDATE_SHIFT_PROGRESSES.replace(':shiftId', shiftId).replace(
+      ':shiftProgressId',
+      shiftProgressId,
+    ),
+    values,
+  );
+  return response.data;
+};
+
 export const shiftService = {
   getMyShiftSchedules,
   getDetailShift,
@@ -118,4 +175,8 @@ export const shiftService = {
   updateTaskByShiftId,
   postClockInShiftByShiftId,
   postClockOutShiftByShiftId,
+  getShiftProgresses,
+  getShiftProgressById,
+  postProgress,
+  updateProgress,
 };

@@ -12,7 +12,7 @@ import { getFullName } from '@utils/handleStrings';
 import useAuthStore from '@zustand/authStore';
 import dayjs from 'dayjs';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ClientsInfo from '../components/clientsInfo';
 import {
@@ -50,7 +50,7 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
   };
 
   return (
-    <View>
+    <ScrollView bounces={false}>
       {/* <View style={styles.viewMap}>
         <Typo variant="bold_20" color={colors.white}>
           This is map
@@ -154,7 +154,7 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
         </View>
         <Spacer height={16} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

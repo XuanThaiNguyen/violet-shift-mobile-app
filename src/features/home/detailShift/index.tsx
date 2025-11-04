@@ -17,7 +17,7 @@ import images from '@themes/images';
 import { modalUtil } from '@utils/modalUtil';
 import { AxiosError } from 'axios';
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ClockInOutContent from '../components/clockInOutContent';
 import { SHIFT_TABS } from '../constants';
@@ -104,7 +104,8 @@ const ShiftManager = () => {
       backTitle = 'Shift Tasks';
       break;
     case DETAIL_SHIFT_TAB.PROGRESS:
-      content = <ShiftProgress />;
+      content = <ShiftProgress shiftId={shiftId} />;
+      backTitle = 'Shift Progress';
       break;
     case DETAIL_SHIFT_TAB.EVENTS:
       content = <ShiftEvents />;
@@ -152,6 +153,9 @@ const ShiftManager = () => {
       case DETAIL_SHIFT_TAB.TASKS:
         icon = images.squareTick;
         break;
+      case DETAIL_SHIFT_TAB.PROGRESS:
+        icon = images.progress;
+        break;
       default:
         break;
     }
@@ -178,9 +182,7 @@ const ShiftManager = () => {
   return (
     <View style={styles.container}>
       <BackHeader title={backTitle} />
-      <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
-        {content}
-      </ScrollView>
+      <View style={styles.block}>{content}</View>
 
       <View style={styles.footer}>
         {clockState !== ClockState.OUT &&

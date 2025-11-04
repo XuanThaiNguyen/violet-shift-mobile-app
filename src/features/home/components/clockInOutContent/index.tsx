@@ -2,7 +2,7 @@ import { Button } from '@components/button';
 import BottomModalHeader from '@components/header/BottomModalHeader';
 import { Spacer } from '@components/spacer';
 import { Typo } from '@components/typo/typo';
-import { ClockState } from '@features/home/detailShift';
+import { ClockState } from '@features/home/types';
 import colors from '@themes/color';
 import images from '@themes/images';
 import { modalUtil } from '@utils/modalUtil';

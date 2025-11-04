@@ -1,6 +1,7 @@
 import {
   IClientScheduleOfDetailShift,
   IDetailShift,
+  IShiftProgress,
   IShiftTask,
   IStaffSchedule,
   IStaffScheduleOfDetailShift,
@@ -115,4 +116,45 @@ export const useGetTasksByShiftId = ({ shiftId }: { shiftId: string }) => {
   });
 
   return myDetailShift;
+};
+
+export const useGetMyShiftProgresses = ({ shiftId }: { shiftId: string }) => {
+  const myShiftProgresses = useQuery<QueryArrayResponse<IShiftProgress>>({
+    queryKey: ['myShiftProgresses', shiftId],
+    queryFn: () =>
+      shiftService.getShiftProgresses({
+        shiftId,
+      }),
+    enabled: !!shiftId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return myShiftProgresses;
+};
+
+export const useGetMyShiftProgressById = ({
+  shiftId,
+  shiftProgressId,
+}: {
+  shiftId: string;
+  shiftProgressId: string;
+}) => {
+  const myDetailShiftProgress = useQuery<QueryObjectResponse<IShiftProgress>>({
+    queryKey: ['myShiftProgress', shiftId, shiftProgressId],
+    queryFn: () =>
+      shiftService.getShiftProgressById({
+        shiftId,
+        shiftProgressId,
+      }),
+    enabled: !!shiftId && !!shiftProgressId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return myDetailShiftProgress;
 };

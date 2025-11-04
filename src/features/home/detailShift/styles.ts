@@ -36,4 +36,7 @@ export const useStyles = () =>
       marginHorizontal: SpacingDefault.normal,
       height: 36,
     },
+    block: {
+      flex: 1,
+    },
   });
