@@ -12,6 +12,7 @@ const TextField = ({
   onBlur,
   onChangeText,
   renderRightChildren,
+  renderLeftChildren,
   error,
   errorMessage,
   placeholder,
@@ -45,7 +46,7 @@ const TextField = ({
           blockInputStyle,
         ]}
       >
-        {!!iconLeft && (
+        {!!iconLeft ? (
           <>
             <FastImage
               source={iconLeft}
@@ -54,6 +55,10 @@ const TextField = ({
             />
             <Spacer width="smaller" />
           </>
+        ) : renderLeftChildren ? (
+          renderLeftChildren()
+        ) : (
+          <></>
         )}
         <TextInput
           autoCorrect={false}

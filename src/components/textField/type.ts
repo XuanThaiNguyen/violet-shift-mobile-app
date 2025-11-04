@@ -12,6 +12,7 @@ export interface TextFieldProps extends TextInputProps {
   errorMessage?: string;
   placeholder?: string;
   renderRightChildren?: () => React.ReactNode;
+  renderLeftChildren?: () => React.ReactNode;
   editable?: boolean;
   iconLeft?: any;
   iconRight?: any;

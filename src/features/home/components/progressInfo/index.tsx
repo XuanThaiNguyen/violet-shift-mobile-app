@@ -38,15 +38,11 @@ const ProgressInfo = ({
   };
 
   const onSetExpense = (expense: string) => {
-    setFieldValue('expense', expense);
+    setFieldValue('metadata.expense', expense);
   };
 
   const onSetMileage = (mileage: string) => {
-    setFieldValue('mileage', mileage);
-  };
-
-  const onSetMileageStartPoint = (mileageStartPoint: MileageStartPointEnum) => {
-    setFieldValue('mileageStartPoint', mileageStartPoint);
+    setFieldValue('metadata.mileage', mileage);
   };
 
   const _fullname = useMemo(() => getFullName(values.client), [values.client]);
@@ -55,16 +51,17 @@ const ProgressInfo = ({
   switch (progressKey) {
     case ProgressOptionKeyEnum.EXPENSE:
       moreContent = (
-        <ExpenseForm expense={values.expense} setExpense={onSetExpense} />
+        <ExpenseForm
+          expense={values.metadata.expense}
+          setExpense={onSetExpense}
+        />
       );
       break;
     case ProgressOptionKeyEnum.MILEAGE:
       moreContent = (
         <MileageForm
-          mileageStartPoint={values.mileageStartPoint}
-          mileage={values.mileage}
+          mileage={values.metadata.mileage}
           setMileage={onSetMileage}
-          setMileageStartPoint={onSetMileageStartPoint}
         />
       );
       break;

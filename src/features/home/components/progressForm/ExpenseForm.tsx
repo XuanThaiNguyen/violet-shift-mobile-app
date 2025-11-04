@@ -1,9 +1,10 @@
 import { Divider } from '@components/divider';
 import { Spacer } from '@components/spacer';
+import { SpacingDefault } from '@components/spacing/spacing';
 import TextField from '@components/textField';
-import images from '@themes/images';
+import { Typo } from '@components/typo/typo';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface ExpenseFormProps {
   expense?: string;
@@ -11,14 +12,20 @@ interface ExpenseFormProps {
 }
 
 const ExpenseForm = ({ expense = '', setExpense }: ExpenseFormProps) => {
+  const renderLeftChild = () => (
+    <View style={{ marginRight: SpacingDefault.smaller }}>
+      <Typo variant="regular_14">$$</Typo>
+    </View>
+  );
+
   return (
     <>
       <TextField
-        value={expense}
+        value={`${expense}`}
         onChangeText={setExpense}
         placeholder="Expense"
         blockInputStyle={styles.note}
-        iconLeft={images.avatar}
+        renderLeftChildren={renderLeftChild}
         keyboardType="numeric"
       />
       <Divider />

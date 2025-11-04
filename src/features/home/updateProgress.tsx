@@ -15,13 +15,13 @@ import { shiftService } from '@services/shift';
 import { QueryObjectResponse } from '@services/type';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import colors from '@themes/color';
+import { capitalizeFirst } from '@utils/handleStrings';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ProgressInfo from './components/progressInfo';
-import { MileageStartPointEnum, ProgressOptionKeyEnum } from './types';
-import { capitalizeFirst } from '@utils/handleStrings';
+import { ProgressOptionKeyEnum } from './types';
 
 interface ProgressFormikValues {
   client: IClient | null;
@@ -29,9 +29,7 @@ interface ProgressFormikValues {
   description: string;
   url?: string[];
   shiftProgressType: ProgressOptionKeyEnum | null;
-  expense?: string;
-  mileage?: string;
-  mileageStartPoint: MileageStartPointEnum;
+  metadata: Record<string, any>;
 }
 
 const initialValues: ProgressFormikValues = {
@@ -40,9 +38,7 @@ const initialValues: ProgressFormikValues = {
   description: '',
   url: [],
   shiftProgressType: null,
-  expense: '',
-  mileage: '',
-  mileageStartPoint: MileageStartPointEnum.NONE,
+  metadata: {},
 };
 
 const UpdateProgress = () => {
@@ -80,11 +76,27 @@ const UpdateProgress = () => {
     useFormik<ProgressFormikValues>({
       initialValues: inits,
       onSubmit: values => {
-        const submitParams = {
+        const submitParams: any = {
           client: values.client?._id,
           description: values.description,
           shiftProgressType: values.shiftProgressType,
         };
+
+        if (values.shiftProgressType === ProgressOptionKeyEnum.EXPENSE) {
+          const metadata = {
+            expense: values.metadata.expense || '',
+          };
+          submitParams.metadata = metadata;
+        }
+
+        if (values.shiftProgressType === ProgressOptionKeyEnum.MILEAGE) {
+          const metadata = {
+            mileage: values.metadata.mileage || '',
+            mileageStartPoint: values.metadata.mileageStartPoint || '',
+          };
+          submitParams.metadata = metadata;
+        }
+
         mutateUpdateProgress({
           shiftId: values.shift!,
           shiftProgressId: detailProgress._id,
@@ -92,6 +104,36 @@ const UpdateProgress = () => {
         });
       },
     });
+
+  const shouldBeDisabled = useMemo(() => {
+    if (!values.shiftProgressType) return true;
+
+    const descChanged = values.description !== detailProgress?.description;
+
+    if (values.shiftProgressType === ProgressOptionKeyEnum.EXPENSE) {
+      const expense = values.metadata?.expense;
+      const oldExpense = detailProgress?.metadata?.expense;
+
+      const expenseChanged = expense !== oldExpense;
+
+      return (
+        !expense || !values.description || (!descChanged && !expenseChanged)
+      );
+    }
+
+    if (values.shiftProgressType === ProgressOptionKeyEnum.MILEAGE) {
+      const mileage = values.metadata?.mileage;
+      const oldMileage = detailProgress?.metadata?.mileage;
+
+      const mileageChanged = mileage !== oldMileage;
+
+      return (
+        !mileage || !values.description || (!descChanged && !mileageChanged)
+      );
+    }
+
+    return !values.description || !descChanged;
+  }, [values, detailProgress]);
 
   return (
     <View style={styles.container}>
@@ -105,7 +147,7 @@ const UpdateProgress = () => {
         setFieldValue={setFieldValue}
       />
       <Button
-        disabled={!values.description}
+        disabled={shouldBeDisabled}
         preset="primary"
         text="Update"
         style={styles.btnSave}

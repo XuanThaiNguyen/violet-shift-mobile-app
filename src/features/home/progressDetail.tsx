@@ -13,6 +13,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { useGetMyShiftProgressById } from './hooks';
+import { ProgressOptionKeyEnum } from './types';
 
 const ProgressDetail = () => {
   const { navigate } = useNavigation();
@@ -66,6 +67,23 @@ const ProgressDetail = () => {
           <Typo variant="bold_14">Description:</Typo>{' '}
           {detailProgress.description || 'No description'}
         </Typo>
+        <Spacer height={8} />
+        {detailProgress.shiftProgressType === ProgressOptionKeyEnum.EXPENSE ? (
+          <Typo variant="medium_14">
+            <Typo variant="bold_14">Expense:</Typo>{' '}
+            {detailProgress.metadata?.expense || '0'}
+          </Typo>
+        ) : (
+          <></>
+        )}
+        {detailProgress.shiftProgressType === ProgressOptionKeyEnum.MILEAGE ? (
+          <Typo variant="medium_14">
+            <Typo variant="bold_14">Mileage:</Typo>{' '}
+            {detailProgress.metadata?.mileage || '0'}
+          </Typo>
+        ) : (
+          <></>
+        )}
         <Spacer height={8} />
         <Typo variant="medium_14">
           <Typo variant="bold_14">Attachment:</Typo>{' '}

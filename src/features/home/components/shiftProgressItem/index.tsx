@@ -2,6 +2,7 @@ import { Button } from '@components/button';
 import { Spacer } from '@components/spacer';
 import { SpacingDefault } from '@components/spacing/spacing';
 import { Typo } from '@components/typo/typo';
+import { ProgressOptionKeyEnum } from '@features/home/types';
 import { IShiftProgress } from '@models/Shift';
 import { navigationRef } from '@navigation/navigationUtil';
 import Screen from '@navigation/screen';
@@ -59,6 +60,28 @@ const ShiftProgressItem = ({ item, shiftId }: ShiftProgressItemProps) => {
           {item.description || 'No description'}
         </Typo>
         <Spacer height={8} />
+        {item.shiftProgressType === ProgressOptionKeyEnum.EXPENSE ? (
+          <>
+            <Typo variant="medium_14">
+              <Typo variant="bold_14">Expense:</Typo>{' '}
+              {item.metadata?.expense || '0'}
+            </Typo>
+            <Spacer height={8} />
+          </>
+        ) : (
+          <></>
+        )}
+        {item.shiftProgressType === ProgressOptionKeyEnum.MILEAGE ? (
+          <>
+            <Typo variant="medium_14">
+              <Typo variant="bold_14">Mileage:</Typo>{' '}
+              {item.metadata?.mileage || '0'}
+            </Typo>
+            <Spacer height={8} />
+          </>
+        ) : (
+          <></>
+        )}
         <Button style={styles.btnAttach}>
           <Typo variant="semibold_12">{defaultAttachmentTxt}</Typo>
         </Button>

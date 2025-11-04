@@ -17,11 +17,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import colors from '@themes/color';
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ProgressInfo from './components/progressInfo';
 import { useGetClientSchedulesOfDetailShift } from './hooks';
-import { MileageStartPointEnum, ProgressOptionKeyEnum } from './types';
+import { ProgressOptionKeyEnum } from './types';
 
 interface ProgressFormikValues {
   client: IClient | null;
@@ -29,9 +29,7 @@ interface ProgressFormikValues {
   description: string;
   url?: string[];
   shiftProgressType: ProgressOptionKeyEnum | null;
-  expense?: string;
-  mileage?: string;
-  mileageStartPoint: MileageStartPointEnum;
+  metadata: Record<string, any>;
 }
 
 const initialValues: ProgressFormikValues = {
@@ -40,9 +38,7 @@ const initialValues: ProgressFormikValues = {
   description: '',
   url: [],
   shiftProgressType: null,
-  expense: '',
-  mileage: '',
-  mileageStartPoint: MileageStartPointEnum.NONE,
+  metadata: {},
 };
 
 const AddProgress = () => {
@@ -78,11 +74,27 @@ const AddProgress = () => {
     useFormik<ProgressFormikValues>({
       initialValues: inits,
       onSubmit: values => {
-        const submitParams = {
-          client: values.client?._id,
+        const submitParams: any = {
+          client: values.client?._id || '',
           description: values.description,
           shiftProgressType: values.shiftProgressType,
         };
+
+        if (values.shiftProgressType === ProgressOptionKeyEnum.EXPENSE) {
+          const metadata = {
+            expense: values.metadata.expense || '',
+          };
+          submitParams.metadata = metadata;
+        }
+
+        if (values.shiftProgressType === ProgressOptionKeyEnum.MILEAGE) {
+          const metadata = {
+            mileage: values.metadata.mileage || '',
+            mileageStartPoint: values.metadata.mileageStartPoint || '',
+          };
+          submitParams.metadata = metadata;
+        }
+
         mutateAddProgress({ shiftId: values.shift!, values: submitParams });
       },
     });
@@ -100,6 +112,18 @@ const AddProgress = () => {
     if (key) setFieldValue('shiftProgressType', key);
   }, [isSuccessClient, shiftId, key]);
 
+  const shouldBeDisabled = useMemo(() => {
+    if (values.shiftProgressType === ProgressOptionKeyEnum.EXPENSE) {
+      return !values.metadata.expense || !values.description;
+    }
+
+    if (values.shiftProgressType === ProgressOptionKeyEnum.MILEAGE) {
+      return !values.metadata.mileage || !values.description;
+    }
+
+    return !values.description;
+  }, [values.shiftProgressType, values.description, values.metadata.expense]);
+
   return (
     <View style={styles.container}>
       <BackHeader title={`Add ${label}`} />
@@ -110,7 +134,7 @@ const AddProgress = () => {
         setFieldValue={setFieldValue}
       />
       <Button
-        disabled={!values.description}
+        disabled={shouldBeDisabled}
         preset="primary"
         text="Save"
         style={styles.btnSave}
