@@ -133,6 +133,17 @@ export const getShiftProgressById = async ({
   return response.data;
 };
 
+export const getShiftProgressEvents = async ({
+  shiftId,
+}: {
+  shiftId: string;
+}) => {
+  const response = await http.get(
+    ApiKeys.GET_SHIFT_PROGRESS_EVENTS.replace(':shiftId', shiftId),
+  );
+  return response.data;
+};
+
 export const postProgress = async ({
   shiftId,
   values,
@@ -179,4 +190,5 @@ export const shiftService = {
   getShiftProgressById,
   postProgress,
   updateProgress,
+  getShiftProgressEvents,
 };

@@ -64,6 +64,7 @@ const UpdateProgress = () => {
         });
         queryClient.invalidateQueries({ queryKey: ['myShiftProgresses'] });
         queryClient.invalidateQueries({ queryKey: ['myShiftProgress'] });
+        queryClient.invalidateQueries({ queryKey: ['myShiftProgressEvents'] });
         goBack();
       }
     },

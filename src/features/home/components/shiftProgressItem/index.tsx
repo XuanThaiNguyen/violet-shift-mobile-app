@@ -21,14 +21,6 @@ interface ShiftProgressItemProps {
 const ShiftProgressItem = ({ item, shiftId }: ShiftProgressItemProps) => {
   const _fullName = getFullName(item.client);
 
-  let defaultAttachmentTxt = 'No attachment';
-  if (item.url.length === 1) {
-    defaultAttachmentTxt = '1 attachment';
-  }
-  if (item.url.length > 1) {
-    defaultAttachmentTxt = `${item.url.length} attachments`;
-  }
-
   const onDetail = () => {
     navigationRef.current?.navigate(Screen.ProgressDetail, {
       shiftId,
@@ -82,9 +74,9 @@ const ShiftProgressItem = ({ item, shiftId }: ShiftProgressItemProps) => {
         ) : (
           <></>
         )}
-        <Button style={styles.btnAttach}>
-          <Typo variant="semibold_12">{defaultAttachmentTxt}</Typo>
-        </Button>
+        <Typo variant="medium_14">
+          <Typo variant="bold_14">Attachment:</Typo> {item?.url.length}
+        </Typo>
       </View>
     </Button>
   );

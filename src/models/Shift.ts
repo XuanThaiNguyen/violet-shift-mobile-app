@@ -13,6 +13,18 @@ export interface IShiftProgress {
   metadata?: Record<string, string>;
 }
 
+export interface IShiftProgressEvent {
+  _id: string;
+  progress: IShiftProgress | string;
+  shift: string;
+  client: string;
+  action: 'created' | 'updated';
+  changes?: Record<string, any>;
+  createdBy: IUser;
+  createdAt: Date;
+  shiftProgressType: ProgressOptionKeyEnum;
+}
+
 export interface ISubmitShiftProgress {
   description: string;
   client: string;

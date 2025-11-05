@@ -62,6 +62,7 @@ const AddProgress = () => {
           iconColor: colors.green,
         });
         queryClient.invalidateQueries({ queryKey: ['myShiftProgresses'] });
+        queryClient.invalidateQueries({ queryKey: ['myShiftProgressEvents'] });
         goBack();
       }
     },

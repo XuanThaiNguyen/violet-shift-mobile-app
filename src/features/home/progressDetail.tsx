@@ -67,20 +67,25 @@ const ProgressDetail = () => {
           <Typo variant="bold_14">Description:</Typo>{' '}
           {detailProgress.description || 'No description'}
         </Typo>
-        <Spacer height={8} />
         {detailProgress.shiftProgressType === ProgressOptionKeyEnum.EXPENSE ? (
-          <Typo variant="medium_14">
-            <Typo variant="bold_14">Expense:</Typo>{' '}
-            {detailProgress.metadata?.expense || '0'}
-          </Typo>
+          <>
+            <Typo variant="medium_14">
+              <Typo variant="bold_14">Expense:</Typo>{' '}
+              {detailProgress.metadata?.expense || '0'}
+            </Typo>
+            <Spacer height={8} />
+          </>
         ) : (
           <></>
         )}
         {detailProgress.shiftProgressType === ProgressOptionKeyEnum.MILEAGE ? (
-          <Typo variant="medium_14">
-            <Typo variant="bold_14">Mileage:</Typo>{' '}
-            {detailProgress.metadata?.mileage || '0'}
-          </Typo>
+          <>
+            <Typo variant="medium_14">
+              <Typo variant="bold_14">Mileage:</Typo>{' '}
+              {detailProgress.metadata?.mileage || '0'}
+            </Typo>
+            <Spacer height={8} />
+          </>
         ) : (
           <></>
         )}

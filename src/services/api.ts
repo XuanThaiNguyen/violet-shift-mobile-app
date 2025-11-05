@@ -17,6 +17,7 @@ enum ApiKeys {
   GET_SHIFT_PROGRESS_BY_ID = 'shifts/:shiftId/progresses/:shiftProgressId',
   POST_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses',
   UPDATE_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses/:shiftProgressId',
+  GET_SHIFT_PROGRESS_EVENTS = 'shifts/:shiftId/progress-events',
 }
 
 export default ApiKeys;

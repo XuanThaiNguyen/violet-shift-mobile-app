@@ -108,7 +108,8 @@ const ShiftManager = () => {
       backTitle = 'Shift Progress';
       break;
     case DETAIL_SHIFT_TAB.EVENTS:
-      content = <ShiftEvents />;
+      content = <ShiftEvents shiftId={shiftId} />;
+      backTitle = 'Shift Progress Events';
       break;
     default:
       break;

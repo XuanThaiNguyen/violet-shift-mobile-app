@@ -8,18 +8,21 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import { onCheckType } from './handleCommon';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 dayjs.extend(advancedFormat);
 dayjs.extend(localizedFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isoWeek);
+dayjs.extend(relativeTime);
 
 export enum DATE_FORMAT {
   FIRST = 'DD/MM/YYYY',
   SECOND = 'h:mm A',
   THIRD = 'YYYY-MM-DD',
   FOUR = 'MMM YYYY',
+  FIVE = 'HH:mm:ss DD/MM/YYYY',
 }
 
 export const formatDate = (
