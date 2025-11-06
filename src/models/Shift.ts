@@ -58,6 +58,12 @@ export type AllowancesEnum = (typeof Allowances)[number];
 export type ShiftTypesEnum = (typeof ShiftTypes)[number];
 export type ShiftStatusEnum = (typeof ShiftStatus)[number];
 
+export interface ISignature {
+  url: string;
+  note?: string;
+  createdAt: Date;
+}
+
 export interface IStaffSchedule {
   _id: string;
   shift: {
@@ -73,6 +79,8 @@ export interface IStaffSchedule {
   status: ShiftStatusEnum;
   clocksInAt: number; // unix timestamp
   clocksOutAt: number; // unix timestamp
+  signature: ISignature;
+  clientSignature: ISignature;
 }
 
 export interface WeekDataSchedule {
@@ -146,4 +154,11 @@ export interface IStaffScheduleOfDetailShift {
   staff: IUser;
   timeFrom: number;
   timeTo: number;
+  signature: ISignature;
+  clientSignature: ISignature;
+}
+
+export enum SignatureRoleEnum {
+  CLIENT = 'client',
+  STAFF = 'staff',
 }

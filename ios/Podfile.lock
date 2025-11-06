@@ -1879,6 +1879,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
+  - react-native-signature-capture (0.4.12):
+    - React
   - React-NativeModulesApple (0.81.4):
     - boost
     - DoubleConversion
@@ -2708,6 +2710,7 @@ DEPENDENCIES:
   - react-native-config (from `../node_modules/react-native-config`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-signature-capture (from `../node_modules/react-native-signature-capture`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-oscompat (from `../node_modules/react-native/ReactCommon/oscompat`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -2842,6 +2845,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-signature-capture:
+    :path: "../node_modules/react-native-signature-capture"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-oscompat:
@@ -2962,6 +2967,7 @@ SPEC CHECKSUMS:
   react-native-config: d08b60865268872495a43e211059b4606131fe01
   react-native-date-picker: 9e761de1a6b100b2f61669de1f2c3e5717e2b525
   react-native-safe-area-context: c00143b4823773bba23f2f19f85663ae89ceb460
+  react-native-signature-capture: 181e11f5559b4e4a6da893775e78b5d600f66d66
   React-NativeModulesApple: 879fbdc5dcff7136abceb7880fe8a2022a1bd7c3
   React-oscompat: 93b5535ea7f7dff46aaee4f78309a70979bdde9d
   React-perflogger: 5536d2df3d18fe0920263466f7b46a56351c0510

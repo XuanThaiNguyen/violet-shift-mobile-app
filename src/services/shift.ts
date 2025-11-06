@@ -1,4 +1,4 @@
-import { ISubmitShiftProgress } from '@models/Shift';
+import { ISubmitShiftProgress, SignatureRoleEnum } from '@models/Shift';
 import http from '@utils/http';
 import ApiKeys from './api';
 
@@ -177,6 +177,43 @@ export const updateProgress = async ({
   return response.data;
 };
 
+export const postSignature = async ({
+  shiftId,
+  params,
+  scheduleId,
+}: {
+  shiftId: string;
+  scheduleId: string;
+  params: {
+    url: string;
+    note?: string;
+    role: SignatureRoleEnum;
+  };
+}) => {
+  const response = await http.put(
+    ApiKeys.POST_SIGNATURE.replace(':shiftId', shiftId).replace(
+      ':scheduleId',
+      scheduleId,
+    ),
+    params,
+  );
+  return response.data;
+};
+
+export const getStaffScheduleByScheduleId = async ({
+  scheduleId,
+}: {
+  scheduleId: string;
+}) => {
+  const response = await http.get(
+    ApiKeys.GET_A_STAFF_SCHEDULE_BY_SCHEDULE_ID.replace(
+      ':scheduleId',
+      scheduleId,
+    ),
+  );
+  return response.data;
+};
+
 export const shiftService = {
   getMyShiftSchedules,
   getDetailShift,
@@ -191,4 +228,6 @@ export const shiftService = {
   postProgress,
   updateProgress,
   getShiftProgressEvents,
+  postSignature,
+  getStaffScheduleByScheduleId,
 };

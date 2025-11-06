@@ -56,9 +56,9 @@ export const ErrorMessages: Record<number, string> = {
     'Cannot clock in yet. The shift has not started.',
   [SHIFT_ERROR_CODE.SHIFT_ENDED]: 'This shift has already ended.',
   [SHIFT_ERROR_CODE.STAFF_SIGNATURE_REQUIRED]:
-    'Staff signature is required before proceeding.',
+    'Staff signature is required before clock out.',
   [SHIFT_ERROR_CODE.CLIENT_SIGNATURE_REQUIRED]:
-    'Client signature is required before proceeding.',
+    'Client signature is required before clock out.',
   [SHIFT_ERROR_CODE.STAFF_ALREADY_CLOCKED_IN]:
     'You have already clocked in for this shift.',
   [SHIFT_ERROR_CODE.STAFF_ALREADY_CLOCKED_OUT]:

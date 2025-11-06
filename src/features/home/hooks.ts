@@ -176,3 +176,24 @@ export const useGetMyShiftProgressEvents = ({
 
   return query;
 };
+
+export const useGetStaffScheduleByScheduleId = ({
+  scheduleId,
+}: {
+  scheduleId: string;
+}) => {
+  const query = useQuery<QueryObjectResponse<IStaffSchedule>>({
+    queryKey: ['myDetailSchedule', scheduleId],
+    queryFn: () =>
+      shiftService.getStaffScheduleByScheduleId({
+        scheduleId,
+      }),
+    enabled: !!scheduleId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return query;
+};

@@ -105,3 +105,5 @@ export const PROGRESS_OPTIONS: ProgressOptionProps[] = [
     icon: images.avatar,
   },
 ];
+
+export const SIGNATURE_TYPES = ['client', 'staff'] as const;

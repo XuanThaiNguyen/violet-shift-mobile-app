@@ -13,6 +13,8 @@ enum Screen {
   AddProgress = 'AddProgress',
   UpdateProgress = 'UpdateProgress',
   ProgressDetail = 'ProgressDetail',
+  ShiftSignature = 'ShiftSignature',
+  AddSignature = 'AddSignature',
 
   //Notification
   Notification = 'Notification',

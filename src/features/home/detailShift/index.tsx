@@ -92,11 +92,11 @@ const ShiftManager = () => {
     setDetailShiftTab(tab);
   };
 
-  let content = <ShiftDetails shiftId={shiftId} />;
+  let content = <ShiftDetails shiftId={shiftId} scheduleId={scheduleId} />;
   let backTitle = 'Shift Detail';
   switch (detailShifTab) {
     case DETAIL_SHIFT_TAB.DETAILS:
-      content = <ShiftDetails shiftId={shiftId} />;
+      content = <ShiftDetails shiftId={shiftId} scheduleId={scheduleId} />;
       backTitle = 'Shift Detail';
       break;
     case DETAIL_SHIFT_TAB.TASKS:

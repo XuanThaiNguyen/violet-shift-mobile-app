@@ -22,9 +22,10 @@ import {
 
 interface ShiftDetailsProps {
   shiftId: string;
+  scheduleId: string;
 }
 
-const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
+const ShiftDetails = ({ shiftId, scheduleId }: ShiftDetailsProps) => {
   const { navigate } =
     useNavigation<NavigationProp<MainStackScreenProps, Screen.ShiftManager>>();
 
@@ -47,6 +48,16 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
 
   const onViewMyself = () => {
     navigate(Screen.Profile, { mode: 'mine' });
+  };
+
+  const onSignature = () => {
+    navigate(Screen.ShiftSignature, {
+      shiftId,
+      scheduleId,
+      signatureRequired: dataDetailShift?.data?.staffClockOutRequired ?? false,
+      clientSignatureRequired:
+        dataDetailShift?.data?.clientClockOutRequired ?? false,
+    });
   };
 
   return (
@@ -145,13 +156,13 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
         <Spacer height={8} />
         <Divider />
         <Spacer height={8} />
-        <View style={styles.actionsItem}>
+        <Button onPress={onSignature} style={styles.actionsItem}>
           <View style={styles.actionsItemTitle}>
             <FastImage source={images.menu} style={styles.icon16} />
             <Typo variant="regular_14">Signatures</Typo>
           </View>
           <FastImage source={images.back} style={styles.iconBack} />
-        </View>
+        </Button>
         <Spacer height={16} />
       </View>
     </ScrollView>

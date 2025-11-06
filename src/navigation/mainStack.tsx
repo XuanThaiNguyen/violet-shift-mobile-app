@@ -3,9 +3,11 @@ import Availibility from '@features/availibility';
 import SetAvailibility from '@features/availibility/setAvailibility';
 import Home from '@features/home';
 import AddProgress from '@features/home/addProgress';
+import AddSignature from '@features/home/addSignature';
 import AllShiftClients from '@features/home/allShiftClients';
 import ShiftManager from '@features/home/detailShift';
 import ProgressDetail from '@features/home/progressDetail';
+import ShiftSignature from '@features/home/shiftSignature';
 import UpdateProgress from '@features/home/updateProgress';
 import Notification from '@features/notification';
 import Profile from '@features/profile';
@@ -44,6 +46,8 @@ const MainStack = () => {
       <Stack.Screen name={Screen.AddProgress} component={AddProgress} />
       <Stack.Screen name={Screen.UpdateProgress} component={UpdateProgress} />
       <Stack.Screen name={Screen.ProgressDetail} component={ProgressDetail} />
+      <Stack.Screen name={Screen.ShiftSignature} component={ShiftSignature} />
+      <Stack.Screen name={Screen.AddSignature} component={AddSignature} />
     </Stack.Navigator>
   );
 };
