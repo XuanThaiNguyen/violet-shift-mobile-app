@@ -32,6 +32,9 @@ export type MainStackScreenProps = {
   [Screen.UpdateProgress]: {
     detailProgress: IShiftProgress;
   };
+  [Screen.ShiftInstruction]: {
+    instruction: string;
+  };
   [Screen.ProgressDetail]: {
     shiftId: string;
     shiftProgressId: string;

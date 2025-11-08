@@ -48,3 +48,11 @@ export enum MileageStartPointEnum {
   HOME = 'HOME',
   PREVIOUS_SHIFT = 'PREVIOUS_SHIFT',
 }
+
+export type DocumentItem = {
+  id: string;
+  uri: string;
+  fileName: string;
+  type: string;
+  title: string;
+};

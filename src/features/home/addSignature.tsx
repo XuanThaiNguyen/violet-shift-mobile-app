@@ -24,6 +24,7 @@ import { AxiosError } from 'axios';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Keyboard,
+  ScrollView,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -31,6 +32,7 @@ import {
 import FastImage from 'react-native-fast-image';
 import SignatureCapture from 'react-native-signature-capture';
 import SaveSignatureContent from './components/signatureConfirmConrtent';
+import WrapperKeyboardShown from '@components/wrapper/WrapperKeyboardShown';
 
 const AddSignature = () => {
   const { goBack } = useNavigation();
@@ -46,6 +48,7 @@ const AddSignature = () => {
   const shiftId = route.params?.shiftId || '';
   const scheduleId = route.params?.scheduleId || '';
 
+  const [reviewHeight, setReviewHeight] = useState(0);
   const [isDragged, setIsDragged] = useState(false);
   const [note, setNote] = useState('');
   const noteDebounced = useDebounce(note, 500);
@@ -131,59 +134,68 @@ const AddSignature = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <BackHeader title="Add Signature" />
-        <Spacer height={24} />
-        <View style={styles.upper}>
-          <View style={styles.client}>
-            <FastImage source={images.avatar} style={styles.icon16} />
-            <Typo variant="regular_14">
-              <Typo variant="semibold_14">
-                {role === 'client' ? 'Client' : 'Carer'}:
-              </Typo>{' '}
-              {roleName}
+        <ScrollView
+          contentContainerStyle={[
+            styles.container,
+            { paddingBottom: reviewHeight },
+          ]}
+        >
+          <BackHeader title="Add Signature" />
+          <Spacer height={24} />
+          <View style={styles.upper}>
+            <View style={styles.client}>
+              <FastImage source={images.avatar} style={styles.icon16} />
+              <Typo variant="regular_14">
+                <Typo variant="semibold_14">
+                  {role === 'client' ? 'Client' : 'Carer'}:
+                </Typo>{' '}
+                {roleName}
+              </Typo>
+            </View>
+            <Spacer height={8} />
+            <Divider />
+            <Spacer height={32} />
+            <Typo variant="semibold_16" center>
+              Draw your signature
             </Typo>
+            <Spacer height={16} />
+            <SignatureCapture
+              style={styles.signature}
+              ref={signRef}
+              onSaveEvent={_onSaveEvent}
+              onDragEvent={_onDragEvent}
+              saveImageFileInExtStorage={false}
+              showNativeButtons={false}
+              showTitleLabel={false}
+              backgroundColor={colors.background}
+              strokeColor={colors.primaryText}
+            />
+            <Spacer height={8} />
+            <Button onPress={_onReset} style={styles.btnClear}>
+              <Typo variant="medium_14" color={colors.primaryButton}>
+                Clear
+              </Typo>
+            </Button>
+            <Spacer height={16} />
+            <TextField
+              title="Note"
+              placeholder="Enter your note"
+              value={note}
+              onChangeText={setNote}
+            />
           </View>
-          <Spacer height={8} />
-          <Divider />
-          <Spacer height={32} />
-          <Typo variant="semibold_16" center>
-            Draw your signature
-          </Typo>
-          <Spacer height={16} />
-          <SignatureCapture
-            style={styles.signature}
-            ref={signRef}
-            onSaveEvent={_onSaveEvent}
-            onDragEvent={_onDragEvent}
-            saveImageFileInExtStorage={false}
-            showNativeButtons={false}
-            showTitleLabel={false}
-            backgroundColor={colors.background}
-            strokeColor={colors.primaryText}
+        </ScrollView>
+        <WrapperKeyboardShown callBackHeight={setReviewHeight}>
+          <Button
+            onPress={_onSave}
+            loading={isPendingSignature}
+            disabled={!isDragged || isPendingSignature}
+            style={styles.btnSave}
+            text="Save"
+            preset="primary"
           />
-          <Spacer height={8} />
-          <Button onPress={_onReset} style={styles.btnClear}>
-            <Typo variant="medium_14" color={colors.primaryButton}>
-              Clear
-            </Typo>
-          </Button>
-          <Spacer height={16} />
-          <TextField
-            title="Note"
-            placeholder="Enter your note"
-            value={note}
-            onChangeText={setNote}
-          />
-        </View>
-        <Button
-          onPress={_onSave}
-          loading={isPendingSignature}
-          disabled={!isDragged || isPendingSignature}
-          style={styles.btnSave}
-          text="Save"
-          preset="primary"
-        />
-        <InsetSubstitute type="bottom" />
+          <InsetSubstitute type="bottom" />
+        </WrapperKeyboardShown>
       </View>
     </TouchableWithoutFeedback>
   );

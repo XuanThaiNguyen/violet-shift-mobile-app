@@ -39,16 +39,7 @@ const SelectProgressContent = ({
         key={option.key}
         style={styles.option}
       >
-        <View
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 16,
-            backgroundColor: colors.primary,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <View style={styles.viewImg}>
           <FastImage
             source={option.icon}
             style={styles.icon16}
@@ -79,6 +70,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: SpacingDefault.normal,
+  },
+  viewImg: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

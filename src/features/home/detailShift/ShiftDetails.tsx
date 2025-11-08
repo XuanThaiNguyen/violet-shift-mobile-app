@@ -60,6 +60,12 @@ const ShiftDetails = ({ shiftId, scheduleId }: ShiftDetailsProps) => {
     });
   };
 
+  const onViewInstructions = () => {
+    navigate(Screen.ShiftInstruction, {
+      instruction: dataDetailShift?.data?.instruction || '',
+    });
+  };
+
   return (
     <ScrollView bounces={false}>
       {/* <View style={styles.viewMap}>
@@ -139,9 +145,11 @@ const ShiftDetails = ({ shiftId, scheduleId }: ShiftDetailsProps) => {
             />
             <Typo variant="medium_14">Instructions</Typo>
           </View>
-          <Typo variant="medium_14" color={colors.primaryButton}>
-            View
-          </Typo>
+          <Button onPress={onViewInstructions}>
+            <Typo variant="medium_14" color={colors.primaryButton}>
+              View
+            </Typo>
+          </Button>
         </View>
         <Spacer height={20} />
         <Typo variant="semibold_14">More Actions</Typo>

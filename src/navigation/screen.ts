@@ -15,6 +15,7 @@ enum Screen {
   ProgressDetail = 'ProgressDetail',
   ShiftSignature = 'ShiftSignature',
   AddSignature = 'AddSignature',
+  ShiftInstruction = 'ShiftInstruction',
 
   //Notification
   Notification = 'Notification',

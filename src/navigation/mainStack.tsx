@@ -7,6 +7,7 @@ import AddSignature from '@features/home/addSignature';
 import AllShiftClients from '@features/home/allShiftClients';
 import ShiftManager from '@features/home/detailShift';
 import ProgressDetail from '@features/home/progressDetail';
+import ShiftInstruction from '@features/home/shiftInstruction';
 import ShiftSignature from '@features/home/shiftSignature';
 import UpdateProgress from '@features/home/updateProgress';
 import Notification from '@features/notification';
@@ -48,6 +49,10 @@ const MainStack = () => {
       <Stack.Screen name={Screen.ProgressDetail} component={ProgressDetail} />
       <Stack.Screen name={Screen.ShiftSignature} component={ShiftSignature} />
       <Stack.Screen name={Screen.AddSignature} component={AddSignature} />
+      <Stack.Screen
+        name={Screen.ShiftInstruction}
+        component={ShiftInstruction}
+      />
     </Stack.Navigator>
   );
 };
