@@ -87,22 +87,22 @@ export const PROGRESS_OPTIONS: ProgressOptionProps[] = [
   {
     key: ProgressOptionKeyEnum.INCIDENT,
     label: 'Incident',
-    icon: images.avatar,
+    icon: images.report,
   },
   {
     key: ProgressOptionKeyEnum.ENQUIRY,
     label: 'Enquiry',
-    icon: images.avatar,
+    icon: images.question,
   },
   {
     key: ProgressOptionKeyEnum.MILEAGE,
     label: 'Mileage',
-    icon: images.avatar,
+    icon: images.distance,
   },
   {
     key: ProgressOptionKeyEnum.EXPENSE,
     label: 'Expense',
-    icon: images.avatar,
+    icon: images.money,
   },
 ];
 

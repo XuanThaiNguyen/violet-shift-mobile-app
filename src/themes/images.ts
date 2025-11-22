@@ -29,6 +29,12 @@ const images = {
   note: require('../assets/icons/note.png'),
   feedback: require('../assets/icons/feedback.png'),
   edit: require('../assets/icons/edit.png'),
+  signature: require('../assets/icons/signature.png'),
+  calendar: require('../assets/icons/calendar.png'),
+  question: require('../assets/icons/question.png'),
+  money: require('../assets/icons/money.png'),
+  distance: require('../assets/icons/distance.png'),
+  report: require('../assets/icons/report.png'),
 };
 
 export default images;

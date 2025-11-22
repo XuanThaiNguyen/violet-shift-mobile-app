@@ -157,6 +157,9 @@ const ShiftManager = () => {
       case DETAIL_SHIFT_TAB.PROGRESS:
         icon = images.progress;
         break;
+      case DETAIL_SHIFT_TAB.EVENTS:
+        icon = images.notification;
+        break;
       default:
         break;
     }

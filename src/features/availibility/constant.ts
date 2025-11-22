@@ -18,4 +18,9 @@ export const OCCUR_ON_DAY_OF_MONTH = [
   23, 24, 25, 26, 27, 28, 29, 30,
 ];
 
+export const ALL_DAY_DEFAULT = {
+  from: 0,
+  to: 1439,
+};
+
 export const WEEKLY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

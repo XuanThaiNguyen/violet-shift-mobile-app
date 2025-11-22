@@ -47,6 +47,7 @@
     "react-native-screens": "^4.4.0",
     "react-native-signature-capture": "^0.4.12",
     "reactotron-react-native": "^5.1.17",
+    "rrule": "^2.8.1",
     "yup": "^1.7.1",
     "zustand": "^5.0.8"
   },

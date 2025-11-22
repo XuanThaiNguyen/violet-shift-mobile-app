@@ -26,13 +26,17 @@ const TextField = ({
   keyboardType,
   blockInputStyle,
   secureTextEntry,
+  hasRedStar = false,
 }: TextFieldProps) => {
   return (
     <View>
       {!!title ? (
         <>
           <Typo variant="medium_14" color={colors.primaryText}>
-            {title}
+            {title}{' '}
+            <Typo variant="medium_14" color={colors.red}>
+              {hasRedStar && '*'}
+            </Typo>
           </Typo>
           <Spacer height={8} />
         </>

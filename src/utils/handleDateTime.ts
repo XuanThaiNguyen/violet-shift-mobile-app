@@ -62,3 +62,32 @@ export const getRangeByViewMode = (date: string | Date) => {
     toString: to.format('YYYY-MM-DD HH:mm:ss'),
   };
 };
+
+export const formatTimeRange = (fromMs: number, toMs: number): string => {
+  const start = new Date(fromMs);
+  const end = new Date(toMs);
+
+  const isWholeDay =
+    start.getHours() === 0 &&
+    start.getMinutes() === 0 &&
+    start.getSeconds() === 0 &&
+    start.getMilliseconds() === 0 &&
+    end.getHours() === 23 &&
+    end.getMinutes() === 59;
+
+  if (isWholeDay) {
+    return 'Whole day';
+  }
+
+  const format12 = (date: Date) => {
+    const h = date.getHours() % 12 || 12;
+    const m = date.getMinutes().toString().padStart(2, '0');
+    const ampm = date.getHours() < 12 ? 'am' : 'pm';
+    return `${h}${m !== '00' ? ':' + m : ''}${ampm}`;
+  };
+
+  const fromStr = format12(start);
+  const toStr = format12(end);
+
+  return `${fromStr} - ${toStr}`;
+};

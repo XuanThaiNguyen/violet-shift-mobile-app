@@ -2,12 +2,19 @@ import { Button } from '@components/button';
 import BackHeader from '@components/header/BackHeader';
 import { InsetSubstitute } from '@components/insetSubtitute/insetSubstitute';
 import Radio from '@components/radio';
+import { showSnack } from '@components/snackBar';
 import { Spacer } from '@components/spacer';
 import { Typo } from '@components/typo/typo';
+import { AvailabilityTypeEnum, CreateAvailability } from '@models/Availibility';
+import { ApiStatus } from '@services/ApiStatus';
+import { availibilityService } from '@services/availibility';
+import { showErrorMessage } from '@services/errorHandler';
+import { useMutation } from '@tanstack/react-query';
 import colors from '@themes/color';
 import { DATE_FORMAT, formatDate } from '@utils/handleDateTime';
 import { modalUtil } from '@utils/modalUtil';
-import React, { useState } from 'react';
+import { AxiosError } from 'axios';
+import React, { useMemo, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import DayToggleSection from '../components/DayToggleSection';
@@ -25,6 +32,68 @@ import {
   TimeRange,
 } from '../type';
 import { useStyles } from './styles';
+
+import { RRule, Weekday } from 'rrule';
+
+// 0–6 => SU–SA (adjust if your numbering is different)
+const WEEKDAY_MAP: Record<number, Weekday> = {
+  0: RRule.SU,
+  1: RRule.MO,
+  2: RRule.TU,
+  3: RRule.WE,
+  4: RRule.TH,
+  5: RRule.FR,
+  6: RRule.SA,
+};
+
+type BuildPatternArgs = {
+  startDate?: Date; // optional, if BE needs dtstart
+  repeatingMode: RepeatingEnum;
+  repeatLoop: number;
+  monthOccur: number;
+  weekDays: number[];
+};
+
+export const buildRRulePattern = ({
+  startDate,
+  repeatingMode,
+  repeatLoop,
+  monthOccur,
+  weekDays,
+}: BuildPatternArgs): string => {
+  const options: Partial<any> = {
+    interval: repeatLoop || 1,
+  };
+
+  if (startDate) {
+    options.dtstart = startDate;
+  }
+
+  switch (repeatingMode) {
+    case RepeatingEnum.DAILY:
+      options.freq = RRule.DAILY;
+      break;
+
+    case RepeatingEnum.WEEKLY:
+      options.freq = RRule.WEEKLY;
+      if (weekDays.length) {
+        options.byweekday = weekDays.map(d => WEEKDAY_MAP[d]);
+      }
+      break;
+
+    case RepeatingEnum.MONTHLY:
+      options.freq = RRule.MONTHLY;
+      // run on specific day of month: 1 → 1st, 15 → 15th, etc.
+      options.bymonthday = [monthOccur];
+      break;
+
+    default:
+      options.freq = RRule.DAILY;
+      break;
+  }
+
+  return new RRule(options as any).toString();
+};
 
 const SetAvailibility = () => {
   const styles = useStyles();
@@ -54,6 +123,63 @@ const SetAvailibility = () => {
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
   const [unavailableReason, setUnavailableReason] = useState('');
+
+  const { mutate: mutateAvailibility } = useMutation({
+    mutationFn: availibilityService.addAvailibity,
+    onSuccess: data => {
+      if (data.status === ApiStatus.OK) {
+        showSnack({
+          msg: 'Availibility successfully',
+          position: 'top',
+          type: 'success',
+          iconColor: colors.green,
+        });
+      }
+    },
+    onError: (error: AxiosError) => {
+      showErrorMessage(error);
+    },
+  });
+
+  const onSave = () => {
+    // TODO: Save
+    const timeSegments = isAllDay
+      ? [{ from: 0, to: 1439 }]
+      : timeRanges.map(range => ({
+          from: range.startTime.getHours() * 60 + range.startTime.getMinutes(),
+          to: range.endTime.getHours() * 60 + range.endTime.getMinutes(),
+        }));
+
+    const params: CreateAvailability = {
+      type: isAvailable
+        ? AvailabilityTypeEnum.AVAILABLE
+        : AvailabilityTypeEnum.UNAVAILABLE,
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      date: availableDate.getTime(),
+      timeSegments,
+    };
+
+    if (!isAvailable && !!unavailableReason) {
+      params.note = unavailableReason;
+    }
+
+    if (isRepeat) {
+      params.repeat = {
+        endsAt: endDate.getTime(),
+        pattern: buildRRulePattern({
+          startDate: availableDate,
+          repeatingMode,
+          repeatLoop,
+          monthOccur,
+          weekDays,
+        }),
+      };
+    }
+
+    console.log('params', JSON.stringify(params));
+
+    mutateAvailibility({ params });
+  };
 
   const onOpenDatePickerModal = (field: DatePickerField) => () => {
     setDatePicker(prev => ({ ...prev, visible: true, field }));
@@ -164,6 +290,14 @@ const SetAvailibility = () => {
     });
   };
 
+  const shouldBeDisabled = useMemo(() => {
+    if (!isAvailable) {
+      return !unavailableReason;
+    }
+
+    return false;
+  }, [isAvailable, unavailableReason]);
+
   return (
     <View style={styles.container}>
       <BackHeader title="Set Availibility" />
@@ -223,7 +357,14 @@ const SetAvailibility = () => {
             unavailableReason={unavailableReason}
             setUnavailableReason={setUnavailableReason}
           />
-          <Button style={styles.btnSave}>
+          <Button
+            buttonColor={
+              shouldBeDisabled ? colors.disabledButton : colors.primary
+            }
+            style={styles.btnSave}
+            onPress={onSave}
+            disabled={shouldBeDisabled}
+          >
             <Typo variant="semibold_14" color={colors.white}>
               Save
             </Typo>

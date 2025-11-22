@@ -23,4 +23,5 @@ export interface TextFieldProps extends TextInputProps {
   inputStyle?: StyleProp<ViewStyle> | StyleProp<TextStyle>;
   blockInputStyle?: StyleProp<ViewStyle>;
   keyboardType?: KeyboardTypeOptions;
+  hasRedStar?: boolean;
 }

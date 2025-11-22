@@ -154,19 +154,9 @@ const ShiftDetails = ({ shiftId, scheduleId }: ShiftDetailsProps) => {
         <Spacer height={20} />
         <Typo variant="semibold_14">More Actions</Typo>
         <Spacer height={16} />
-        <View style={styles.actionsItem}>
-          <View style={styles.actionsItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
-            <Typo variant="regular_14">Shift related forms</Typo>
-          </View>
-          <FastImage source={images.back} style={styles.iconBack} />
-        </View>
-        <Spacer height={8} />
-        <Divider />
-        <Spacer height={8} />
         <Button onPress={onSignature} style={styles.actionsItem}>
           <View style={styles.actionsItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage source={images.signature} style={styles.icon16} />
             <Typo variant="regular_14">Signatures</Typo>
           </View>
           <FastImage source={images.back} style={styles.iconBack} />

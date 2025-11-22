@@ -20,6 +20,11 @@ enum ApiKeys {
   UPDATE_SHIFT_PROGRESSES = 'shifts/:shiftId/progresses/:shiftProgressId',
   GET_SHIFT_PROGRESS_EVENTS = 'shifts/:shiftId/progress-events',
   POST_SIGNATURE = 'shifts/:shiftId/staff-schedules/:scheduleId/signature',
+
+  //availibility
+  CREATE_AVAILIBILITY = 'availabilities',
+  GET_AVAILIBILITIES = 'availabilities',
+  DELETE_AVAILIBILITY = 'availabilities',
 }
 
 export default ApiKeys;
