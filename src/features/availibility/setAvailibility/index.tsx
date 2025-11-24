@@ -6,17 +6,19 @@ import { showSnack } from '@components/snackBar';
 import { Spacer } from '@components/spacer';
 import { Typo } from '@components/typo/typo';
 import { AvailabilityTypeEnum, CreateAvailability } from '@models/Availibility';
+import { useNavigation } from '@react-navigation/native';
 import { ApiStatus } from '@services/ApiStatus';
 import { availibilityService } from '@services/availibility';
 import { showErrorMessage } from '@services/errorHandler';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import colors from '@themes/color';
 import { DATE_FORMAT, formatDate } from '@utils/handleDateTime';
 import { modalUtil } from '@utils/modalUtil';
 import { AxiosError } from 'axios';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
+import { RRule, Weekday } from 'rrule';
 import DayToggleSection from '../components/DayToggleSection';
 import MonthOccurContent from '../components/MonthOccurContent';
 import ReasonForm from '../components/ReasonForm';
@@ -32,8 +34,6 @@ import {
   TimeRange,
 } from '../type';
 import { useStyles } from './styles';
-
-import { RRule, Weekday } from 'rrule';
 
 // 0–6 => SU–SA (adjust if your numbering is different)
 const WEEKDAY_MAP: Record<number, Weekday> = {
@@ -83,7 +83,6 @@ export const buildRRulePattern = ({
 
     case RepeatingEnum.MONTHLY:
       options.freq = RRule.MONTHLY;
-      // run on specific day of month: 1 → 1st, 15 → 15th, etc.
       options.bymonthday = [monthOccur];
       break;
 
@@ -97,6 +96,8 @@ export const buildRRulePattern = ({
 
 const SetAvailibility = () => {
   const styles = useStyles();
+  const { goBack } = useNavigation();
+
   const [availableDate, setAvailableDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [datePicker, setDatePicker] = useState<DatePickerProps>({
@@ -124,25 +125,38 @@ const SetAvailibility = () => {
 
   const [unavailableReason, setUnavailableReason] = useState('');
 
-  const { mutate: mutateAvailibility } = useMutation({
-    mutationFn: availibilityService.addAvailibity,
-    onSuccess: data => {
-      if (data.status === ApiStatus.OK) {
-        showSnack({
-          msg: 'Availibility successfully',
-          position: 'top',
-          type: 'success',
-          iconColor: colors.green,
-        });
-      }
-    },
-    onError: (error: AxiosError) => {
-      showErrorMessage(error);
-    },
-  });
+  const queryClient = useQueryClient();
+
+  const { mutate: mutateAvailibility, isPending: isPendingAvailibility } =
+    useMutation({
+      mutationFn: availibilityService.addAvailibity,
+      onSuccess: data => {
+        if (data.status === ApiStatus.OK) {
+          showSnack({
+            msg: 'Availibility successfully',
+            position: 'top',
+            type: 'success',
+            iconColor: colors.green,
+          });
+          queryClient.invalidateQueries({ queryKey: ['myAvailibilities'] });
+          goBack();
+        }
+      },
+      onError: (error: AxiosError) => {
+        showErrorMessage(error);
+      },
+    });
 
   const onSave = () => {
-    // TODO: Save
+    if (isRepeat && endDate < availableDate) {
+      showSnack({
+        msg: 'End date should be the same or after start date',
+        position: 'top',
+        type: 'error',
+      });
+      return;
+    }
+
     const timeSegments = isAllDay
       ? [{ from: 0, to: 1439 }]
       : timeRanges.map(range => ({
@@ -226,11 +240,9 @@ const SetAvailibility = () => {
     setIsRepeat(prev => !prev);
   };
 
-  const onOpenTimePicker =
-    (index: number, field: TimePickerField, currentDate: Date) => () => {
-      setAvailableDate(currentDate);
-      setTimePicker(prev => ({ ...prev, visible: true, index, field }));
-    };
+  const onOpenTimePicker = (index: number, field: TimePickerField) => () => {
+    setTimePicker(prev => ({ ...prev, visible: true, index, field }));
+  };
 
   const onCloseTimePicker = () => {
     setTimePicker(prev => ({
@@ -289,14 +301,6 @@ const SetAvailibility = () => {
       ),
     });
   };
-
-  const shouldBeDisabled = useMemo(() => {
-    if (!isAvailable) {
-      return !unavailableReason;
-    }
-
-    return false;
-  }, [isAvailable, unavailableReason]);
 
   return (
     <View style={styles.container}>
@@ -359,11 +363,14 @@ const SetAvailibility = () => {
           />
           <Button
             buttonColor={
-              shouldBeDisabled ? colors.disabledButton : colors.primary
+              !isAvailable && !unavailableReason
+                ? colors.disabledButton
+                : colors.primary
             }
             style={styles.btnSave}
             onPress={onSave}
-            disabled={shouldBeDisabled}
+            loading={isPendingAvailibility}
+            disabled={!isAvailable && !unavailableReason}
           >
             <Typo variant="semibold_14" color={colors.white}>
               Save

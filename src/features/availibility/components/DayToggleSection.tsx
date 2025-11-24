@@ -18,7 +18,6 @@ interface DayToggleSectionProps {
   onOpenTimePicker: (
     index: number,
     field: 'startTime' | 'endTime',
-    currentDate: Date,
   ) => () => void;
   removeTimeRange: (index: number) => () => void;
   addTimeRange: () => void;
@@ -36,7 +35,7 @@ const DayToggleSection = ({
     return (
       <View key={index} style={styles.viewTimeRange}>
         <Button
-          onPress={onOpenTimePicker(index, 'startTime', range.startTime)}
+          onPress={onOpenTimePicker(index, 'startTime')}
           style={styles.btn}
         >
           <Typo variant="regular_14">Start time</Typo>
@@ -45,10 +44,7 @@ const DayToggleSection = ({
           </Typo>
         </Button>
         <Spacer width="small" />
-        <Button
-          onPress={onOpenTimePicker(index, 'endTime', range.endTime)}
-          style={styles.btn}
-        >
+        <Button onPress={onOpenTimePicker(index, 'endTime')} style={styles.btn}>
           <Typo variant="regular_14">End time</Typo>
           <Typo variant="regular_14">
             {formatDate(range.endTime, DATE_FORMAT.SECOND)}
