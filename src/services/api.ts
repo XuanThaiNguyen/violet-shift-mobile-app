@@ -23,7 +23,7 @@ enum ApiKeys {
 
   //availibility
   CREATE_AVAILIBILITY = 'availabilities',
-  GET_AVAILIBILITIES = 'availabilities',
+  GET_AVAILIBILITIES = 'availabilities/staffs',
   DELETE_AVAILIBILITY = 'availabilities',
 }
 

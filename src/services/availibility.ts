@@ -17,12 +17,17 @@ export const getAvailibilities = async (params: {
   staff: string;
   type?: AvailabilityTypeEnum;
 }) => {
-  const respose = await http.get(ApiKeys.GET_AVAILIBILITIES, { params });
+  const respose = await http.get(
+    `${ApiKeys.GET_AVAILIBILITIES}/${params.staff}`,
+    {
+      params,
+    },
+  );
   return respose.data;
 };
 
 export const removeLeave = async (id: string) => {
-  const respose = await http.delete(`${ApiKeys.GET_AVAILIBILITIES}/${id}`);
+  const respose = await http.delete(`${ApiKeys.DELETE_AVAILIBILITY}/${id}`);
   return respose.data;
 };
 
