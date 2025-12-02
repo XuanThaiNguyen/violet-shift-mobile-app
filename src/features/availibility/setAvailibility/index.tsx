@@ -190,8 +190,6 @@ const SetAvailibility = () => {
       };
     }
 
-    console.log('params', JSON.stringify(params));
-
     mutateAvailibility({ params });
   };
 
