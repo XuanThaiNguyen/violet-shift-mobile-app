@@ -1,6 +1,35 @@
+import { ProgressOptionKeyEnum } from '@features/home/types';
 import dayjs from 'dayjs';
 import { IClient } from './Client';
 import { IUser } from './User';
+
+export interface IShiftProgress {
+  _id: string;
+  shiftProgressType: ProgressOptionKeyEnum;
+  shift: string;
+  client: IClient;
+  description: string;
+  url: string[];
+  metadata?: Record<string, string>;
+}
+
+export interface IShiftProgressEvent {
+  _id: string;
+  progress: IShiftProgress | string;
+  shift: string;
+  client: string;
+  action: 'created' | 'updated';
+  changes?: Record<string, any>;
+  createdBy: IUser;
+  createdAt: Date;
+  shiftProgressType: ProgressOptionKeyEnum;
+}
+
+export interface ISubmitShiftProgress {
+  description: string;
+  client: string;
+  shiftProgressType: ProgressOptionKeyEnum;
+}
 
 export interface IShiftRepeat {
   pattern: string; // cron pattern [second] [minute] [hour] [day of month] [month] [day of week]
@@ -29,6 +58,12 @@ export type AllowancesEnum = (typeof Allowances)[number];
 export type ShiftTypesEnum = (typeof ShiftTypes)[number];
 export type ShiftStatusEnum = (typeof ShiftStatus)[number];
 
+export interface ISignature {
+  url: string;
+  note?: string;
+  createdAt: Date;
+}
+
 export interface IStaffSchedule {
   _id: string;
   shift: {
@@ -44,6 +79,8 @@ export interface IStaffSchedule {
   status: ShiftStatusEnum;
   clocksInAt: number; // unix timestamp
   clocksOutAt: number; // unix timestamp
+  signature: ISignature;
+  clientSignature: ISignature;
 }
 
 export interface WeekDataSchedule {
@@ -117,4 +154,11 @@ export interface IStaffScheduleOfDetailShift {
   staff: IUser;
   timeFrom: number;
   timeTo: number;
+  signature: ISignature;
+  clientSignature: ISignature;
+}
+
+export enum SignatureRoleEnum {
+  CLIENT = 'client',
+  STAFF = 'staff',
 }

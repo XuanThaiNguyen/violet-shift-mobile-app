@@ -14,12 +14,14 @@ import { CalendarTheme } from './theme';
 
 interface CalendarListCustomProps {
   onExpand?: () => void;
+  visible?: boolean;
   date: string;
   setDate?: (date: string) => void;
 }
 
 const CalendarListCustom = ({
   onExpand,
+  visible = false,
   setDate,
   date = new Date().toDateString(),
 }: CalendarListCustomProps) => {
@@ -32,9 +34,15 @@ const CalendarListCustom = ({
   const opacity = useSharedValue(0);
 
   useEffect(() => {
-    opacity.value = withTiming(1, { duration: 500 });
-    translateY.value = withTiming(0, { duration: 500 });
-  }, []);
+    if (visible) {
+      opacity.value = withTiming(1, { duration: 250 });
+      translateY.value = withTiming(0, { duration: 250 });
+      return;
+    }
+
+    opacity.value = withTiming(0, { duration: 200 });
+    translateY.value = withTiming(-50, { duration: 200 });
+  }, [visible, opacity, translateY]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
@@ -42,14 +50,17 @@ const CalendarListCustom = ({
   }));
 
   const _handleClose = () => {
-    opacity.value = withTiming(0, { duration: 500 });
-    translateY.value = withTiming(-50, { duration: 500 }, () => {
+    opacity.value = withTiming(0, { duration: 200 });
+    translateY.value = withTiming(-50, { duration: 200 }, () => {
       runOnJS(onExpand ?? (() => {}))();
     });
   };
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
+    <Animated.View
+      pointerEvents={visible ? 'auto' : 'none'}
+      style={[styles.container, animatedStyle]}
+    >
       <CalendarList
         theme={CalendarTheme}
         pastScrollRange={12}
@@ -81,8 +92,14 @@ export default CalendarListCustom;
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    alignSelf: 'flex-start',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.white,
+    zIndex: 100,
+    elevation: 10,
   },
   btnExpand: {
     position: 'absolute',

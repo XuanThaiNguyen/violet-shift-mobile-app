@@ -42,7 +42,6 @@ export const useStyles = () =>
     btnSave: {
       alignSelf: 'flex-end',
       paddingHorizontal: SpacingDefault.normal,
-      backgroundColor: colors.primary,
       borderRadius: 4,
       paddingVertical: 8,
     },

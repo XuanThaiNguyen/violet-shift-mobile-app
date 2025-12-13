@@ -12,6 +12,7 @@ const TextField = ({
   onBlur,
   onChangeText,
   renderRightChildren,
+  renderLeftChildren,
   error,
   errorMessage,
   placeholder,
@@ -25,13 +26,17 @@ const TextField = ({
   keyboardType,
   blockInputStyle,
   secureTextEntry,
+  hasRedStar = false,
 }: TextFieldProps) => {
   return (
     <View>
       {!!title ? (
         <>
           <Typo variant="medium_14" color={colors.primaryText}>
-            {title}
+            {title}{' '}
+            <Typo variant="medium_14" color={colors.red}>
+              {hasRedStar && '*'}
+            </Typo>
           </Typo>
           <Spacer height={8} />
         </>
@@ -45,7 +50,7 @@ const TextField = ({
           blockInputStyle,
         ]}
       >
-        {!!iconLeft && (
+        {!!iconLeft ? (
           <>
             <FastImage
               source={iconLeft}
@@ -54,6 +59,10 @@ const TextField = ({
             />
             <Spacer width="smaller" />
           </>
+        ) : renderLeftChildren ? (
+          renderLeftChildren()
+        ) : (
+          <></>
         )}
         <TextInput
           autoCorrect={false}

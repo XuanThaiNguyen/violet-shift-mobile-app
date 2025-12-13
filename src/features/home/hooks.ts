@@ -1,6 +1,8 @@
 import {
   IClientScheduleOfDetailShift,
   IDetailShift,
+  IShiftProgress,
+  IShiftProgressEvent,
   IShiftTask,
   IStaffSchedule,
   IStaffScheduleOfDetailShift,
@@ -19,7 +21,7 @@ export const useGetMyShiftSchedules = ({
 }) => {
   const { currentUser } = useAuthStore();
 
-  const myShiftSchedules = useQuery<QueryArrayResponse<IStaffSchedule>>({
+  const query = useQuery<QueryArrayResponse<IStaffSchedule>>({
     queryKey: ['myShiftSchedules', currentUser?._id, from, to],
     queryFn: () =>
       shiftService.getMyShiftSchedules({
@@ -34,11 +36,11 @@ export const useGetMyShiftSchedules = ({
     retry: false,
   });
 
-  return myShiftSchedules;
+  return query;
 };
 
 export const useGetDetailShift = ({ shiftId }: { shiftId: string }) => {
-  const myDetailShift = useQuery<QueryObjectResponse<IDetailShift>>({
+  const query = useQuery<QueryObjectResponse<IDetailShift>>({
     queryKey: ['myShiftDetail', shiftId],
     queryFn: () =>
       shiftService.getDetailShift({
@@ -51,7 +53,7 @@ export const useGetDetailShift = ({ shiftId }: { shiftId: string }) => {
     retry: false,
   });
 
-  return myDetailShift;
+  return query;
 };
 
 export const useGetStaffSchedulesOfDetailShift = ({
@@ -59,9 +61,7 @@ export const useGetStaffSchedulesOfDetailShift = ({
 }: {
   shiftId: string;
 }) => {
-  const myDetailShift = useQuery<
-    QueryObjectResponse<IStaffScheduleOfDetailShift>
-  >({
+  const query = useQuery<QueryObjectResponse<IStaffScheduleOfDetailShift>>({
     queryKey: ['myStaffSchedulesOfDetailShift', shiftId],
     queryFn: () =>
       shiftService.getStaffSchedulesOfDetailShift({
@@ -74,7 +74,7 @@ export const useGetStaffSchedulesOfDetailShift = ({
     retry: false,
   });
 
-  return myDetailShift;
+  return query;
 };
 
 export const useGetClientSchedulesOfDetailShift = ({
@@ -82,9 +82,7 @@ export const useGetClientSchedulesOfDetailShift = ({
 }: {
   shiftId: string;
 }) => {
-  const myDetailShift = useQuery<
-    QueryArrayResponse<IClientScheduleOfDetailShift>
-  >({
+  const query = useQuery<QueryArrayResponse<IClientScheduleOfDetailShift>>({
     queryKey: ['myClientSchedulesOfDetailShift', shiftId],
     queryFn: () =>
       shiftService.getClientSchedulesOfDetailShift({
@@ -97,11 +95,11 @@ export const useGetClientSchedulesOfDetailShift = ({
     retry: false,
   });
 
-  return myDetailShift;
+  return query;
 };
 
 export const useGetTasksByShiftId = ({ shiftId }: { shiftId: string }) => {
-  const myDetailShift = useQuery<QueryArrayResponse<IShiftTask>>({
+  const query = useQuery<QueryArrayResponse<IShiftTask>>({
     queryKey: ['myTasksByShiftId', shiftId],
     queryFn: () =>
       shiftService.getTasksByShiftId({
@@ -114,5 +112,88 @@ export const useGetTasksByShiftId = ({ shiftId }: { shiftId: string }) => {
     retry: false,
   });
 
-  return myDetailShift;
+  return query;
+};
+
+export const useGetMyShiftProgresses = ({ shiftId }: { shiftId: string }) => {
+  const query = useQuery<QueryArrayResponse<IShiftProgress>>({
+    queryKey: ['myShiftProgresses', shiftId],
+    queryFn: () =>
+      shiftService.getShiftProgresses({
+        shiftId,
+      }),
+    enabled: !!shiftId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return query;
+};
+
+export const useGetMyShiftProgressById = ({
+  shiftId,
+  shiftProgressId,
+}: {
+  shiftId: string;
+  shiftProgressId: string;
+}) => {
+  const query = useQuery<QueryObjectResponse<IShiftProgress>>({
+    queryKey: ['myShiftProgress', shiftId, shiftProgressId],
+    queryFn: () =>
+      shiftService.getShiftProgressById({
+        shiftId,
+        shiftProgressId,
+      }),
+    enabled: !!shiftId && !!shiftProgressId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return query;
+};
+
+export const useGetMyShiftProgressEvents = ({
+  shiftId,
+}: {
+  shiftId: string;
+}) => {
+  const query = useQuery<QueryArrayResponse<IShiftProgressEvent>>({
+    queryKey: ['myShiftProgressEvents', shiftId],
+    queryFn: () =>
+      shiftService.getShiftProgressEvents({
+        shiftId,
+      }),
+    enabled: !!shiftId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return query;
+};
+
+export const useGetStaffScheduleByScheduleId = ({
+  scheduleId,
+}: {
+  scheduleId: string;
+}) => {
+  const query = useQuery<QueryObjectResponse<IStaffSchedule>>({
+    queryKey: ['myDetailSchedule', scheduleId],
+    queryFn: () =>
+      shiftService.getStaffScheduleByScheduleId({
+        scheduleId,
+      }),
+    enabled: !!scheduleId,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+
+  return query;
 };

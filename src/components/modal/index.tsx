@@ -36,6 +36,7 @@ export const Modal = () => {
       deviceWidth={SCREEN_WIDTH}
       avoidKeyboard
       backdropColor={colors.backdrop}
+      style={options?.mode === 'bottom' ? styles.rnmodal : undefined}
     >
       <TouchableWithoutFeedback onPress={modalUtil.hideModal}>
         <View
@@ -62,6 +63,10 @@ export const Modal = () => {
 
 const useStyles = (insets: Insets) =>
   StyleSheet.create({
+    rnmodal: {
+      width: SpacingDefault.width,
+      alignItems: 'center',
+    },
     centerBackdrop: {
       flex: 1,
       justifyContent: 'center',

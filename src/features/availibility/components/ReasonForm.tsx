@@ -22,6 +22,7 @@ const ReasonForm = ({
     <>
       <TextField
         title="Reason"
+        hasRedStar
         placeholder="Enter your reason"
         value={unavailableReason}
         onChangeText={setUnavailableReason}

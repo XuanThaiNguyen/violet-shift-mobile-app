@@ -37,7 +37,8 @@ const ExpendableCalendarCustom = ({
 
   return (
     <CalendarProvider
-      style={[styles.container, isExpanded && styles.expanded]}
+      pointerEvents={isExpanded ? 'none' : 'auto'}
+      style={styles.container}
       date={date}
       theme={CalendarTheme}
     >
@@ -77,9 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     paddingBottom: 4,
-  },
-  expanded: {
-    zIndex: -1,
   },
   btnExpand: {
     alignSelf: 'center',

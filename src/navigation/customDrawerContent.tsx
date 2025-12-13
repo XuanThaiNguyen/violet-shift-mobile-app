@@ -72,12 +72,12 @@ const CustomDrawerContent = (props: any) => {
           onNavigate={onNavigate}
           selectedRoute={selectedRoute}
         />
-        {/* <CustomDrawerItem
-          icon={images.home}
+        <CustomDrawerItem
+          icon={images.calendar}
           screen={Screen.Availibility}
           onNavigate={onNavigate}
           selectedRoute={selectedRoute}
-        /> */}
+        />
         {/* <CustomDrawerItem
           icon={images.info}
           screen={Screen.About}

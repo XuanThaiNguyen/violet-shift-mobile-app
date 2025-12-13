@@ -1,7 +1,7 @@
 import { IClient } from '@models/Client';
 import { IUser } from '@models/User';
 
-export const getFullName = (user: IUser | IClient) => {
+export const getFullName = (user: IUser | IClient | null) => {
   if (!!user?.preferredName) return user.preferredName;
   return [user?.firstName, user?.middleName, user?.lastName]
     .filter(Boolean)

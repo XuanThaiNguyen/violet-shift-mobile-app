@@ -31,8 +31,8 @@ const Login = () => {
   const styles = useStyles();
   const { setCurrentUser, setToken } = useAuthStore();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState(__DEV__ ? 'thainguyen2@gmail.com' : '');
+  const [password, setPassword] = useState(__DEV__ ? '123123' : '');
   const [isHidePassword, setIsHidePassword] = useState(true);
   const [reviewHeight, setReviewHeight] = useState(0);
 

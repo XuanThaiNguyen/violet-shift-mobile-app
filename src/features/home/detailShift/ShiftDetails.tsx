@@ -12,7 +12,7 @@ import { getFullName } from '@utils/handleStrings';
 import useAuthStore from '@zustand/authStore';
 import dayjs from 'dayjs';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ClientsInfo from '../components/clientsInfo';
 import {
@@ -22,9 +22,10 @@ import {
 
 interface ShiftDetailsProps {
   shiftId: string;
+  scheduleId: string;
 }
 
-const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
+const ShiftDetails = ({ shiftId, scheduleId }: ShiftDetailsProps) => {
   const { navigate } =
     useNavigation<NavigationProp<MainStackScreenProps, Screen.ShiftManager>>();
 
@@ -49,8 +50,24 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
     navigate(Screen.Profile, { mode: 'mine' });
   };
 
+  const onSignature = () => {
+    navigate(Screen.ShiftSignature, {
+      shiftId,
+      scheduleId,
+      signatureRequired: dataDetailShift?.data?.staffClockOutRequired ?? false,
+      clientSignatureRequired:
+        dataDetailShift?.data?.clientClockOutRequired ?? false,
+    });
+  };
+
+  const onViewInstructions = () => {
+    navigate(Screen.ShiftInstruction, {
+      instruction: dataDetailShift?.data?.instruction || '',
+    });
+  };
+
   return (
-    <View>
+    <ScrollView bounces={false}>
       {/* <View style={styles.viewMap}>
         <Typo variant="bold_20" color={colors.white}>
           This is map
@@ -128,33 +145,25 @@ const ShiftDetails = ({ shiftId }: ShiftDetailsProps) => {
             />
             <Typo variant="medium_14">Instructions</Typo>
           </View>
-          <Typo variant="medium_14" color={colors.primaryButton}>
-            View
-          </Typo>
+          <Button onPress={onViewInstructions}>
+            <Typo variant="medium_14" color={colors.primaryButton}>
+              View
+            </Typo>
+          </Button>
         </View>
         <Spacer height={20} />
         <Typo variant="semibold_14">More Actions</Typo>
         <Spacer height={16} />
-        <View style={styles.actionsItem}>
+        <Button onPress={onSignature} style={styles.actionsItem}>
           <View style={styles.actionsItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
-            <Typo variant="regular_14">Shift related forms</Typo>
-          </View>
-          <FastImage source={images.back} style={styles.iconBack} />
-        </View>
-        <Spacer height={8} />
-        <Divider />
-        <Spacer height={8} />
-        <View style={styles.actionsItem}>
-          <View style={styles.actionsItemTitle}>
-            <FastImage source={images.menu} style={styles.icon16} />
+            <FastImage source={images.signature} style={styles.icon16} />
             <Typo variant="regular_14">Signatures</Typo>
           </View>
           <FastImage source={images.back} style={styles.iconBack} />
-        </View>
+        </Button>
         <Spacer height={16} />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

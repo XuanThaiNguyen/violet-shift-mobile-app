@@ -10,6 +10,12 @@ enum Screen {
   Home = 'Home',
   ShiftManager = 'ShiftManager',
   AllShiftClients = 'AllShiftClients',
+  AddProgress = 'AddProgress',
+  UpdateProgress = 'UpdateProgress',
+  ProgressDetail = 'ProgressDetail',
+  ShiftSignature = 'ShiftSignature',
+  AddSignature = 'AddSignature',
+  ShiftInstruction = 'ShiftInstruction',
 
   //Notification
   Notification = 'Notification',

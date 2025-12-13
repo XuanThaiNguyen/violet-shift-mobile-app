@@ -1,5 +1,6 @@
 import {
   AUTH_ERROR_CODE,
+  AVAILABILITY_ERROR_CODE,
   CLIENT_ERROR_CODE,
   FUNDING_ERROR_CODE,
   LOGIN_ERROR_CODE,
@@ -56,9 +57,9 @@ export const ErrorMessages: Record<number, string> = {
     'Cannot clock in yet. The shift has not started.',
   [SHIFT_ERROR_CODE.SHIFT_ENDED]: 'This shift has already ended.',
   [SHIFT_ERROR_CODE.STAFF_SIGNATURE_REQUIRED]:
-    'Staff signature is required before proceeding.',
+    'Staff signature is required before clock out.',
   [SHIFT_ERROR_CODE.CLIENT_SIGNATURE_REQUIRED]:
-    'Client signature is required before proceeding.',
+    'Client signature is required before clock out.',
   [SHIFT_ERROR_CODE.STAFF_ALREADY_CLOCKED_IN]:
     'You have already clocked in for this shift.',
   [SHIFT_ERROR_CODE.STAFF_ALREADY_CLOCKED_OUT]:
@@ -94,4 +95,12 @@ export const ErrorMessages: Record<number, string> = {
     'Your session is expired. Please log in again.',
   [AUTH_ERROR_CODE.INTERNAL_SERVER_ERROR]:
     'Authentication service error. Please try again later.',
+
+  // 🔹 AVAILABILITY ERRORS
+  [AVAILABILITY_ERROR_CODE.INVALID_REQUEST]: 'Invalid availability request.',
+  [AVAILABILITY_ERROR_CODE.AVAILABILITY_NOT_FOUND]: 'Availability not found.',
+  [AVAILABILITY_ERROR_CODE.AVAILABILITY_HAS_ALREADY_HAPPENED]:
+    'Availability has already happened.',
+  [AVAILABILITY_ERROR_CODE.INTERNAL_SERVER_ERROR]:
+    'Availibility service error. Please try again later.',
 };
