@@ -2,6 +2,7 @@ import { Button } from '@components/button';
 import CalendarListCustom from '@components/calendar/CalendarListCustom';
 import ExpendableCalendarCustom from '@components/calendar/ExpendableCalendarCustom';
 import DrawerHeader from '@components/header/DrawerHeader';
+import Loading from '@components/loading';
 import { Spacer } from '@components/spacer';
 import { IAvailibility, WeekDataAvailibility } from '@models/Availibility';
 import Screen from '@navigation/screen';
@@ -108,15 +109,12 @@ const Availibility = () => {
           isExpanded={isExpanded}
           setDate={setDate}
         />
-        {isExpanded ? (
-          <CalendarListCustom
-            onExpand={onCloseCalendar}
-            date={date}
-            setDate={setDate}
-          />
-        ) : (
-          <></>
-        )}
+        <CalendarListCustom
+          visible={isExpanded}
+          onExpand={onCloseCalendar}
+          date={date}
+          setDate={setDate}
+        />
         <Spacer height={8} />
         <FlatList
           data={weekData}
@@ -133,6 +131,8 @@ const Availibility = () => {
           tintColor={colors.white}
         />
       </Button>
+
+      <Loading isLoading={isFetching} />
     </View>
   );
 };

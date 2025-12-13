@@ -101,15 +101,12 @@ const MySchedule = () => {
           isExpanded={isExpanded}
           setDate={setDate}
         />
-        {isExpanded ? (
-          <CalendarListCustom
-            onExpand={onCloseCalendar}
-            date={date}
-            setDate={setDate}
-          />
-        ) : (
-          <></>
-        )}
+        <CalendarListCustom
+          visible={isExpanded}
+          onExpand={onCloseCalendar}
+          date={date}
+          setDate={setDate}
+        />
         <Spacer height={8} />
         <FlatList
           data={weekData}
